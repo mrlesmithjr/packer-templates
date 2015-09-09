@@ -1,0 +1,68 @@
+{
+    "push": {
+      "name": "",
+      "vcs": true
+    },
+    "variables": {
+        "atlas_username": "{{env `ATLAS_USERNAME`}}",
+        "atlas_name": "{{env `ATLAS_NAME`}}"
+    },
+    "provisioners": [
+        {
+            "type": "shell",
+            "scripts": [
+                "scripts/base.sh",
+                "scripts/virtualbox.sh",
+                "scripts/vmware.sh",
+                "scripts/vagrant.sh",
+                "scripts/cleanup.sh",
+                "scripts/zerodisk.sh"
+            ],
+            "override": {
+                "virtualbox-iso": {
+                    "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+                }
+            }
+        }
+    ],
+    "builders": [
+        {
+            "type": "virtualbox-iso",
+            "boot_command": [
+              "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+            ],
+            "headless": true,
+            "boot_wait": "10s",
+            "disk_size": 20480,
+            "guest_os_type": "RedHat_64",
+            "http_directory": "http",
+            "iso_checksum": "f9d84907d77df62017944cb23cab66305e94ee6ae6c1126415b81cc5e999bdd0",
+            "iso_checksum_type": "sha256",
+            "iso_url": "http://archive.kernel.org/centos-vault/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+            "ssh_username": "vagrant",
+            "ssh_password": "vagrant",
+            "ssh_port": 22,
+            "ssh_pty" : true,
+            "ssh_wait_timeout": "10000s",
+            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+            "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+            "virtualbox_version_file": ".vbox_version"
+        }
+    ],
+    "post-processors": [
+        [{
+            "type": "vagrant",
+            "keep_input_artifact": false
+        },
+        {
+            "type": "atlas",
+            "only": ["virtualbox-iso"],
+            "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+                "provider": "virtualbox",
+                "version": "20150909.1"
+            }
+        }]
+    ]
+}

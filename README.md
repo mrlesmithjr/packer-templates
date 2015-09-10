@@ -15,6 +15,9 @@ vagrant init mrlesmithjr/precise64; vagrant up --provider virtualbox
 ````
 vagrant init mrlesmithjr/centos-6.5; vagrant up --provider virtualbox
 ````
+````
+vagrant init mrlesmithjr/centos-7; vagrant up --provider virtualbox
+````
 
 License
 -------

@@ -13,7 +13,6 @@
             "scripts": [
                 "scripts/base.sh",
                 "scripts/virtualbox.sh",
-                "scripts/vmware.sh",
                 "scripts/vagrant.sh",
                 "scripts/cleanup.sh",
                 "scripts/zerodisk.sh"
@@ -61,7 +60,7 @@
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "virtualbox",
-                "version": "20150909.0"
+                "version": "20150909.1"
             }
         }]
     ]

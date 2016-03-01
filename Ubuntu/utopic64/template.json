@@ -4,8 +4,6 @@
       "vcs": true
     },
     "variables": {
-        "atlas_username": "{{env `ATLAS_USERNAME`}}",
-        "atlas_name": "{{env `ATLAS_NAME`}}"
     },
     "provisioners": [
         {
@@ -40,7 +38,7 @@
             ],
             "headless": true,
             "boot_wait": "10s",
-            "disk_size": 20480,
+            "disk_size": 36864,
             "guest_os_type": "Ubuntu_64",
             "http_directory": "http",
             "iso_checksum": "f79edea19575e2cabb5ff9aeca787ea821fcfdbf81ce89823c26b020d9940956",
@@ -59,16 +57,6 @@
         [{
             "type": "vagrant",
             "keep_input_artifact": false
-        },
-        {
-            "type": "atlas",
-            "only": ["virtualbox-iso"],
-            "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
-            "artifact_type": "vagrant.box",
-            "metadata": {
-                "provider": "virtualbox",
-                "version": "20150909.1"
-            }
         }]
     ]
 }

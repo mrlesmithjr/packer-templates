@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Fix Ubuntu 12.04.5 checksum mismatch
+echo "==> Checking if OS is Ubuntu Precise"
+if [ -f /etc/debian_version ]; then
+  codename="$(lsb_release -c | awk {'print $2}')"
+  if [ $codename == "precise" ]; then
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get -y update && \
+    sync
+  fi
+fi
+
 # Update the box
 apt-get -y update
 apt-get -y install linux-headers-$(uname -r) build-essential

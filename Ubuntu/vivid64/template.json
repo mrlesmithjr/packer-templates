@@ -1,5 +1,16 @@
 {
   "variables": {
+    "compression_level": "6",
+    "cpus": "1",
+    "disk_size": "36864",
+    "guest_os_type": "Ubuntu_64",
+    "hard_drive_interface": "sata",
+    "iso_checksum": "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
+    "iso_checksum_type": "sha256",
+    "iso_url": "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
+    "memory": "512",
+    "output": "vivid-server-x86_64.box",
+    "vm_name": "packer-vivid-server-x86-64"
   },
   "provisioners": [
     {
@@ -31,29 +42,34 @@
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
         "initrd=/install/initrd.gz -- <enter>"
       ],
-      "headless": true,
       "boot_wait": "10s",
-      "disk_size": 36864,
-      "guest_os_type": "Ubuntu_64",
+      "disk_size": "{{user `disk_size`}}",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "{{user `guest_os_type`}}",
+      "hard_drive_interface": "{{user `hard_drive_interface`}}",
+      "headless": true,
       "http_directory": "http",
-      "iso_checksum": "6501c8545374665823384bbb6235f865108f56d8a30bbf69dd18df73c14ccb84",
-      "iso_checksum_type": "sha256",
-      "iso_url": "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
-      "ssh_username": "vagrant",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_url": "{{user `iso_url`}}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
+      "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+      ],
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "packer-vivid-x86-64"
+      "vm_name": "{{user `vm_name`}}"
     }
   ],
   "post-processors": [
     [{
       "type": "vagrant",
-      "compression_level": "6",
-      "output": "vivid-x86_64.box"
+      "compression_level": "{{user `compression_level`}}",
+      "output": "{{user `output`}}"
     }]
   ]
 }

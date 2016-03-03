@@ -6,7 +6,7 @@
     "iso_checksum": "9f1f2f19f75cc3b97da41878b5c86188fa8d27ed446bd97d9df615c137c77cfc",
     "iso_checksum_type": "sha256",
     "output_directory": "output-fedora-22-x86_64",
-    "vm_name": "packer-fedora-22-x86_64",
+    "vm_name": "packer-fedora-22-x86-64",
     "disk_size": "{{user `disk_size`}}",
     "headless": "{{user `headless`}}",
     "http_directory": "http",

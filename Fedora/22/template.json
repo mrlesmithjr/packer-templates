@@ -1,4 +1,24 @@
 {
+  "variables": {
+    "compression_level": "6",
+    "cpus": "1",
+    "disk_size": "36864",
+    "hard_drive_interface": "sata",
+    "headless": "true",
+    "memory": "512",
+    "mirror": "http://download.fedoraproject.org/pub/fedora/linux"
+  },
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/virtualbox.sh",
+      "scripts/vagrant.sh",
+      "scripts/sshd.sh",
+      "scripts/locale.sh",
+      "scripts/cleanup.sh",
+      "scripts/minimize.sh"
+    ]
+  }],
   "builders": [{
     "type": "virtualbox-iso",
     "guest_os_type": "Fedora_64",
@@ -8,6 +28,7 @@
     "output_directory": "output-fedora-22-x86_64",
     "vm_name": "packer-fedora-22-x86-64",
     "disk_size": "{{user `disk_size`}}",
+    "hard_drive_interface": "{{user `hard_drive_interface`}}",
     "headless": "{{user `headless`}}",
     "http_directory": "http",
     "boot_wait": "5s",
@@ -27,28 +48,9 @@
       ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
     ]
   }],
-  "provisioners": [{
-    "type": "shell",
-    "scripts": [
-      "scripts/virtualbox.sh",
-      "scripts/vagrant.sh",
-      "scripts/sshd.sh",
-      "scripts/locale.sh",
-      "scripts/cleanup.sh",
-      "scripts/minimize.sh"
-    ]
-  }],
   "post-processors": [{
     "type": "vagrant",
     "compression_level": "{{user `compression_level`}}",
     "output": "fedora-22-x86_64.box"
-  }],
-  "variables": {
-    "compression_level": "6",
-    "cpus": "1",
-    "disk_size": "36864",
-    "headless": "true",
-    "memory": "512",
-    "mirror": "http://download.fedoraproject.org/pub/fedora/linux"
-  }
+  }]
 }

@@ -1,0 +1,69 @@
+{
+  "variables": {
+    "atlas_name": "openSUSE_42_1",
+    "atlas_username": "mrlesmithjr",
+    "compression_level": "6",
+    "cpus": "1",
+    "disk_size": "36864",
+    "hard_drive_interface": "sata",
+    "headless": "true",
+    "memory": "512",
+    "version": "{{ timestamp }}"
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/postinstall.sh",
+        "scripts/virtualbox.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+    }
+  ],
+  "builders": [{
+    "type": "virtualbox-iso",
+    "boot_command": [
+      "<esc><enter><wait>",
+      "linux netdevice=eth0 netsetup=dhcp<wait>",
+      " install=http://download.opensuse.org/distribution/leap/42.1/repo/oss/ <wait>",
+      " lang=en_US autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinst.xml<wait>",
+      " textmode=1<wait>",
+      "<enter><wait>"
+    ],
+    "boot_wait": "10s",
+    "disk_size": "{{user `disk_size`}}",
+    "hard_drive_interface": "{{user `hard_drive_interface`}}",
+    "guest_os_type": "OpenSUSE_64",
+    "http_directory": "http",
+    "iso_checksum": "7667262584cc4936673578b5242efdff86cc1434ce60a25324faad7a2a36dbd7",
+    "iso_checksum_type": "sha256",
+    "iso_url": "http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-NET-x86_64.iso",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+    "shutdown_command": "echo '/sbin/shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+    "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+    "virtualbox_version_file": ".vbox_version",
+    "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+    ]
+  }],
+  "post-processors": [{
+    "type": "vagrant",
+    "output": "openSUSE-42.1-{{ .Provider }}.box"
+  },
+  {
+    "type": "atlas",
+    "only": ["virtualbox-iso"],
+    "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+    "artifact_type": "vagrant.box",
+    "metadata": {
+      "provider": "virtualbox",
+      "version": "{{user `version`}}",
+      "created_at": "{{ timestamp }}"
+    }
+  }]
+}

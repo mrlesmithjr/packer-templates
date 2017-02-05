@@ -1,2 +1,4 @@
 .DS_Store
 *.box
+output-virtualbox-iso
+packer_cache

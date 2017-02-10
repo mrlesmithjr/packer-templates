@@ -7,7 +7,7 @@ if test -f .vbox_version ; then
   fi
 
   rmmod vboxguest
-  aptitude -y purge virtualbox-ose-guest-x11 virtualbox-ose-guest-dkms virtualbox-ose-guest-utils
+  apt-get -y purge virtualbox-ose-guest-x11 virtualbox-ose-guest-dkms virtualbox-ose-guest-utils
 
   # Install dkms for dynamic compiles
 

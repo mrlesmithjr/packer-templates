@@ -5,9 +5,9 @@
     "guest_os_type": "RedHat_64",
     "hard_drive_interface": "sata",
     "headless": "false",
-    "iso_checksum": "9d3fec5897be6b3fed4d3dda80b8fa7bb62c616bbfd4bdcd27295ca9b764f498",
+    "iso_checksum": "422af57b493b8af49d485885a730c5a1d955f803fac85aa51311c393168b9080",
     "iso_checksum_type": "sha256",
-    "iso_url": "http://mirror.san.fastserv.com/pub/linux/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+    "iso_url": "http://mirror.san.fastserv.com/pub/linux/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
     "vm_name": "packer-centos-6-server-x86-64"
   },
   "provisioners": [

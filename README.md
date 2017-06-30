@@ -1,26 +1,28 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [packer-templates](#packer-templates)
-  - [Purpose](#purpose)
-  - [Information](#information)
-    - [Distros](#distros)
-  - [Requirements](#requirements)
-    - [Software](#software)
-  - [Usage](#usage)
-    - [Building a box](#building-a-box)
-      - [Select distro](#select-distro)
-      - [Build distro](#build-distro)
-    - [Testing a box](#testing-a-box)
-      - [Add box to Vagrant](#add-box-to-vagrant)
-      - [Create Vagrantfile](#create-vagrantfile)
-      - [Spin it up](#spin-it-up)
-      - [Test it out](#test-it-out)
-      - [Tear it down](#tear-it-down)
-    - [Cleaning up](#cleaning-up)
-  - [License](#license)
-  - [Author Information](#author-information)
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Table of Contents**  _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+
+-   [packer-templates](#packer-templates)
+    -   [Purpose](#purpose)
+    -   [Information](#information)
+        -   [Distros](#distros)
+    -   [Requirements](#requirements)
+        -   [Software](#software)
+    -   [Usage](#usage)
+        -   [Building a box](#building-a-box)
+            -   [Select distro](#select-distro)
+            -   [Build distro](#build-distro)
+        -   [Testing a box](#testing-a-box)
+            -   [Add box to Vagrant](#add-box-to-vagrant)
+            -   [Create Vagrantfile](#create-vagrantfile)
+            -   [Spin it up](#spin-it-up)
+            -   [Test it out](#test-it-out)
+            -   [Tear it down](#tear-it-down)
+        -   [Cleaning up](#cleaning-up)
+    -   [License](#license)
+    -   [Author Information](#author-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -50,6 +52,7 @@ The following distros are available:
     -   7
 -   Debian
     -   Jessie
+    -   Stretch
     -   Wheezy
 -   Fedora
     -   22

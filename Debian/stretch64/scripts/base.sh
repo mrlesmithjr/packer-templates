@@ -1,11 +1,12 @@
 #!/bin/bash
 
+set -e
+
 # Update the box
 apt-get -y update
 apt-get -y install linux-headers-$(uname -r) build-essential \
-zlib1g-dev libssl-dev libreadline-gplv2-dev curl unzip
-# apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev
-# apt-get -y install facter curl unzip
+zlib1g-dev libssl-dev libreadline-gplv2-dev \
+facter curl unzip module-assistant
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
 echo 'UseDNS no' >> /etc/ssh/sshd_config

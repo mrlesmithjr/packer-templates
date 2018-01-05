@@ -5,9 +5,9 @@
     "disk_size": "36864",
     "guest_os_type": "Debian_64",
     "hard_drive_interface": "sata",
-    "iso_checksum": "fd11d34f8abf1663a33cc10a9ed998160866ef94072d442159bcfa1438be70d4",
+    "iso_checksum": "896cc42998edf65f1db4eba83581941fb2a584f2214976432b841af96b17ccda",
     "iso_checksum_type": "sha256",
-    "iso_url": "https://cdimage.debian.org/cdimage/archive/8.9.0/amd64/iso-cd/debian-8.9.0-amd64-netinst.iso",
+    "iso_url": "https://cdimage.debian.org/cdimage/archive/8.10.0/amd64/iso-cd/debian-8.10.0-amd64-netinst.iso",
     "memory": "512",
     "output": "jessie-server-x86_64.box",
     "vm_name": "packer-jessie-server-x86-64"

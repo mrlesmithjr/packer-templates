@@ -59,12 +59,16 @@ The following distros are available:
     -   23
     -   24
     -   25
+    -   26
+    -   27
+    -   28
 -   OpenSuse
     -   13.2
     -   42.1
 -   RedHat
     -   7
 -   Ubuntu
+    -   Bionic
     -   Precise
     -   Trusty
     -   Utopic

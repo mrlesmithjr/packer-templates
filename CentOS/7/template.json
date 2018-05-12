@@ -5,9 +5,9 @@
     "guest_os_type": "RedHat_64",
     "hard_drive_interface": "sata",
     "headless": "false",
-    "iso_checksum": "bba314624956961a2ea31dd460cd860a77911c1e0a56e4820a12b9c5dad363f5",
+    "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
     "iso_checksum_type": "sha256",
-    "iso_url": "http://www.gtlib.gatech.edu/pub/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso",
+    "iso_url": "http://www.gtlib.gatech.edu/pub/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
     "vm_name": "packer-centos-7-server-x86-64"
   },
   "provisioners": [{

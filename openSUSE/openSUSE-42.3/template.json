@@ -2,16 +2,19 @@
   "variables": {
     "hard_drive_interface": "sata"
   },
-  "provisioners": [{
-    "type": "shell",
-    "scripts": [
-      "scripts/postinstall.sh",
-      "scripts/virtualbox.sh",
-      "scripts/zerodisk.sh"
-    ],
-    "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
-  }],
-  "builders": [{
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/postinstall.sh",
+        "scripts/virtualbox.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+    }
+  ],
+  "builders": [
+    {
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><enter><wait>",
@@ -37,18 +40,8 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1024"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
+        ["modifyvm", "{{.Name}}", "--memory", "1024"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"]
       ]
     },
     {
@@ -80,8 +73,15 @@
       }
     }
   ],
-  "post-processors": [{
-    "type": "vagrant",
-    "output": "openSUSE-42.3-{{ .Provider }}.box"
-  }]
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "openSUSE-42.3-{{ .Provider }}.box"
+    },
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
+  ]
 }

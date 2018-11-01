@@ -67,10 +67,17 @@
     }
   ],
   "post-processors": [
-    [{
-      "type": "vagrant",
-      "compression_level": "{{user `compression_level`}}",
-      "output": "{{user `output`}}"
-    }]
+    [
+      {
+        "type": "vagrant",
+        "compression_level": "{{user `compression_level`}}",
+        "output": "{{user `output`}}"
+      },
+      {
+        "type": "manifest",
+        "output": "manifest.json",
+        "strip_path": true
+      }
+    ]
   ]
 }

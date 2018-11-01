@@ -1,6 +1,5 @@
 {
-  "variables": {
-  },
+  "variables": {},
   "provisioners": [
     {
       "type": "shell",
@@ -50,10 +49,17 @@
     }
   ],
   "post-processors": [
-    [{
-      "type": "vagrant",
-      "compression_level": "6",
-      "output": "utopic-x86_64.box"
-    }]
+    [
+      {
+        "type": "vagrant",
+        "compression_level": "6",
+        "output": "utopic-x86_64.box"
+      },
+      {
+        "type": "manifest",
+        "output": "manifest.json",
+        "strip_path": true
+      }
+    ]
   ]
 }

@@ -46,7 +46,7 @@
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
-      "ssh_pty" : true,
+      "ssh_pty": true,
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
       "virtualbox_version_file": ".vbox_version",
@@ -54,9 +54,16 @@
     }
   ],
   "post-processors": [
-    [{
-      "type": "vagrant",
-      "compression_level": "{{user `compression_level`}}"
-    }]
+    [
+      {
+        "type": "vagrant",
+        "compression_level": "{{user `compression_level`}}"
+      },
+      {
+        "type": "manifest",
+        "output": "manifest.json",
+        "strip_path": true
+      }
+    ]
   ]
 }

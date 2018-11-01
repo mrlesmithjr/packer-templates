@@ -36,18 +36,8 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1024"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
+        ["modifyvm", "{{.Name}}", "--memory", "1024"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"]
       ]
     },
     {
@@ -83,6 +73,11 @@
     {
       "type": "vagrant",
       "output": "openSUSE-13.2-x86_64-{{ .Provider }}.box"
+    },
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
     }
   ]
 }

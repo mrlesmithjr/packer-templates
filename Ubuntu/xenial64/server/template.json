@@ -12,23 +12,6 @@
     "output": "xenial-server-x86_64.box",
     "vm_name": "packer-xenial-server-x86-64"
   },
-  "provisioners": [
-    {
-      "type": "shell",
-      "scripts": [
-        "scripts/base.sh",
-        "scripts/virtualbox.sh",
-        "scripts/vagrant.sh",
-        "scripts/cleanup.sh",
-        "scripts/zerodisk.sh"
-      ],
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
-        }
-      }
-    }
-  ],
   "builders": [
     {
       "type": "virtualbox-iso",
@@ -54,7 +37,7 @@
         " netcfg/get_hostname=vagrant<wait>",
         " grub-installer/bootdev=/dev/sda<wait>",
         " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu_preseed.cfg<wait>",
         " -- <wait>",
         "<enter><wait>"
       ],
@@ -79,6 +62,23 @@
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{user `vm_name`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/virtualbox.sh",
+        "scripts/vagrant.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+        }
+      }
     }
   ],
   "post-processors": [

@@ -1,0 +1,44 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542114384,
+      "files": [
+        {
+          "name": "xenial-server-x86_64.box",
+          "size": 611980429
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "e46c9882-8d3d-c3e6-2b8d-1923c7e24453"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542115533,
+      "files": [
+        {
+          "name": "xenial-server-x86_64.box",
+          "size": 852976400
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "8fe0b7d6-c7e6-a20e-fbf3-b560777df218"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542117785,
+      "files": [
+        {
+          "name": "xenial-desktop-x86_64.box",
+          "size": 854527791
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "2091157e-b405-ca6d-281d-9a0f54b274fe"
+    }
+  ],
+  "last_run_uuid": "2091157e-b405-ca6d-281d-9a0f54b274fe"
+}

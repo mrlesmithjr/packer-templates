@@ -1,0 +1,18 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542089872,
+      "files": [
+        {
+          "name": "stretch-server-x86_64.box",
+          "size": 425448205
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "783b0d8c-6bb5-e8ef-577e-070d8a7333d3"
+    }
+  ],
+  "last_run_uuid": "783b0d8c-6bb5-e8ef-577e-070d8a7333d3"
+}

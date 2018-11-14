@@ -1,0 +1,70 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542089872,
+      "files": [
+        {
+          "name": "stretch-server-x86_64.box",
+          "size": 425448205
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "783b0d8c-6bb5-e8ef-577e-070d8a7333d3"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542144001,
+      "files": [
+        {
+          "name": "stretch-desktop-x86_64.box",
+          "size": 851390560
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "386e7395-261b-fa5a-30a4-5702e54dd0a7"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542148431,
+      "files": [
+        {
+          "name": "stretch-desktop-x86_64.box",
+          "size": 1290415643
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "ccd2feb4-e02c-ceea-35a1-9362dfed6fb1"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542153477,
+      "files": [
+        {
+          "name": "stretch-desktop-x86_64.box",
+          "size": 901390607
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "50a4b7a0-5bec-8830-a1ef-0b3022107a9e"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542155994,
+      "files": [
+        {
+          "name": "stretch-desktop-x86_64.box",
+          "size": 901668380
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "a694e387-0f04-1abc-703e-111129fca87f"
+    }
+  ],
+  "last_run_uuid": "a694e387-0f04-1abc-703e-111129fca87f"
+}

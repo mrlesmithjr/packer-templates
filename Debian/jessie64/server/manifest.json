@@ -1,0 +1,18 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542151015,
+      "files": [
+        {
+          "name": "jessie-server-x86_64.box",
+          "size": 364343600
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "593ba9d1-8698-b18f-3ccb-9c5e637edfda"
+    }
+  ],
+  "last_run_uuid": "593ba9d1-8698-b18f-3ccb-9c5e637edfda"
+}

@@ -1,0 +1,31 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542119825,
+      "files": [
+        {
+          "name": "trusty-server-x86_64.box",
+          "size": 572029918
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "6fe665cb-77e8-288e-3fe6-6d19444d4ed2"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542121149,
+      "files": [
+        {
+          "name": "trusty-desktop-x86_64.box",
+          "size": 826734464
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "d2c1f2fb-e841-90ca-28be-8586705ef1a7"
+    }
+  ],
+  "last_run_uuid": "d2c1f2fb-e841-90ca-28be-8586705ef1a7"
+}

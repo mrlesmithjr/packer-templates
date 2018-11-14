@@ -1,28 +1,20 @@
 {
   "variables": {
     "compression_level": "6",
-    "cpus": "1",
     "disk_size": "36864",
-    "guest_os_type": "Ubuntu_64",
+    "guest_os_type": "RedHat_64",
     "hard_drive_interface": "sata",
-    "iso_checksum": "af224223de99e2a730b67d7785b657f549be0d63221188e105445f75fb8305c9",
+    "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
     "iso_checksum_type": "sha256",
-    "iso_url": "http://releases.ubuntu.com/precise/ubuntu-12.04.5-server-amd64.iso",
-    "memory": "512",
-    "output": "precise-server-x86_64.box",
-    "vm_name": "packer-precise-server-x86-64"
+    "iso_url": "http://centos.mirror.constant.com/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
+    "vm_name": "packer-centos-7-server-x86-64",
+    "output": "centos-7-server-x86_64.box"
   },
   "builders": [
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ .Name }} ",
-        "fb=false debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos_ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
       "disk_size": "{{user `disk_size`}}",
@@ -37,12 +29,9 @@
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
+      "ssh_pty": true,
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
-        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
-      ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{user `vm_name`}}"
     }

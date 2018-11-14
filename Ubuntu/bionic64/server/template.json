@@ -46,7 +46,7 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "{{user `guest_os_type`}}",
       "hard_drive_interface": "{{user `hard_drive_interface`}}",
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
@@ -73,12 +73,7 @@
         "scripts/vagrant.sh",
         "scripts/cleanup.sh",
         "scripts/zerodisk.sh"
-      ],
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
-        }
-      }
+      ]
     }
   ],
   "post-processors": [

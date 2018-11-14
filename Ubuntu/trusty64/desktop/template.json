@@ -5,19 +5,19 @@
     "disk_size": "36864",
     "guest_os_type": "Ubuntu_64",
     "hard_drive_interface": "sata",
-    "iso_checksum": "af224223de99e2a730b67d7785b657f549be0d63221188e105445f75fb8305c9",
+    "iso_checksum": "dde07d37647a1d2d9247e33f14e91acb10445a97578384896b4e1d985f754cc1",
     "iso_checksum_type": "sha256",
-    "iso_url": "http://releases.ubuntu.com/precise/ubuntu-12.04.5-server-amd64.iso",
+    "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.5-server-amd64.iso",
     "memory": "512",
-    "output": "precise-server-x86_64.box",
-    "vm_name": "packer-precise-server-x86-64"
+    "output": "trusty-desktop-x86_64.box",
+    "vm_name": "packer-trusty-desktop-x86-64"
   },
   "builders": [
     {
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><esc><enter><wait>",
-        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu_preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
         "hostname={{ .Name }} ",
         "fb=false debconf/frontend=noninteractive ",

@@ -1,0 +1,31 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542163335,
+      "files": [
+        {
+          "name": "centos-7-server-x86_64.box",
+          "size": 869200044
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "2dcbb336-b837-015c-ffc2-bbe9c91277ea"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542165560,
+      "files": [
+        {
+          "name": "centos-7-server-x86_64.box",
+          "size": 749126580
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "7bfe9869-9b3b-fef7-713f-8d958c135ce9"
+    }
+  ],
+  "last_run_uuid": "7bfe9869-9b3b-fef7-713f-8d958c135ce9"
+}

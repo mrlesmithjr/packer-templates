@@ -3,3 +3,4 @@
 *.iso
 output-*
 packer_cache
+Vagrantfile

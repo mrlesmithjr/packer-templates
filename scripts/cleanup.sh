@@ -3,21 +3,18 @@
 set -e
 set -x
 
-# Debian/Ubuntu
-if [ -f /etc/debian_version ]; then
-    codename="$(facter lsbdistcodename)"
-    #cleanup apt
-    sudo apt-get clean
-fi
+os="$(facter operatingsystem)"
+os_family="$(facter osfamily)"
 
-# RHEL
-if [ -f /etc/redhat-release ]; then
-    codename="$(facter operatingsystem)"
-    if [[ $codename != "Fedora" ]]; then
+if [[ $os_family == "Debian" ]]; then
+    sudo apt-get clean
+    
+    elif [[ $os_family == "RedHat" ]]; then
+    if [[ $os != "Fedora" ]]; then
         sudo yum clean all
         sudo rm -rf /var/cache/yum
-    fi
-    if [[ $codename == "Fedora" ]]; then
+        
+        elif [[ $os == "Fedora" ]]; then
         sudo dnf clean all
     fi
 fi

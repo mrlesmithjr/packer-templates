@@ -52,17 +52,11 @@
       "type": "shell",
       "scripts": [
         "scripts/base.sh",
-        "scripts/desktop.sh",
         "scripts/virtualbox.sh",
         "scripts/vagrant.sh",
         "scripts/cleanup.sh",
         "scripts/zerodisk.sh"
-      ],
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
-        }
-      }
+      ]
     }
   ],
   "post-processors": [

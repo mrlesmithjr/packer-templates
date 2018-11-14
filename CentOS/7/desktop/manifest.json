@@ -75,37 +75,66 @@
     {
       "name": "virtualbox-iso",
       "builder_type": "virtualbox-iso",
-      "build_time": 1542232021,
+      "build_time": 1542234958,
       "files": [
         {
-          "name": "centos7-server-packer-template-1542231344-disk001.vmdk",
-          "size": 946769408
+          "name": "centos7-desktop-packer-template-1542233820-disk001.vmdk",
+          "size": 2543723520
         },
         {
-          "name": "centos7-server-packer-template-1542231344.ovf",
-          "size": 6561
+          "name": "centos7-desktop-packer-template-1542233820.ovf",
+          "size": 6565
         }
       ],
       "artifact_id": "VM",
-      "packer_run_uuid": "88250f17-80bf-0589-200f-d6c602275eab"
+      "packer_run_uuid": "65356efa-9202-736c-9f65-cee9449cfe58"
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542237155,
+      "files": [
+        {
+          "name": "centos7-desktop-packer-template-1542236444.nvram",
+          "size": 8684
+        },
+        {
+          "name": "centos7-desktop-packer-template-1542236444.vmsd",
+          "size": 0
+        },
+        {
+          "name": "centos7-desktop-packer-template-1542236444.vmx",
+          "size": 3434
+        },
+        {
+          "name": "centos7-desktop-packer-template-1542236444.vmxf",
+          "size": 297
+        },
+        {
+          "name": "disk.vmdk",
+          "size": 2431909888
+        }
+      ],
+      "artifact_id": "centos7-desktop-packer-template-1542236444",
+      "packer_run_uuid": "2000748d-9677-e11b-c300-bf6e01c71458"
     },
     {
       "name": "virtualbox-iso",
       "builder_type": "virtualbox-iso",
-      "build_time": 1542233410,
+      "build_time": 1542237307,
       "files": [
         {
-          "name": "centos7-server-packer-template-1542232688-disk001.vmdk",
-          "size": 952366080
+          "name": "centos7-desktop-packer-template-1542236444-disk001.vmdk",
+          "size": 1213825024
         },
         {
-          "name": "centos7-server-packer-template-1542232688.ovf",
-          "size": 6561
+          "name": "centos7-desktop-packer-template-1542236444.ovf",
+          "size": 6565
         }
       ],
       "artifact_id": "VM",
-      "packer_run_uuid": "d84dc4c7-8b7c-8f09-10a6-530fcc0c0d83"
+      "packer_run_uuid": "2000748d-9677-e11b-c300-bf6e01c71458"
     }
   ],
-  "last_run_uuid": "d84dc4c7-8b7c-8f09-10a6-530fcc0c0d83"
+  "last_run_uuid": "2000748d-9677-e11b-c300-bf6e01c71458"
 }

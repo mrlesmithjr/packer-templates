@@ -1,0 +1,31 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542087970,
+      "files": [
+        {
+          "name": "bionic-server-x86_64.box",
+          "size": 658899662
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "f188976a-972f-194d-65cd-b7249bcdc365"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542168284,
+      "files": [
+        {
+          "name": "bionic-server-x86_64.box",
+          "size": 611100629
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "f57df41f-6855-7c49-6b16-8ea0130aa1b7"
+    }
+  ],
+  "last_run_uuid": "f57df41f-6855-7c49-6b16-8ea0130aa1b7"
+}

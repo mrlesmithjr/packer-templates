@@ -4,9 +4,9 @@ set -e
 set -x
 
 # This does not seem to be working as of right now. Need to investigate.
-# if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
-#   exit 0
-# fi
+if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
+    exit 0
+fi
 
 # Debian/Ubuntu
 if [ -f /etc/debian_version ]; then

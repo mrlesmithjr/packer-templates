@@ -29,7 +29,7 @@ if [ -f /etc/debian_version ]; then
         echo "==> Installing ubuntu-desktop"
         sudo apt-get install -y --no-install-recommends ubuntu-desktop
         
-        if [[ $os_release < 18.04  ]]; then
+        if [[ $os_release < 17.10  ]]; then
             GDM_CUSTOM_CONFIG=/etc/gdm/custom.conf
             LIGHTDM_CONFIG=/etc/lightdm/lightdm.conf
             

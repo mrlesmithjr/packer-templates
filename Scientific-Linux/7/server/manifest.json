@@ -1,0 +1,51 @@
+{
+  "builds": [
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542240824,
+      "files": [
+        {
+          "name": "disk.vmdk",
+          "size": 2478374912
+        },
+        {
+          "name": "sl7-server-packer-template-1542238483.nvram",
+          "size": 8684
+        },
+        {
+          "name": "sl7-server-packer-template-1542238483.vmsd",
+          "size": 0
+        },
+        {
+          "name": "sl7-server-packer-template-1542238483.vmx",
+          "size": 3419
+        },
+        {
+          "name": "sl7-server-packer-template-1542238483.vmxf",
+          "size": 292
+        }
+      ],
+      "artifact_id": "sl7-server-packer-template-1542238483",
+      "packer_run_uuid": "10139ebb-f7b2-099b-ef3b-23c79c9b9455"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542241025,
+      "files": [
+        {
+          "name": "sl7-server-packer-template-1542238483-disk001.vmdk",
+          "size": 1177063936
+        },
+        {
+          "name": "sl7-server-packer-template-1542238483.ovf",
+          "size": 6856
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "10139ebb-f7b2-099b-ef3b-23c79c9b9455"
+    }
+  ],
+  "last_run_uuid": "10139ebb-f7b2-099b-ef3b-23c79c9b9455"
+}

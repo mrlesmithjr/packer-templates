@@ -73,7 +73,8 @@
         "scripts/vagrant.sh",
         "scripts/virtualbox.sh",
         "scripts/vmware.sh",
-        "scripts/cleanup.sh"
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
       ]
     }
   ],

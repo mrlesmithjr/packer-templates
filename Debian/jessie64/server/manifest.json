@@ -12,7 +12,53 @@
       ],
       "artifact_id": "virtualbox",
       "packer_run_uuid": "593ba9d1-8698-b18f-3ccb-9c5e637edfda"
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542253384,
+      "files": [
+        {
+          "name": "debian8-server-packer-template-1542252242.nvram",
+          "size": 8684
+        },
+        {
+          "name": "debian8-server-packer-template-1542252242.vmsd",
+          "size": 0
+        },
+        {
+          "name": "debian8-server-packer-template-1542252242.vmx",
+          "size": 3432
+        },
+        {
+          "name": "debian8-server-packer-template-1542252242.vmxf",
+          "size": 296
+        },
+        {
+          "name": "disk.vmdk",
+          "size": 2000814080
+        }
+      ],
+      "artifact_id": "debian8-server-packer-template-1542252242",
+      "packer_run_uuid": "ce46db7a-aa55-71e6-2667-e9caa55e7a74"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542253560,
+      "files": [
+        {
+          "name": "debian8-server-packer-template-1542252241-disk001.vmdk",
+          "size": 827034624
+        },
+        {
+          "name": "debian8-server-packer-template-1542252241.ovf",
+          "size": 6872
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "ce46db7a-aa55-71e6-2667-e9caa55e7a74"
     }
   ],
-  "last_run_uuid": "593ba9d1-8698-b18f-3ccb-9c5e637edfda"
+  "last_run_uuid": "ce46db7a-aa55-71e6-2667-e9caa55e7a74"
 }

@@ -34,7 +34,7 @@
         "netcfg/get_hostname=packer <wait>",
         "grub-installer/bootdev=/dev/sda <wait>",
         "noapic <wait>",
-        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu_preseed.cfg <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu/preseed.cfg <wait>",
         "-- <wait>",
         "<enter><wait>"
       ],
@@ -78,7 +78,7 @@
         "netcfg/get_hostname=packer <wait>",
         "grub-installer/bootdev=/dev/sda <wait>",
         "noapic <wait>",
-        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu_preseed.cfg <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu/preseed.cfg <wait>",
         "-- <wait>",
         "<enter><wait>"
       ],

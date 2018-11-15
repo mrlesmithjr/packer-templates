@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "inst.text inst.ks",
+  "iso_checksum": "32e0a15a1c71d0e2fd36a0af5b67a3b3af82976d2dfca0aefcb90d42f2ae6844",
+  "iso_checksum_type": "sha256",
+  "iso_url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/23/Server/x86_64/iso/Fedora-Server-netinst-x86_64-23.iso",
+  "vm_name": "fedora23-server-packer-template"
+}

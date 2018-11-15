@@ -1,8 +1,5 @@
 #!/bin/bash
 
-set -e
-set -x
-
 codename="$(facter lsbdistcodename)"
 os="$(facter operatingsystem)"
 os_family="$(facter osfamily)"
@@ -13,6 +10,8 @@ if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
 fi
 
 if [[ $os_family == "Debian" ]]; then
+    set -e
+    set -x
     if [[ $os == "Ubuntu" ]]; then
         sudo apt-get install -y virtualbox-guest-utils
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
@@ -24,26 +23,32 @@ if [[ $os_family == "Debian" ]]; then
             sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
             sudo umount /mnt/virtualbox
             sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-        else
-            if [ -f /home/vagrant/VBoxGuestAdditions*.iso ]; then
-                sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-            fi
-            
         fi
     fi
     
     elif [[ $os_family == "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
+        set -e
+        set -x
         sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
+        sudo mkdir -p /mnt/virtualbox
+        sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
+        sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+        sudo umount /mnt/virtualbox
+        sudo rm -rf /home/vagrant/VBoxGuest*.iso
         
         elif [[ $os == "Fedora" ]]; then
         sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo dnf -y groupinstall "Development Tools"
+        sudo mkdir -p /mnt/virtualbox
+        sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
+        sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+        sudo umount /mnt/virtualbox
+        sudo rm -rf /home/vagrant/VBoxGuest*.iso
     fi
-    sudo mkdir -p /mnt/virtualbox
-    sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
-    sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
-    sudo umount /mnt/virtualbox
-    sudo rm -rf /home/vagrant/VBoxGuest*.iso
+fi
+
+if [ -f /home/vagrant/VBoxGuestAdditions*.iso ]; then
+    sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
 fi

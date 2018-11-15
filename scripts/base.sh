@@ -3,6 +3,18 @@
 set -e
 set -x
 
+# The below is only specific to Fedora 22 as of right now. All other later
+# versions do not have issues with facter.
+if [ -f /etc/os-release ]; then
+    os_name="$(gawk -F= '/^NAME/{print $2}' /etc/os-release)"
+    if [[ $os_name == "Fedora" ]]; then
+        os_version_id="$(gawk -F= '/^VERSION_ID/{print $2}' /etc/os-release)"
+        if [[ $os_version_id = 22 ]]; then
+            sudo dnf -y install facter ruby rubygems
+        fi
+    fi
+fi
+
 codename="$(facter lsbdistcodename)"
 os="$(facter operatingsystem)"
 os_family="$(facter osfamily)"

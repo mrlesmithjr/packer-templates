@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "inst.text inst.ks",
+  "iso_checksum": "86bc3694f4938382753d1e9536f2140a6c9c1978207766340c679a89509073c7",
+  "iso_checksum_type": "sha256",
+  "iso_url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/25/Server/x86_64/iso/Fedora-Server-netinst-x86_64-25-1.3.iso",
+  "vm_name": "fedora25-server-packer-template"
+}

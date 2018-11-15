@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "inst.text inst.ks",
+  "iso_checksum": "9f1f2f19f75cc3b97da41878b5c86188fa8d27ed446bd97d9df615c137c77cfc",
+  "iso_checksum_type": "sha256",
+  "iso_url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/22/Server/x86_64/iso/Fedora-Server-netinst-x86_64-22.iso",
+  "vm_name": "fedora22-server-packer-template"
+}

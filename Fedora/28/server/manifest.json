@@ -1,0 +1,114 @@
+{
+  "builds": [
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542264147,
+      "files": [
+        {
+          "name": "disk.vmdk",
+          "size": 1729232896
+        },
+        {
+          "name": "fedora28-server-packer-template-1542263257.nvram",
+          "size": 8684
+        },
+        {
+          "name": "fedora28-server-packer-template-1542263257.vmsd",
+          "size": 0
+        },
+        {
+          "name": "fedora28-server-packer-template-1542263257.vmx",
+          "size": 3435
+        },
+        {
+          "name": "fedora28-server-packer-template-1542263257.vmxf",
+          "size": 297
+        }
+      ],
+      "artifact_id": "fedora28-server-packer-template-1542263257",
+      "packer_run_uuid": "e8250c50-dfcb-2eb9-c95d-4d02cf1be2d1"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542264342,
+      "files": [
+        {
+          "name": "fedora28-server-packer-template-1542263256-disk001.vmdk",
+          "size": 827569664
+        },
+        {
+          "name": "fedora28-server-packer-template-1542263256.ovf",
+          "size": 6571
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "e8250c50-dfcb-2eb9-c95d-4d02cf1be2d1"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542290754,
+      "files": [
+        {
+          "name": "fedora28-server-packer-template-1542289949-disk001.vmdk",
+          "size": 788337664
+        },
+        {
+          "name": "fedora28-server-packer-template-1542289949.ovf",
+          "size": 6571
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "5de8683a-63a9-a958-cc6d-391b1f30f806"
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542297723,
+      "files": [
+        {
+          "name": "disk.vmdk",
+          "size": 1726611456
+        },
+        {
+          "name": "fedora28-server-packer-template-1542296674.nvram",
+          "size": 8684
+        },
+        {
+          "name": "fedora28-server-packer-template-1542296674.vmsd",
+          "size": 0
+        },
+        {
+          "name": "fedora28-server-packer-template-1542296674.vmx",
+          "size": 3435
+        },
+        {
+          "name": "fedora28-server-packer-template-1542296674.vmxf",
+          "size": 297
+        }
+      ],
+      "artifact_id": "fedora28-server-packer-template-1542296674",
+      "packer_run_uuid": "d5b92766-108c-e0ea-57f0-41aa79d37b9e"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542298187,
+      "files": [
+        {
+          "name": "fedora28-server-packer-template-1542296674-disk001.vmdk",
+          "size": 810510336
+        },
+        {
+          "name": "fedora28-server-packer-template-1542296674.ovf",
+          "size": 6571
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "d5b92766-108c-e0ea-57f0-41aa79d37b9e"
+    }
+  ],
+  "last_run_uuid": "d5b92766-108c-e0ea-57f0-41aa79d37b9e"
+}

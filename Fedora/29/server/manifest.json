@@ -1,0 +1,68 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1541050321,
+      "files": [
+        {
+          "name": "packer-fedora-29-x86-64-disk001.vmdk",
+          "size": 627539456
+        },
+        {
+          "name": "packer-fedora-29-x86-64.ovf",
+          "size": 8191
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "f6f8742a-a1a5-d325-13d6-adccd5eb5b8c"
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542318435,
+      "files": [
+        {
+          "name": "disk.vmdk",
+          "size": 1874329600
+        },
+        {
+          "name": "fedora29-server-packer-template-1542317425.nvram",
+          "size": 8684
+        },
+        {
+          "name": "fedora29-server-packer-template-1542317425.vmsd",
+          "size": 0
+        },
+        {
+          "name": "fedora29-server-packer-template-1542317425.vmx",
+          "size": 3435
+        },
+        {
+          "name": "fedora29-server-packer-template-1542317425.vmxf",
+          "size": 297
+        }
+      ],
+      "artifact_id": "fedora29-server-packer-template-1542317425",
+      "packer_run_uuid": "f32a2009-863d-5249-5bf7-2d07663a961e"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542318620,
+      "files": [
+        {
+          "name": "fedora29-server-packer-template-1542317425-disk001.vmdk",
+          "size": 856314368
+        },
+        {
+          "name": "fedora29-server-packer-template-1542317425.ovf",
+          "size": 6882
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "f32a2009-863d-5249-5bf7-2d07663a961e"
+    }
+  ],
+  "last_run_uuid": "f32a2009-863d-5249-5bf7-2d07663a961e"
+}

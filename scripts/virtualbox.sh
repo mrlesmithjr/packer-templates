@@ -1,36 +1,39 @@
 #!/bin/bash
 
-set -e
-set -x
+codename="$(facter lsbdistcodename)"
+os="$(facter operatingsystem)"
+os_family="$(facter osfamily)"
+os_release="$(facter operatingsystemrelease)"
 
-# This does not seem to be working as of right now. Need to investigate.
-# if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
-#   exit 0
-# fi
+if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
+    exit 0
+fi
 
-# Debian/Ubuntu
-if [ -f /etc/debian_version ]; then
-    os="$(facter operatingsystem)"
+if [[ $os_family == "Debian" ]]; then
+    set -e
+    set -x
     if [[ $os == "Ubuntu" ]]; then
         sudo apt-get install -y virtualbox-guest-utils
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+        
         elif [[ $os == "Debian" ]]; then
-        sudo mkdir -p /mnt/virtualbox
-        sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
-        sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
-        sudo umount /mnt/virtualbox
-        sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+        if [[ $os_release > 7.11 ]]; then
+            sudo mkdir -p /mnt/virtualbox
+            sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
+            sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+            sudo umount /mnt/virtualbox
+            sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+        fi
     fi
-fi
-
-# RHEL
-if [ -f /etc/redhat-release ]; then
-    codename="$(facter operatingsystem)"
-    if [[ $codename != "Fedora" ]]; then
+    
+    elif [[ $os_family == "RedHat" ]]; then
+    if [[ $os != "Fedora" ]]; then
+        set -e
+        set -x
         sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
-    fi
-    if [[ $codename == "Fedora" ]]; then
+        
+        elif [[ $os == "Fedora" ]]; then
         sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo dnf -y groupinstall "Development Tools"
     fi
@@ -39,4 +42,17 @@ if [ -f /etc/redhat-release ]; then
     sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
     sudo umount /mnt/virtualbox
     sudo rm -rf /home/vagrant/VBoxGuest*.iso
+    
+    elif [[ $os_family == "Suse" ]]; then
+    sudo zypper --non-interactive install gcc kernel-devel \
+    make bzip2 perl
+    sudo mkdir -p /mnt/virtualbox
+    sudo mount -o loop /root/VBoxGuest*.iso /mnt/virtualbox
+    sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    sudo umount /mnt/virtualbox
+    sudo rm -rf /root/VBoxGuest*.iso
+fi
+
+if [ -f /home/vagrant/VBoxGuestAdditions*.iso ]; then
+    sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
 fi

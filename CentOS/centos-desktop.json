@@ -1,0 +1,93 @@
+{
+  "variables": {
+    "boot_command_prefix": "",
+    "compression_level": "6",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vm_disk_adapter_type": "scsi",
+    "vm_disk_size": "36864",
+    "vm_memory": "512",
+    "vm_name": "",
+    "vm_ssh_password": "vagrant",
+    "vm_ssh_username": "vagrant",
+    "vm_vcpu": "1"
+  },
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
+      ],
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "guest_os_type": "RedHat_64",
+      "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{ user `vm_memory` }}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{ user `vm_vcpu` }}"]
+      ],
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+    },
+    {
+      "boot_command": [
+        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
+      ],
+      "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "disk_type_id": 0,
+      "guest_os_type": "centos-64",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_data": {
+        "memsize": "{{ user `vm_memory` }}",
+        "numvcpus": "{{ user `vm_vcpu` }}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/desktop.sh",
+        "scripts/vagrant.sh",
+        "scripts/virtualbox.sh",
+        "scripts/vmware.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "compression_level": "{{ user `compression_level` }}",
+      "output": "{{ user `vm_name` }}-{{.Provider}}-{{ timestamp }}.box",
+      "type": "vagrant"
+    },
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
+  ]
+}

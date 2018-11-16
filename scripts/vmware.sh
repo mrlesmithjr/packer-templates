@@ -22,4 +22,6 @@ if [[ $os_family == "Debian" ]]; then
         sudo dnf -y install open-vm-tools
     fi
     sudo /bin/systemctl restart vmtoolsd.service
+    elif [[ $os_family == "Suse" ]]; then
+    sudo zypper --non-interactive install open-vm-tools
 fi

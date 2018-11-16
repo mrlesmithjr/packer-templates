@@ -58,7 +58,53 @@
       ],
       "artifact_id": "ubuntu1604-server-packer-template-1542220093",
       "packer_run_uuid": "e91bbc5d-0dfd-4eaf-e43a-393d70d03218"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542402410,
+      "files": [
+        {
+          "name": "ubuntu1604-server-packer-template-1542401650-disk001.vmdk",
+          "size": 626929152
+        },
+        {
+          "name": "ubuntu1604-server-packer-template-1542401650.ovf",
+          "size": 6573
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "c9197af6-414c-2f17-5b55-85c1dcdae621"
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542402410,
+      "files": [
+        {
+          "name": "disk.vmdk",
+          "size": 1825505280
+        },
+        {
+          "name": "ubuntu1604-server-packer-template-1542401651.nvram",
+          "size": 8684
+        },
+        {
+          "name": "ubuntu1604-server-packer-template-1542401651.vmsd",
+          "size": 0
+        },
+        {
+          "name": "ubuntu1604-server-packer-template-1542401651.vmx",
+          "size": 3440
+        },
+        {
+          "name": "ubuntu1604-server-packer-template-1542401651.vmxf",
+          "size": 299
+        }
+      ],
+      "artifact_id": "ubuntu1604-server-packer-template-1542401651",
+      "packer_run_uuid": "c9197af6-414c-2f17-5b55-85c1dcdae621"
     }
   ],
-  "last_run_uuid": "e91bbc5d-0dfd-4eaf-e43a-393d70d03218"
+  "last_run_uuid": "c9197af6-414c-2f17-5b55-85c1dcdae621"
 }

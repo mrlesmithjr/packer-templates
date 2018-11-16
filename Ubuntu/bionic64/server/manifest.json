@@ -58,7 +58,24 @@
       ],
       "artifact_id": "VM",
       "packer_run_uuid": "e7b88692-b8f3-1f29-e2f6-5eec16513fe4"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542402992,
+      "files": [
+        {
+          "name": "ubuntu1804-server-packer-template-1542402414-disk001.vmdk",
+          "size": 614030336
+        },
+        {
+          "name": "ubuntu1804-server-packer-template-1542402414.ovf",
+          "size": 6573
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "6bdea74c-3c2c-3123-c1e1-7d158cf3e782"
     }
   ],
-  "last_run_uuid": "e7b88692-b8f3-1f29-e2f6-5eec16513fe4"
+  "last_run_uuid": "6bdea74c-3c2c-3123-c1e1-7d158cf3e782"
 }

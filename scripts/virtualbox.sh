@@ -16,6 +16,9 @@ if [[ $os_family == "Debian" ]]; then
         sudo apt-get install -y virtualbox-guest-utils
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         
+        elif [[ $os == "LinuxMint" ]]; then
+        sudo apt-get install -y virtualbox-guest-utils
+        sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         elif [[ $os == "Debian" ]]; then
         if [[ $os_release > 7.11 ]]; then
             sudo mkdir -p /mnt/virtualbox

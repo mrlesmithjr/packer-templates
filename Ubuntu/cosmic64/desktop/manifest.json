@@ -1,0 +1,22 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542403529,
+      "files": [
+        {
+          "name": "ubuntu1810-desktop-packer-template-1542402846-disk001.vmdk",
+          "size": 840427520
+        },
+        {
+          "name": "ubuntu1810-desktop-packer-template-1542402846.ovf",
+          "size": 6577
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "6fa16885-1483-ee2e-3bb4-e4f1b6f24803"
+    }
+  ],
+  "last_run_uuid": "6fa16885-1483-ee2e-3bb4-e4f1b6f24803"
+}

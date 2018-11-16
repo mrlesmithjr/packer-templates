@@ -1,0 +1,73 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542328911,
+      "files": [
+        {
+          "name": "opensuse13-2-server-packer-template-1542328291-disk001.vmdk",
+          "size": 481338368
+        },
+        {
+          "name": "opensuse13-2-server-packer-template-1542328291.ovf",
+          "size": 6891
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "b63916f8-ef15-d1f9-048e-5710e0480dc5"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542330230,
+      "files": [
+        {
+          "name": "opensuse13-2-server-packer-template-1542329609-disk001.vmdk",
+          "size": 503644160
+        },
+        {
+          "name": "opensuse13-2-server-packer-template-1542329609.ovf",
+          "size": 6891
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "812d2010-02fa-7dec-aca6-18a8b7e357aa"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542331221,
+      "files": [
+        {
+          "name": "opensuse13-2-server-packer-template-1542330558-disk001.vmdk",
+          "size": 469550080
+        },
+        {
+          "name": "opensuse13-2-server-packer-template-1542330558.ovf",
+          "size": 7669
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "f7857155-b72d-3f49-aad3-27f2d560972c"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542338816,
+      "files": [
+        {
+          "name": "opensuse13-2-server-packer-template-1542338354-disk001.vmdk",
+          "size": 538471936
+        },
+        {
+          "name": "opensuse13-2-server-packer-template-1542338354.ovf",
+          "size": 7669
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "3f9555d3-83d8-d9a4-c3fa-cf6a9e9640b6"
+    }
+  ],
+  "last_run_uuid": "3f9555d3-83d8-d9a4-c3fa-cf6a9e9640b6"
+}

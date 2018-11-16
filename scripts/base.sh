@@ -12,6 +12,15 @@ if [ -f /etc/os-release ]; then
         if [[ $os_version_id = 22 ]]; then
             sudo dnf -y install facter ruby rubygems
         fi
+        elif [[ $os_name == *openSUSE* ]]; then
+        os_version_id="$(gawk -F= '/^VERSION_ID/{print $2}' /etc/os-release)"
+        if [[ $os_version_id = *13.* ]]; then
+            sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/13.2/repo/oss/suse/x86_64/facter-2.0.2-2.2.1.x86_64.rpm
+            elif [[ $os_version_id = *42.1* ]]; then
+            sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.1/repo/oss/suse/x86_64/rubygem-facter-2.4.3-4.6.x86_64.rpm
+            elif [[ $os_version_id = *42.2* ]]; then
+            sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.2/repo/oss/suse/x86_64/rubygem-facter-2.4.6-7.1.x86_64.rpm
+        fi
     fi
 fi
 
@@ -71,4 +80,6 @@ EOF"
         elif [[ $os == "Fedora" ]]; then
         sudo dnf -y install python-devel python-dnf
     fi
+    elif [[ $os_family == "Suse" ]]; then
+    sudo zypper --non-interactive install python-devel
 fi

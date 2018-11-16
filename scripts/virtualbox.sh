@@ -32,21 +32,25 @@ if [[ $os_family == "Debian" ]]; then
         set -x
         sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
-        sudo mkdir -p /mnt/virtualbox
-        sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
-        sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
-        sudo umount /mnt/virtualbox
-        sudo rm -rf /home/vagrant/VBoxGuest*.iso
         
         elif [[ $os == "Fedora" ]]; then
         sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo dnf -y groupinstall "Development Tools"
-        sudo mkdir -p /mnt/virtualbox
-        sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
-        sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
-        sudo umount /mnt/virtualbox
-        sudo rm -rf /home/vagrant/VBoxGuest*.iso
     fi
+    sudo mkdir -p /mnt/virtualbox
+    sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
+    sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    sudo umount /mnt/virtualbox
+    sudo rm -rf /home/vagrant/VBoxGuest*.iso
+    
+    elif [[ $os_family == "Suse" ]]; then
+    sudo zypper --non-interactive install gcc kernel-devel \
+    make bzip2 perl
+    sudo mkdir -p /mnt/virtualbox
+    sudo mount -o loop /root/VBoxGuest*.iso /mnt/virtualbox
+    sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    sudo umount /mnt/virtualbox
+    sudo rm -rf /root/VBoxGuest*.iso
 fi
 
 if [ -f /home/vagrant/VBoxGuestAdditions*.iso ]; then

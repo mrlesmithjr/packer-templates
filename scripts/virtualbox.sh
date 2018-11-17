@@ -30,15 +30,17 @@ if [[ $os_family == "Debian" ]]; then
     fi
     
     elif [[ $os_family == "RedHat" ]]; then
-    if [[ $os != "Fedora" ]]; then
+    if [[ $os == "Fedora" ]]; then
+        sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
+        sudo dnf -y groupinstall "Development Tools"
+        if [[ $os_release > 28 ]]; then
+            sudo dnf -y remove virtualbox-guest-additions
+        fi
+    else
         set -e
         set -x
         sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
-        
-        elif [[ $os == "Fedora" ]]; then
-        sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
-        sudo dnf -y groupinstall "Development Tools"
     fi
     sudo mkdir -p /mnt/virtualbox
     sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox

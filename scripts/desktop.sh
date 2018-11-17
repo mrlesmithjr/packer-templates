@@ -44,8 +44,8 @@ if [[ $os_family == "Debian" ]]; then
         sudo bash -c "echo "AutomaticLogin=${USERNAME}" >> $GDM_CUSTOM_CONFIG"
     fi
     elif [[ $os_family == "RedHat" ]]; then
-    if [[ $os_release > 6 ]]; then
-        if [[ $os == "CentOS" ]]; then
+    if [[ $os == "CentOS" ]]; then
+        if [[ $os_release > 6 ]]; then
             sudo yum -y groupinstall "X Window System"
             sudo yum -y install gnome-classic-session gnome-terminal \
             nautilus-open-terminal control-center liberation-mono-fonts
@@ -57,5 +57,20 @@ if [[ $os_family == "Debian" ]]; then
             sudo bash -c "echo "AutomaticLoginEnable=True" >> $GDM_CUSTOM_CONFIG"
             sudo bash -c "echo "AutomaticLogin=${USERNAME}" >> $GDM_CUSTOM_CONFIG"
         fi
+        elif [[ $os == "Fedora" ]]; then
+        sudo dnf -y groupinstall "Basic Desktop"
+        sudo dnf -y install gnome-classic-session gnome-terminal \
+        nautilus-open-terminal control-center liberation-mono-fonts
+        sudo ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target
+        GDM_CUSTOM_CONFIG=/etc/gdm/custom.conf
+        sudo mkdir -p "$(dirname ${GDM_CUSTOM_CONFIG})"
+        sudo bash -c "echo "[daemon]" > $GDM_CUSTOM_CONFIG"
+        sudo bash -c "echo "# Enabling automatic login" >> $GDM_CUSTOM_CONFIG"
+        sudo bash -c "echo "AutomaticLoginEnable=True" >> $GDM_CUSTOM_CONFIG"
+        sudo bash -c "echo "AutomaticLogin=${USERNAME}" >> $GDM_CUSTOM_CONFIG"
+        LIGHTDM_CONFIG=/etc/lightdm/lightdm.conf
+        echo "==> Configuring lightdm autologin"
+        sudo bash -c "echo "[SeatDefaults]" > $LIGHTDM_CONFIG"
+        sudo bash -c "echo "autologin-user=${USERNAME}" >> $LIGHTDM_CONFIG"
     fi
 fi

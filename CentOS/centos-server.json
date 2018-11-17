@@ -1,6 +1,8 @@
 {
   "variables": {
     "boot_command_prefix": "",
+    "box_tag": "",
+    "cloud_token": "",
     "compression_level": "6",
     "iso_checksum": "",
     "iso_checksum_type": "",
@@ -78,15 +80,23 @@
     }
   ],
   "post-processors": [
-    {
-      "compression_level": "{{ user `compression_level` }}",
-      "output": "{{ user `vm_name` }}-{{.Provider}}-{{ timestamp }}.box",
-      "type": "vagrant"
-    },
-    {
-      "type": "manifest",
-      "output": "manifest.json",
-      "strip_path": true
-    }
+    [
+      {
+        "compression_level": "{{ user `compression_level` }}",
+        "output": "{{ user `vm_name` }}-{{.Provider}}-{{ timestamp }}.box",
+        "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "{{ user `box_tag` }}",
+        "access_token": "{{ user `cloud_token` }}",
+        "version": "{{ timestamp }}"
+      },
+      {
+        "type": "manifest",
+        "output": "manifest.json",
+        "strip_path": true
+      }
+    ]
   ]
 }

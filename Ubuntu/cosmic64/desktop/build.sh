@@ -1,2 +1,2 @@
 #! /usr/bin/env bash
-packer build -only=virtualbox-iso -var-file=ubuntu1810.json ../../ubuntu-desktop.json
+packer build -var-file=../../../private_vars.json -var-file=ubuntu1810.json ../../ubuntu-desktop.json

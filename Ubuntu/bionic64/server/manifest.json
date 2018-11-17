@@ -75,7 +75,32 @@
       ],
       "artifact_id": "VM",
       "packer_run_uuid": "6bdea74c-3c2c-3123-c1e1-7d158cf3e782"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542428073,
+      "files": [
+        {
+          "name": "ubuntu1804-server-packer-template-1542426864-disk001.vmdk",
+          "size": 637687808
+        },
+        {
+          "name": "ubuntu1804-server-packer-template-1542426864.ovf",
+          "size": 6573
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "741f3abe-6d9d-fc7a-2f72-da35af176aa1"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542430062,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "8ce42feb-7fd9-e6f8-e811-14aa55696bb0"
     }
   ],
-  "last_run_uuid": "6bdea74c-3c2c-3123-c1e1-7d158cf3e782"
+  "last_run_uuid": "8ce42feb-7fd9-e6f8-e811-14aa55696bb0"
 }

@@ -100,7 +100,36 @@
       "files": null,
       "artifact_id": "",
       "packer_run_uuid": "8ce42feb-7fd9-e6f8-e811-14aa55696bb0"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542463231,
+      "files": [
+        {
+          "name": "ubuntu1804-server-packer-template-virtualbox-20181117.box",
+          "size": 604325720
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "4d902e2d-aa77-bd31-fd7e-ef349e1a7031"
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542471022,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "7efa759d-c17f-39af-1432-f427003487fa"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542471071,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "7efa759d-c17f-39af-1432-f427003487fa"
     }
   ],
-  "last_run_uuid": "8ce42feb-7fd9-e6f8-e811-14aa55696bb0"
+  "last_run_uuid": "7efa759d-c17f-39af-1432-f427003487fa"
 }

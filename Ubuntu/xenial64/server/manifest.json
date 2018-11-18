@@ -104,7 +104,23 @@
       ],
       "artifact_id": "ubuntu1604-server-packer-template-1542401651",
       "packer_run_uuid": "c9197af6-414c-2f17-5b55-85c1dcdae621"
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1542471511,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "a1a57172-a830-61e0-8bfd-1a51344e0061"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542471570,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "a1a57172-a830-61e0-8bfd-1a51344e0061"
     }
   ],
-  "last_run_uuid": "c9197af6-414c-2f17-5b55-85c1dcdae621"
+  "last_run_uuid": "a1a57172-a830-61e0-8bfd-1a51344e0061"
 }

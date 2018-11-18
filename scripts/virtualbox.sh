@@ -73,4 +73,6 @@ fi
 
 if [ -f /home/vagrant/VBoxGuestAdditions*.iso ]; then
     sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+    elif [ -f /root/VBoxGuestAdditions*.iso ]; then
+    sudo rm -rf /root/VBoxGuestAdditions*.iso
 fi

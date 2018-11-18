@@ -1,4 +1,6 @@
 #! /usr/bin/env bash
+find . -type d -name ".vagrant"
+find . -type d -name ".vagrant" -exec rm -rf {} +
 find . -type d -name "output-*"
 find . -type d -name "output-*" -exec rm -rf {} +
 find . -type d -name "packer_cache"

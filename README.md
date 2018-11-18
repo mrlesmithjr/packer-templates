@@ -1,32 +1,6 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-**Table of Contents**  _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
--   [packer-templates](#packer-templates)
-    -   [Purpose](#purpose)
-    -   [Information](#information)
-        -   [Distros](#distros)
-    -   [Requirements](#requirements)
-        -   [Software](#software)
-    -   [Usage](#usage)
-        -   [Building a box](#building-a-box)
-            -   [Select distro](#select-distro)
-            -   [Build distro](#build-distro)
-        -   [Testing a box](#testing-a-box)
-            -   [Add box to Vagrant](#add-box-to-vagrant)
-            -   [Create Vagrantfile](#create-vagrantfile)
-            -   [Spin it up](#spin-it-up)
-            -   [Test it out](#test-it-out)
-            -   [Tear it down](#tear-it-down)
-        -   [Cleaning up](#cleaning-up)
-    -   [License](#license)
-    -   [Author Information](#author-information)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # packer-templates
+
+<!-- TOC -->autoauto- [packer-templates](#packer-templates)auto    - [Purpose](#purpose)auto    - [Information](#information)auto    - [Requirements](#requirements)auto        - [Software](#software)auto    - [Usage](#usage)auto        - [Building a box](#building-a-box)auto            - [Select distro](#select-distro)auto            - [Build distro](#build-distro)auto        - [Testing a box](#testing-a-box)auto            - [Add box to Vagrant](#add-box-to-vagrant)auto            - [Create Vagrantfile](#create-vagrantfile)auto            - [Spin it up](#spin-it-up)auto            - [Test it out](#test-it-out)auto            - [Tear it down](#tear-it-down)auto        - [Cleaning up](#cleaning-up)auto        - [Using pre-built and ready for consumption Vagrant templates](#using-pre-built-and-ready-for-consumption-vagrant-templates)auto    - [License](#license)auto    - [Author Information](#author-information)autoauto<!-- /TOC -->
 
 ## Purpose
 
@@ -36,54 +10,41 @@ using [Packer](https://www.packer.io).
 
 ## Information
 
--   All builds are based on the [VirtualBox](https://www.virtualbox.org) provider.
+All builds are based on the following providers:
 
--   You can find my collection of builds [here](https://atlas.hashicorp.com/mrlesmithjr)
+- [virtualbox](https://www.virtualbox.org)
+- [vmware_desktop](https://www.vmware.com)
+
+- You can find my collection of builds [here](https://atlas.hashicorp.com/mrlesmithjr)
 
 > NOTE: All builds are base builds and follow the Vagrant [guidelines](https://www.vagrantup.com/docs/boxes/base.html) of how a Vagrant
 > box should be built.
 
-### Distros
-
-The following distros are available:
-
--   Centos
-    -   6
-    -   7
--   Debian
-    -   Jessie
-    -   Stretch
-    -   Wheezy
--   Fedora
-    -   22
-    -   23
-    -   24
-    -   25
-    -   26
-    -   27
-    -   28
--   OpenSuse
-    -   13.2
-    -   42.1
--   RedHat
-    -   7
--   Ubuntu
-    -   Bionic
-    -   Precise
-    -   Trusty
-    -   Utopic
-    -   Vivid
-    -   Wily
-    -   Xenial
-    -   Yakkety
-    -   Zesty
-
 ## Requirements
+
+All of my Packer templates are configured to upload to Vagrant Cloud after a successful build has been executed. In order to upload a box version to Vagrant Cloud, you will need to create a `private_vars.json` file in the root of this repo with the following info:
+
+```json
+{
+  "cloud_token": "Your private API token"
+}
+```
+
+If you do not want this functionality, you will need to edit the respective template within the distro folder and remove the following:
+
+```json
+{
+  "type": "vagrant-cloud",
+  "box_tag": "{{ user `box_tag` }}",
+  "access_token": "{{ user `cloud_token` }}",
+  "version": "{{ timestamp }}"
+}
+```
 
 ### Software
 
--   [Packer](https://www.packer.io)
--   [Virtualbox](https://www.virtualbox.org)
+- [Packer](https://www.packer.io)
+- [Virtualbox](https://www.virtualbox.org)
 
 ## Usage
 
@@ -101,7 +62,7 @@ Choose which distro you are interested in building.
 > NOTE: This example we will have chosen Ubuntu Xenial
 
 ```bash
-cd Ubuntu/xenial64
+cd Ubuntu/xenial64/server
 packer build template.json
 ```
 
@@ -114,18 +75,20 @@ Once your build has completed you are ready to test it out.
 
 #### Add box to Vagrant
 
+> Note: The number at the end is the epoch time of the build. Replace this accordingly.
+
 ```bash
-cd Ubuntu/xenial64
-vagrant box add xenial64 xenial-server-x86_64.box
+cd Ubuntu/xenial64/server
+vagrant box add xenial64-server-packer-template-virtualbox-1542509766 xenial64-server-packer-template-virtualbox-1542509766.box
 ```
 
 #### Create Vagrantfile
 
 ```bash
 cd ~
-mkdir -p packer/vagrant/xenial64
-cd packer/vagrant/xenial64
-vagrant init xenial64
+mkdir -p packer/vagrant/xenial64-server
+cd packer/vagrant/xenial64-server
+vagrant init xenial64-server-packer-template-virtualbox-1542509766
 ```
 
 #### Spin it up
@@ -150,21 +113,13 @@ vagrant destroy -f
 
 ### Cleaning up
 
-Included in each distro is a cleanup script called `cleanup.sh` to clean up the
-build folder when you are complete.
+When you need to clean up any of the lingering files/folers generated during
+building, you can execute the [cleanup_builds.sh](cleanup_builds.sh) script.
 
-```bash
-#!/bin/bash
-rm *.box
-rm -rf packer_cache
-```
+### Using pre-built and ready for consumption Vagrant templates
 
-To cleanup:
-
-```bash
-cd Ubuntu/xenial64
-./cleanup.sh
-```
+The majority of these templates are used to populate my [vagrant-box-templates](https://github.com/mrlesmithjr/vagrant-box-templates) repo. I would highly
+recommend leveraging this repo for testing and etc.
 
 ## License
 
@@ -174,6 +129,6 @@ MIT
 
 Larry Smith Jr.
 
--   [@mrlesmithjr](https://www.twitter.com/mrlesmithjr)
--   [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
--   mrlesmithjr [at] gmail.com
+- [@mrlesmithjr](https://www.twitter.com/mrlesmithjr)
+- [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
+- [mrlesmithjr@gmail.com](mailto:mrlesmithjr@gmail.com)

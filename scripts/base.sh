@@ -21,6 +21,8 @@ if [ -f /etc/os-release ]; then
             elif [[ $os_version_id = *42.2* ]]; then
             sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.2/repo/oss/suse/x86_64/rubygem-facter-2.4.6-7.1.x86_64.rpm
         fi
+        elif [[ $os_name == *Oracle* ]]; then
+        sudo yum -y install https://yum.oracle.com/repo/OracleLinux/OL7/developer_EPEL/x86_64/getPackage/facter-2.4.1-1.el7.x86_64.rpm
     fi
 fi
 

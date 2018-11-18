@@ -68,4 +68,9 @@ if [[ $os_family == "Debian" ]]; then
     fi
     elif [[ $os_family == "Suse" ]]; then
     sudo zypper --non-interactive install python-devel
+    elif [[ $os_family == "Linux" ]]; then
+    if [[ $os == "Alpine" ]]; then
+        chmod u+s /usr/bin/sudo
+        apk add python alpine-sdk || true
+    fi
 fi

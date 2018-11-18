@@ -56,6 +56,19 @@ if [[ $os_family == "Debian" ]]; then
     sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
     sudo umount /mnt/virtualbox
     sudo rm -rf /root/VBoxGuest*.iso
+    
+    elif [[ $os_family == "Linux" ]]; then
+    if [[ $os == "Alpine" ]]; then
+        if [[ $os_release == 3.7.1 ]]; then
+            echo http://dl-cdn.alpinelinux.org/alpine/v3.7/community >> /etc/apk/repositories
+        fi
+        set -e
+        set -x
+        apk add -U virtualbox-guest-additions virtualbox-guest-modules-virthardened || true
+        echo vboxsf >> /etc/modules
+        apk add nfs-utils || true
+        rc-update add rpc.statd
+    fi
 fi
 
 if [ -f /home/vagrant/VBoxGuestAdditions*.iso ]; then

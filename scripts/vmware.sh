@@ -22,6 +22,12 @@ if [[ $os_family == "Debian" ]]; then
         sudo dnf -y install open-vm-tools
     fi
     sudo /bin/systemctl restart vmtoolsd.service
+    
     elif [[ $os_family == "Suse" ]]; then
     sudo zypper --non-interactive install open-vm-tools
+    
+    elif [[ $os_family == "Linux" ]]; then
+    if [[ $os == "Alpine" ]]; then
+        apk add open-vm-tools || true
+    fi
 fi

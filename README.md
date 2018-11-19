@@ -15,7 +15,7 @@ All builds are based on the following providers:
 - [virtualbox](https://www.virtualbox.org)
 - [vmware_desktop](https://www.vmware.com)
 
-- You can find my collection of builds [here](https://atlas.hashicorp.com/mrlesmithjr)
+- You can find my collection of builds [here](https://app.vagrantup.com/mrlesmithjr)
 
 > NOTE: All builds are base builds and follow the Vagrant [guidelines](https://www.vagrantup.com/docs/boxes/base.html) of how a Vagrant
 > box should be built.

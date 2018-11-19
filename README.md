@@ -63,7 +63,7 @@ Choose which distro you are interested in building.
 
 ```bash
 cd Ubuntu/xenial64/server
-packer build template.json
+packer build -var-file=../../../private_vars.json -var-file=ubuntu1604.json ../../ubuntu-server.json
 ```
 
 Now watch your build kick off and run through the building process. Once it has

@@ -14,4 +14,4 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex (
 (Get-WmiObject -Class "Win32_TSGeneralSetting" -Namespace root\cimv2\TerminalServices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0)
 
 # Install Chocolatey Packages
-choco install -y 7zip
+choco install -y 7zip sdelete

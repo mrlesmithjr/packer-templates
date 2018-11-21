@@ -3,6 +3,13 @@
 # Add The Oracle Cert For VirtualBox
 certutil -addstore -f "TrustedPublisher" a:\oracle-cert.cer
 
+# Supress network location Prompt
+New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Network\NewNetworkWindowOff" -Force
+
+# Set network to private
+$ifaceinfo = Get-NetConnectionProfile
+Set-NetConnectionProfile -InterfaceIndex $ifaceinfo.InterfaceIndex -NetworkCategory Private
+
 Function Enable-WinRM {
     Write-Host "Enable WinRM"
     netsh advfirewall firewall set rule group="remote administration" new enable=yes

@@ -88,6 +88,7 @@
       "scripts": [
         "scripts/base.ps1",
         "scripts/vagrant.ps1",
+        "scripts/remove_default_apps.ps1",
         "scripts/virtualbox.ps1",
         "scripts/vmware.ps1",
         "scripts/windows_updates.ps1",

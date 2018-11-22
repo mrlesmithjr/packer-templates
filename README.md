@@ -26,7 +26,8 @@ All of my Packer templates are configured to upload to Vagrant Cloud after a suc
 
 ```json
 {
-  "cloud_token": "Your private API token"
+  "vagrant_cloud_token": "Your Vagrant Cloud private API token",
+  "username": "Your Vagrant Cloud username"
 }
 ```
 
@@ -36,7 +37,7 @@ If you do not want this functionality, you will need to edit the respective temp
 {
   "type": "vagrant-cloud",
   "box_tag": "{{ user `box_tag` }}",
-  "access_token": "{{ user `cloud_token` }}",
+  "access_token": "{{ user `vagrant_cloud_token` }}",
   "version": "{{ timestamp }}"
 }
 ```

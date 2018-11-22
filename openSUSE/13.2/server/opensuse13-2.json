@@ -1,8 +1,8 @@
 {
   "boot_command_prefix": "",
-  "box_tag": "mrlesmithjr/opensuse-13-2",
+  "box_tag": "mrlesmithjr/opensuse132",
   "iso_checksum": "787b0a600e8304a9dda12a4f7ff89a08c9fc4b445215b9f91c52628eccdc3c40",
   "iso_checksum_type": "sha256",
   "iso_url": "https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/13.2/iso/openSUSE-13.2-DVD-x86_64.iso",
-  "vm_name": "opensuse13-2-server-packer-template"
+  "vm_name": "opensuse132-server-packer-template"
 }

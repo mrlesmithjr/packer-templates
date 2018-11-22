@@ -4,5 +4,5 @@
   "iso_checksum": "dde07d37647a1d2d9247e33f14e91acb10445a97578384896b4e1d985f754cc1",
   "iso_checksum_type": "sha256",
   "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.5-server-amd64.iso",
-  "vm_name": "ubuntu1404-server-packer-template"
+  "vm_name": "trusty64-server-packer-template"
 }

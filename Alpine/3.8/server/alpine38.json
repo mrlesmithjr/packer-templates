@@ -2,7 +2,7 @@
   "alpine_system_part": "/dev/sda2",
   "alpine_version": "3.8",
   "boot_command_prefix": "",
-  "box_tag": "mrlesmithjr/alpine-3-8",
+  "box_tag": "mrlesmithjr/alpine38",
   "iso_checksum": "83ede521b174d99a0975c3653e7310b58075fa68fb773ed6995b974a44df60ce",
   "iso_checksum_type": "sha256",
   "iso_url": "http://dl-4.alpinelinux.org/alpine/latest-stable/releases/x86_64/alpine-virt-3.8.1-x86_64.iso",

@@ -4,5 +4,5 @@
   "iso_checksum": "62876fb786f203bc732ec1bd2ca4c8faea19d0a97c5936d69f3406ef92ff49bd",
   "iso_checksum_type": "sha256",
   "iso_url": "http://cdimage.debian.org/cdimage/archive/7.11.0/amd64/iso-cd/debian-7.11.0-amd64-netinst.iso",
-  "vm_name": "debian7-server-packer-template"
+  "vm_name": "wheezy64-server-packer-template"
 }

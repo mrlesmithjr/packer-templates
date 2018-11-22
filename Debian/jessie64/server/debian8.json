@@ -4,5 +4,5 @@
   "iso_checksum": "ea799ed959d77359783e7922ed4c94a7437b083a4ce6f09e9fe41a7af6ba60df",
   "iso_checksum_type": "sha256",
   "iso_url": "https://cdimage.debian.org/cdimage/archive/8.11.0/amd64/iso-cd/debian-8.11.0-amd64-netinst.iso",
-  "vm_name": "debian8-server-packer-template"
+  "vm_name": "jessie64-server-packer-template"
 }

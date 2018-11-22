@@ -4,11 +4,12 @@
     "alpine_version": "",
     "boot_command_prefix": "",
     "box_tag": "",
-    "cloud_token": "",
     "compression_level": "6",
     "iso_checksum": "",
     "iso_checksum_type": "",
     "iso_url": "",
+    "vagrant_cloud_token": "",
+    "vagrant_cloud_username": "",
     "vm_disk_adapter_type": "scsi",
     "vm_disk_size": "36864",
     "vm_memory": "512",
@@ -155,7 +156,7 @@
       {
         "type": "vagrant-cloud",
         "box_tag": "{{ user `box_tag` }}",
-        "access_token": "{{ user `cloud_token` }}",
+        "access_token": "{{ user `vagrant_cloud_token` }}",
         "version": "{{ timestamp }}"
       },
       {

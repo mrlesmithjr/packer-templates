@@ -87,7 +87,20 @@
       "files": null,
       "artifact_id": "",
       "packer_run_uuid": "6f52c3c7-052a-1150-33bf-6c2373bf4c31"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1542852556,
+      "files": [
+        {
+          "name": "alpine38-server-packer-template-virtualbox-1542852271.box",
+          "size": 117920167
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "1864f699-fb29-6bb8-3c68-1ff83e9dc8b8"
     }
   ],
-  "last_run_uuid": "6f52c3c7-052a-1150-33bf-6c2373bf4c31"
+  "last_run_uuid": "1864f699-fb29-6bb8-3c68-1ff83e9dc8b8"
 }

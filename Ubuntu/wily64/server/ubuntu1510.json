@@ -4,5 +4,5 @@
   "iso_checksum": "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
   "iso_checksum_type": "sha256",
   "iso_url": "http://old-releases.ubuntu.com/releases/15.10/ubuntu-15.10-server-amd64.iso",
-  "vm_name": "ubuntu1510-server-packer-template"
+  "vm_name": "wily64-server-packer-template"
 }

@@ -1,6 +1,5 @@
 {
   "boot_command_prefix": "inst.text inst.ks",
-  "box_tag": "mrlesmithjr/sl7",
   "iso_checksum": "936c0b1cb5c637968472c018abc8f236569b05f38fe2ff0717831f93bbed4d22",
   "iso_checksum_type": "sha256",
   "iso_url": "http://ftp.scientificlinux.org/linux/scientific/7.5/x86_64/iso/SL-7.5-x86_64-netinst.iso",

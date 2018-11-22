@@ -1,6 +1,5 @@
 {
   "boot_command_prefix": "inst.text inst.ks",
-  "box_tag": "mrlesmithjr/centos7-desktop",
   "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
   "iso_checksum_type": "sha256",
   "iso_url": "http://www.gtlib.gatech.edu/pub/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",

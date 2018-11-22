@@ -1,6 +1,5 @@
 {
   "boot_command_prefix": "text ks",
-  "box_tag": "mrlesmithjr/centos6",
   "iso_checksum": "56f7b078a3b443095ba006cdc85319c691251cda98c5d73d12ef6db7aff6b4c1",
   "iso_checksum_type": "sha256",
   "iso_url": "http://centos.mirror.constant.com/6.10/isos/x86_64/CentOS-6.10-x86_64-netinstall.iso",

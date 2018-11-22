@@ -1,6 +1,5 @@
 {
   "autounattend": "./answer_files/2019/Autounattend.xml",
-  "box_tag": "mrlesmithjr/windows2019",
   "iso_checksum_type": "sha256",
   "iso_checksum": "dbb0ffbab5d114ce7370784c4e24740191fefdb3349917c77a53ff953dd10f72",
   "iso_url": "https://software-download.microsoft.com/download/pr/17763.1.180914-1434.rs5_release_SERVER_EVAL_x64FRE_en-us.iso",

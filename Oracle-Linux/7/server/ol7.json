@@ -1,6 +1,5 @@
 {
   "boot_command_prefix": "inst.text inst.ks",
-  "box_tag": "mrlesmithjr/ol7",
   "iso_checksum": "d0cc4493db10c2a49084f872083ed9ed6a09cc065064c009734712b9ef357886",
   "iso_checksum_type": "sha256",
   "iso_url": "http://mirrors.kernel.org/oracle/OL7/u5/x86_64/OracleLinux-R7-U5-Server-x86_64-dvd.iso",

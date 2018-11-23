@@ -7,17 +7,14 @@ set -e
 
 BOX_INFO="box_info.json"
 PRIVATE_VARS="../../../private_vars.json"
-VAGRANT_CLOUD_TOKEN=$(jq -r .cloud_token $PRIVATE_VARS)
+VAGRANT_CLOUD_TOKEN=$(jq -r .vagrant_cloud_token $PRIVATE_VARS)
 
 BOX_TAG=$(jq -r .box_tag $BOX_INFO)
 BOX_NAME=$(echo $BOX_TAG | awk -F/ '{ print $2 }')
 BOX_SHORT_DESCR=$(jq -r .short_description $BOX_INFO)
 USERNAME=$(echo $BOX_TAG | awk -F/ '{ print $1 }')
 
-# Find box files for iterating
-BOXES=$(ls *.box)
-
-for BOX in "${BOXES[@]}"
+for BOX in $(ls *.box)
 do
     BOX_FULL_NAME=$(echo $BOX | awk -F. '{ print $1 }')
     PROVIDER_NAME=$(echo $BOX_FULL_NAME | awk -F- '{ print $5 }')
@@ -30,7 +27,7 @@ do
     
     BOX_CHECK_ERRORS=$(echo $BOX_CHECK | jq .errors)
     
-    if [ $BOX_CHECK_ERRORS != null ]; then
+    if [[ $BOX_CHECK_ERRORS != null ]]; then
         # Create box if it does not exist
         echo -e "\n$BOX_TAG not found...Creating."
         CREATE_BOX=$(curl -s \

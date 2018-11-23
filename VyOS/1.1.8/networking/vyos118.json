@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "",
+  "iso_checksum": "ff4c8e1822e653d8d85f4a90f30c6d2ac047514c",
+  "iso_checksum_type": "sha1",
+  "iso_url": "https://downloads.vyos.io/release/1.1.8/vyos-1.1.8-amd64.iso",
+  "vm_name": "vyos118-server-packer-template"
+}

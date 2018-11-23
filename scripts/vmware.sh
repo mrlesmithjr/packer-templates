@@ -11,7 +11,7 @@ if [ "$PACKER_BUILDER_TYPE" != "vmware-iso" ]; then
 fi
 
 # Debian/Ubuntu
-if [[ $os_family == "Debian" ]]; then
+if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     sudo apt-get install -y open-vm-tools
     
     elif [[ $os_family == "RedHat" ]]; then

@@ -31,15 +31,17 @@ os="$(facter operatingsystem)"
 os_family="$(facter osfamily)"
 os_release="$(facter operatingsystemrelease)"
 
-if [[ $os_family == "Debian" ]]; then
+if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     # We need to cleanup for old repo update issues for hash mismatch
     if [[ $codename == "precise" ]]; then
         sudo apt-get clean
         sudo rm -r /var/lib/apt/lists/*
     fi
-    sudo apt-get update
-    sudo apt-get install -y python-minimal linux-headers-$(uname -r) \
-    build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
+    if [[ $os_release > 6.0.10 ]]; then
+        sudo apt-get update
+        sudo apt-get install -y python-minimal linux-headers-$(uname -r) \
+        build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
+    fi
     
     # Check for /etc/rc.local and create if needed. This has been depricated in
     # Debian 9 and later. So we need to resolve this in order to regenerate SSH host

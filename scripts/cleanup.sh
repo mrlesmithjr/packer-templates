@@ -6,7 +6,7 @@ set -x
 os="$(facter operatingsystem)"
 os_family="$(facter osfamily)"
 
-if [[ $os_family == "Debian" ]]; then
+if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     sudo apt-get clean
     
     elif [[ $os_family == "RedHat" ]]; then

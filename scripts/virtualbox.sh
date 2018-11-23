@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 codename="$(facter lsbdistcodename)"
 os="$(facter operatingsystem)"
@@ -9,10 +10,9 @@ if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
     exit 0
 fi
 
-if [[ $os_family == "Debian" ]]; then
-    set -e
-    set -x
+if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     if [[ $os == "Ubuntu" ]]; then
+        set -e
         sudo apt-get install -y virtualbox-guest-utils
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         
@@ -38,7 +38,6 @@ if [[ $os_family == "Debian" ]]; then
         fi
     else
         set -e
-        set -x
         sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
     fi
@@ -63,7 +62,6 @@ if [[ $os_family == "Debian" ]]; then
             echo http://dl-cdn.alpinelinux.org/alpine/v3.7/community >> /etc/apk/repositories
         fi
         set -e
-        set -x
         apk add -U virtualbox-guest-additions virtualbox-guest-modules-virthardened || true
         echo vboxsf >> /etc/modules
         apk add nfs-utils || true

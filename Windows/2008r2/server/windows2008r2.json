@@ -1,0 +1,9 @@
+{
+  "autounattend": "./answer_files/2008r2/Autounattend.xml",
+  "iso_checksum_type": "md5",
+  "iso_checksum": "4263be2cf3c59177c45085c0a7bc6ca5",
+  "iso_url": "http://download.microsoft.com/download/7/5/E/75EC4E54-5B02-42D6-8879-D8D3A25FBEF7/7601.17514.101119-1850_x64fre_server_eval_en-us-GRMSXEVAL_EN_DVD.iso",
+  "virtualbox_guest_type": "Windows2008_64",
+  "vm_name": "windows2008r2-server-packer-template",
+  "vmware_guest_type": "windows7srv-64"
+}

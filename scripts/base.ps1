@@ -1,10 +1,6 @@
 $ansible_script = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
 $chocolatey_script = "https://chocolatey.org/install.ps1"
 
-# Setup WinRM for Ansible Management
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex (
-    (New-Object System.Net.WebClient).DownloadString($ansible_script))
-
 # Install Chocolatey Package Manager
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex (
     (New-Object System.Net.WebClient).DownloadString($chocolatey_script))
@@ -15,3 +11,14 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex (
 
 # Install Chocolatey Packages
 choco install -y 7zip sdelete
+
+if ($PSVersionTable.PSVersion.Major -lt 3) {
+    Write-Host "Upgrading PowerShell"
+    choco upgrade -y dotnet4.5
+    choco upgrade -y powershell
+    refreshenv
+}
+
+# Setup WinRM for Ansible Management
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex (
+    (New-Object System.Net.WebClient).DownloadString($ansible_script))

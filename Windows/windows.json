@@ -7,6 +7,7 @@
     "iso_checksum_type": "",
     "iso_checksum": "",
     "iso_url": "",
+    "vagrant_cloud_token": "",
     "virtualbox_guest_type": "",
     "vm_disk_adapter_type": "sata",
     "vm_disk_size": "36864",
@@ -106,7 +107,7 @@
       {
         "type": "vagrant-cloud",
         "box_tag": "{{ user `box_tag` }}",
-        "access_token": "{{ user `cloud_token` }}",
+        "access_token": "{{ user `vagrant_cloud_token` }}",
         "version": "{{ timestamp }}"
       },
       {

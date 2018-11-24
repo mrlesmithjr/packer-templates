@@ -9,18 +9,21 @@ os_family="$(facter osfamily)"
 if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     sudo apt-get clean
     
-    elif [[ $os_family == "RedHat" ]]; then
+    elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
         sudo yum clean all
         sudo rm -rf /var/cache/yum
         
-        elif [[ $os == "Fedora" ]]; then
+        elif [[ $os = "Fedora" ]]; then
         sudo dnf clean all
     fi
+    elif [[ $os_family = "Archlinux" ]]; then
+    /usr/bin/yes | sudo /usr/bin/pacman -Scc
 fi
 
-#Stop services for cleanup
-sudo service rsyslog stop
+if [[ $os_family != "Archlinux" ]]; then
+    sudo service rsyslog stop
+fi
 
 #clear audit logs
 if [ -f /var/log/audit/audit.log ]; then

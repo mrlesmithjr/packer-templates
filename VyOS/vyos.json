@@ -61,7 +61,7 @@
         "save<enter><wait>",
         "exit<enter><wait>",
         "sudo apt-get -o Acquire::Check-Valid-Until=false update<enter><wait10>",
-        "sudo apt-get -y --force-yes install build-essential bzip2 curl dkms facter gawk lsb-release wget<enter><wait10><wait10>",
+        "sudo apt-get -y --force-yes install build-essential bzip2 curl dkms facter lsb-release wget<enter><wait10><wait10>",
         "wget -P /tmp http://dev.packages.vyos.net/repositories/legacy/vyos/pool/main/l/linux-3.13/linux-vyatta-kbuild_3.13.11-1+vyos1+helium14_amd64.deb<enter><wait10>",
         "sudo dpkg -i /tmp/linux-vyatta-kbuild_3.13.11-1+vyos1+helium14_amd64.deb<enter><wait10><wait10><wait10>",
         "sudo ln -s /usr/src/linux-image/debian/build/build-amd64-none-amd64-vyos \"/lib/modules/$(uname -r)/build\"<enter><wait10>"
@@ -130,7 +130,7 @@
         "save<enter><wait>",
         "exit<enter><wait>",
         "sudo apt-get -o Acquire::Check-Valid-Until=false update<enter><wait10>",
-        "sudo apt-get -y --force-yes install build-essential bzip2 curl dkms facter gawk lsb-release wget<enter><wait10><wait10>",
+        "sudo apt-get -y --force-yes install build-essential bzip2 curl dkms facter lsb-release wget<enter><wait10><wait10>",
         "wget -P /tmp http://dev.packages.vyos.net/repositories/legacy/vyos/pool/main/l/linux-3.13/linux-vyatta-kbuild_3.13.11-1+vyos1+helium14_amd64.deb<enter><wait10>",
         "sudo dpkg -i /tmp/linux-vyatta-kbuild_3.13.11-1+vyos1+helium14_amd64.deb<enter><wait10><wait10><wait10>",
         "sudo ln -s /usr/src/linux-image/debian/build/build-amd64-none-amd64-vyos \"/lib/modules/$(uname -r)/build\"<enter><wait10>"

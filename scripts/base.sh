@@ -6,14 +6,13 @@ set -x
 # The below is only specific to Fedora 22 as of right now. All other later
 # versions do not have issues with facter.
 if [ -f /etc/os-release ]; then
-    os_name="$(gawk -F= '/^NAME/{print $2}' /etc/os-release)"
+    os_name="$(awk -F= '/^NAME/{ print $2 }' /etc/os-release | sed 's/"//g')"
+    os_version_id="$(awk -F= '/^VERSION_ID/{ print $2}' /etc/os-release | sed 's/"//g')"
     if [[ $os_name = "Fedora" ]]; then
-        os_version_id="$(gawk -F= '/^VERSION_ID/{print $2}' /etc/os-release)"
         if [[ $os_version_id = 22 ]]; then
             sudo dnf -y install facter ruby rubygems
         fi
         elif [[ $os_name = *openSUSE* ]]; then
-        os_version_id="$(gawk -F= '/^VERSION_ID/{print $2}' /etc/os-release)"
         if [[ $os_version_id = *13.* ]]; then
             sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/13.2/repo/oss/suse/x86_64/facter-2.0.2-2.2.1.x86_64.rpm
             elif [[ $os_version_id = *42.1* ]]; then
@@ -77,7 +76,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     fi
     elif [[ $os_family = "Archlinux" ]]; then
     yes | sudo pacman -Syyu && yes | sudo pacman -S gc guile autoconf automake \
-    binutils bison fakeroot file findutils flex gawk gcc gettext grep \
+    binutils bison fakeroot file findutils flex gcc gettext grep \
     groff gzip libtool m4 make pacman patch pkgconf sed sudo systemd \
     texinfo util-linux which python-setuptools python-virtualenv python-pip \
     python-pyopenssl python2-setuptools python2-virtualenv python2-pip \

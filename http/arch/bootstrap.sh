@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Credit to https://github.com/elasticdog/packer-arch for most of this script
+
 set -e
 set -x
 

@@ -1,7 +1,7 @@
 {
   "boot_command_prefix": "inst.text inst.ks",
-  "iso_checksum": "936c0b1cb5c637968472c018abc8f236569b05f38fe2ff0717831f93bbed4d22",
+  "iso_checksum": "b59f60e6cc287058667086bcf95da4ef5d4a12efba1b01711c26d6587ffc190a",
   "iso_checksum_type": "sha256",
-  "iso_url": "http://ftp.scientificlinux.org/linux/scientific/7.5/x86_64/iso/SL-7.5-x86_64-netinst.iso",
+  "iso_url": "http://ftp.scientificlinux.org/linux/scientific/7.5/x86_64/iso/SL-7-DVD-x86_64.iso",
   "vm_name": "sl7-server-packer-template"
 }

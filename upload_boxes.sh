@@ -73,7 +73,7 @@ do
     
     VERSION_CHECK_ERRORS=$(echo $VERSION_CHECK | jq -r .errors)
     
-    if [[ "${VERSION_CHECK_ERRORS[*]}" == *"Resource not found!"* ]]; then
+    if [[ "${VERSION_CHECK_ERRORS[*]}" = *"Resource not found!"* ]]; then
         # Create a new version
         echo -e "\nCreating version $VERSION for $BOX_TAG"
         curl -s \
@@ -104,7 +104,7 @@ do
             PROVIDER_INFO_NAME=$(echo $PROVIDER_INFO | jq -r .name)
             PROVIDERS_FOUND+=($PROVIDER_INFO_NAME)
         done
-        if [[ "${PROVIDERS_FOUND[*]}" == *"$PROVIDER_NAME"* ]]; then
+        if [[ "${PROVIDERS_FOUND[*]}" = *"$PROVIDER_NAME"* ]]; then
             echo -e "box: $BOX_TAG version: $VERSION provider: $PROVIDER_NAME already exists...Skipping provider."
         else
             # Create a new provider

@@ -1,0 +1,21 @@
+{
+  "builds": [
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1543174655,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "3b7a31a0-5f34-6145-d621-eabf480931d1"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1543174817,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "3b7a31a0-5f34-6145-d621-eabf480931d1"
+    }
+  ],
+  "last_run_uuid": "3b7a31a0-5f34-6145-d621-eabf480931d1"
+}

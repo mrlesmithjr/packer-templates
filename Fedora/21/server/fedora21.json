@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "inst.text inst.ks",
+  "iso_checksum": "56af126a50c227d779a200b414f68ea7bcf58e21c8035500cd21ba164f85b9b4",
+  "iso_checksum_type": "sha256",
+  "iso_url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/21/Server/x86_64/iso/Fedora-Server-netinst-x86_64-21.iso",
+  "vm_name": "fedora21-server-packer-template"
+}

@@ -11,6 +11,9 @@ if [ -f /etc/os-release ]; then
     if [[ $os_name = "Fedora" ]]; then
         if [[ $os_version_id = 22 ]]; then
             sudo dnf -y install facter ruby rubygems
+            elif [[ $os_version_id -le 21 ]]; then
+            sudo yum -y update
+            sudo yum -y install dnf facter perl redhat-lsb-core rsyslog ruby rubygems wget
         fi
         elif [[ $os_name = *openSUSE* ]]; then
         if [[ $os_version_id = *13.* ]]; then
@@ -65,7 +68,11 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo yum -y install python-devel
         
         elif [[ $os = "Fedora" ]]; then
-        sudo dnf -y install python-devel python-dnf
+        if [[ $os_version_id -ge 22 ]]; then
+            sudo dnf -y install python-devel python-dnf
+        else
+            sudo dnf -y install python-devel
+        fi
     fi
     elif [[ $os_family = "Suse" ]]; then
     sudo zypper --non-interactive install python-devel

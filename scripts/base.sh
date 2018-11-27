@@ -82,7 +82,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
             sudo dnf -y install python-devel
         fi
     fi
-    elif [[ $os_family = "Suse" ]]; then
+    elif [[ $os_family = "Suse" || $os = *openSUSE* || $os = *OpenSuSE* ]]; then
     sudo zypper --non-interactive install python-devel
     elif [[ $os_family = "Linux" ]]; then
     if [[ $os = "Alpine" ]]; then

@@ -62,7 +62,8 @@
         "lang=en_US ",
         "textmode=1 ",
         "autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/opensuse/autoinst.xml<wait> ",
-        "<enter><wait>"
+        "<enter><wait>",
+        "{{ user `boot_command_prefix` }}"
       ],
       "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",

@@ -16,7 +16,7 @@ if [ -f /etc/os-release ]; then
             sudo yum -y install dnf facter perl redhat-lsb-core rsyslog ruby rubygems wget
         fi
         elif [[ $os_name = *openSUSE* ]]; then
-        if [[ $os_name = "openSUSE Tumbleweed" ]]; then
+        if [[ $os_name = "openSUSE Tumbleweed" || $os_name = "openSUSE Leap" ]]; then
             # Need to sleep for a period of time to ensure zypper completes processes on first startup
             sleep 2m
             sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/systemsmanagement:puppet/openSUSE_Tumbleweed/systemsmanagement:puppet.repo

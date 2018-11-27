@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "",
+  "iso_checksum": "a3d7c2db07727a6c1539ffee475e1071d7840c55b5c5aacabf0a89f8286aa241",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://mirror.us.leaseweb.net/opensuse/tumbleweed/iso/openSUSE-Tumbleweed-NET-x86_64-Current.iso",
+  "vm_name": "tumbleweed-server-packer-template"
+}

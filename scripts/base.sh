@@ -16,12 +16,20 @@ if [ -f /etc/os-release ]; then
             sudo yum -y install dnf facter perl redhat-lsb-core rsyslog ruby rubygems wget
         fi
         elif [[ $os_name = *openSUSE* ]]; then
-        if [[ $os_version_id = *13.* ]]; then
-            sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/13.2/repo/oss/suse/x86_64/facter-2.0.2-2.2.1.x86_64.rpm
-            elif [[ $os_version_id = *42.1* ]]; then
-            sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.1/repo/oss/suse/x86_64/rubygem-facter-2.4.3-4.6.x86_64.rpm
-            elif [[ $os_version_id = *42.2* ]]; then
-            sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.2/repo/oss/suse/x86_64/rubygem-facter-2.4.6-7.1.x86_64.rpm
+        if [[ $os_name = "openSUSE Tumbleweed" ]]; then
+            # Need to sleep for a period of time to ensure zypper completes processes on first startup
+            sleep 2m
+            sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/systemsmanagement:puppet/openSUSE_Tumbleweed/systemsmanagement:puppet.repo
+            sudo zypper --gpg-auto-import-keys refresh
+            sudo zypper --non-interactive install rubygem-facter
+        else
+            if [[ $os_version_id = *13.* ]]; then
+                sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/13.2/repo/oss/suse/x86_64/facter-2.0.2-2.2.1.x86_64.rpm
+                elif [[ $os_version_id = *42.1* ]]; then
+                sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.1/repo/oss/suse/x86_64/rubygem-facter-2.4.3-4.6.x86_64.rpm
+                elif [[ $os_version_id = *42.2* ]]; then
+                sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.2/repo/oss/suse/x86_64/rubygem-facter-2.4.6-7.1.x86_64.rpm
+            fi
         fi
         elif [[ $os_name = *Oracle* ]]; then
         sudo yum -y install https://yum.oracle.com/repo/OracleLinux/OL7/developer_EPEL/x86_64/getPackage/facter-2.4.1-1.el7.x86_64.rpm

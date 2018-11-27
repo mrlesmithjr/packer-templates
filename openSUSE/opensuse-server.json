@@ -28,12 +28,13 @@
         "lang=en_US ",
         "textmode=1 ",
         "autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/opensuse/autoinst.xml<wait> ",
-        "<enter><wait>"
+        "<enter><wait>",
+        "{{ user `boot_command_prefix` }}"
       ],
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "OpenSUSE_64",
       "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
@@ -67,7 +68,7 @@
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "opensuse-64",
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
@@ -88,6 +89,7 @@
   "provisioners": [
     {
       "type": "shell",
+      "expect_disconnect": true,
       "scripts": [
         "scripts/base.sh",
         "scripts/vagrant.sh",

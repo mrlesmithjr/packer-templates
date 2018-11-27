@@ -47,7 +47,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     sudo umount /mnt/virtualbox
     sudo rm -rf /home/vagrant/VBoxGuest*.iso
     
-    elif [[ $os_family = "Suse" ]]; then
+    elif [[ $os_family = "Suse" || $os = "openSUSE" ]]; then
     sudo zypper --non-interactive install gcc kernel-devel \
     make bzip2 perl
     sudo mkdir -p /mnt/virtualbox

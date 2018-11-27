@@ -1,7 +1,9 @@
 .DS_Store
+.vscode/
 *.box
 *.iso
 output-*
 packer_cache
-Vagrantfile
 private_vars.json
+Vagrantfile
+venv

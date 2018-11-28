@@ -1,0 +1,13 @@
+{
+  "builds": [
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1543375504,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "f8ce0eff-0bda-ba21-d6f7-50f47dfa05a2"
+    }
+  ],
+  "last_run_uuid": "f8ce0eff-0bda-ba21-d6f7-50f47dfa05a2"
+}

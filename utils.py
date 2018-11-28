@@ -1,10 +1,12 @@
 #! /usr/bin/env python
 """Just a small little script to help manage Packer templates in this repo."""
 
-import os
-import json
 import argparse
+import datetime
+import json
 import logging
+import os
+import shutil
 import git
 
 __author__ = "Larry Smith Jr."
@@ -28,8 +30,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Packer template utils.")
     parser.add_argument(
         "action", help="Define action to take.", choices=[
-            'build_all', 'cleanup_builds', 'rename_templates', 'repo_info',
-            'upload_boxes'])
+            'build_all', 'cleanup_builds', 'commit_manifests',
+            'rename_templates', 'repo_info', 'upload_boxes', 'view_manifests'])
     args = parser.parse_args()
     return args
 
@@ -40,6 +42,10 @@ def decide_action(args):
         build_all()
     elif args.action == 'cleanup_builds':
         cleanup_builds()
+    elif args.action == 'commit_manifests':
+        repo_facts = dict()
+        repo_info(repo_facts)
+        commit_manifests(repo_facts)
     elif args.action == 'rename_templates':
         rename_templates()
     elif args.action == 'repo_info':
@@ -48,6 +54,8 @@ def decide_action(args):
         print json.dumps(repo_facts, indent=4)
     elif args.action == 'upload_boxes':
         upload_boxes()
+    elif args.action == 'view_manifests':
+        view_manifests()
 
 
 def repo_info(repo_facts):
@@ -84,11 +92,11 @@ def cleanup_builds():
     for root, dirs, files in os.walk(os.getcwd()):
         for item in dirs:
             if 'output-' in item:
-                os.rmdir(os.path.join(root, item))
+                shutil.rmtree(os.path.join(root, item))
             if item == '.vagrant':
-                os.rmdir(os.path.join(root, item))
+                shutil.rmtree(os.path.join(root, item))
             if item == 'packer_cache':
-                os.rmdir(os.path.join(root, item))
+                shutil.rmtree(os.path.join(root, item))
 
         for item in files:
             filename, ext = os.path.splitext(item)
@@ -135,12 +143,43 @@ def rename_templates():
 def upload_boxes():
     """Looks for upload_boxes script in each directory and then executes it."""
     print 'Uploading all images.'
+    parent_path = os.getcwd()
+    for root, dirs, files in os.walk(parent_path):
+        if root != parent_path:
+            for item in files:
+                if item == 'upload_boxes.sh':
+                    print 'Executing upload_boxes.sh in {0}'.format(root)
+                    os.chdir(root)
+                    os.system('./{0}'.format(item))
+
+
+def commit_manifests(repo_facts):
+    repo_path = os.getcwd()
+    repo = git.Repo(repo_path)
+    commit = False
+    for item in repo_facts['changed_files']:
+        if 'manifest.json' in item:
+            repo.index.add([item])
+            commit = True
+    for item in repo_facts['untracked_files']:
+        if 'manifest.json' in item:
+            repo.index.add([item])
+            commit = True
+    if commit:
+        commit_date = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        commit_msg = '{} - Manifest Updates'.format(commit_date)
+        repo.git.commit('-m', '{}'.format(commit_msg))
+        repo.git.push()
+
+
+def view_manifests():
     for root, dirs, files in os.walk(os.getcwd()):
-        for item in files:
-            if item == 'upload_boxes.sh':
-                print 'Executing upload_boxes.sh in {0}'.format(root)
-                os.chdir(root)
-                os.system('./{0}'.format(item))
+        for index, item in enumerate(files):
+            if item == 'manifest.json':
+                json_file = os.path.join(root, item)
+                with open(json_file, 'r') as stream:
+                    data = json.load(stream)
+                    print json.dumps(data, indent=4)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 {
   "boot_command_prefix": "text ks",
-  "iso_checksum": "56f7b078a3b443095ba006cdc85319c691251cda98c5d73d12ef6db7aff6b4c1",
+  "iso_checksum": "7c0dee2a0494dabd84809b72ddb4b761f9ef92b78a506aef709b531c54d30770",
   "iso_checksum_type": "sha256",
-  "iso_url": "http://centos.mirror.constant.com/6.10/isos/x86_64/CentOS-6.10-x86_64-netinstall.iso",
+  "iso_url": "http://centos.mirror.constant.com/6.10/isos/x86_64/CentOS-6.10-x86_64-minimal.iso",
   "vm_name": "centos6-server-packer-template"
 }

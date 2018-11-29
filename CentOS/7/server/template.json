@@ -1,7 +1,7 @@
 {
   "boot_command_prefix": "inst.text inst.ks",
-  "iso_checksum": "937bf0a7b0932817f84f7230f15ed88911bbbd85c0c958680792b7f8d8f9c1a9",
+  "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
   "iso_checksum_type": "sha256",
-  "iso_url": "http://centos.mirror.constant.com/7.5.1804/isos/x86_64/CentOS-7-x86_64-NetInstall-1804.iso",
+  "iso_url": "http://centos.mirror.constant.com/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
   "vm_name": "centos7-server-packer-template"
 }

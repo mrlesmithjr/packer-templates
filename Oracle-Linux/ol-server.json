@@ -43,7 +43,7 @@
     },
     {
       "boot_command": [
-        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
+        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ol/ks.cfg <enter><wait>"
       ],
       "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",

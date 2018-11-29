@@ -5,13 +5,14 @@ set -x
 os="$(facter operatingsystem)"
 os_family="$(facter osfamily)"
 os_release="$(facter operatingsystemrelease)"
+os_release_major="$(facter operatingsystemrelease | awk -F. '{ print $1 }')"
 USERNAME=vagrant
 
 if [[ $os_family = "Debian" ]]; then
     if [[ $os = "Debian" ]]; then
         echo "==> Installing ubuntu-desktop"
         sudo apt-get install -y --no-install-recommends gnome-core xorg
-        if [[ $os_release < 9 ]]; then
+        if [ $os_release_major < 9 ]; then
             GDM_CONFIG=/etc/gdm/daemon.conf
         else
             GDM_CONFIG=/etc/gdm3/daemon.conf
@@ -28,7 +29,7 @@ if [[ $os_family = "Debian" ]]; then
         elif [[ $os = "Ubuntu" ]]; then
         echo "==> Installing ubuntu-desktop"
         sudo apt-get install -y --no-install-recommends ubuntu-desktop
-        if [[ $os_release < 17.10 ]]; then
+        if [ $os_release_major < 17 ]; then
             GDM_CUSTOM_CONFIG=/etc/gdm/custom.conf
             LIGHTDM_CONFIG=/etc/lightdm/lightdm.conf
             echo "==> Configuring lightdm autologin"
@@ -45,7 +46,7 @@ if [[ $os_family = "Debian" ]]; then
     fi
     elif [[ $os_family == "RedHat" ]]; then
     if [[ $os = "CentOS" ]]; then
-        if [[ $os_release > 6 ]]; then
+        if [ $os_release_major > 6 ]; then
             sudo yum -y groupinstall "X Window System"
             sudo yum -y install gnome-classic-session gnome-terminal \
             nautilus-open-terminal control-center liberation-mono-fonts

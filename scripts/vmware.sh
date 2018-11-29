@@ -5,6 +5,8 @@ set -x
 
 os="$(facter operatingsystem)"
 os_family="$(facter osfamily)"
+os_release="$(facter operatingsystemrelease)"
+os_release_major="$(facter operatingsystemrelease | awk -F. '{ print $1 }')"
 
 if [ "$PACKER_BUILDER_TYPE" != "vmware-iso" ]; then
     exit 0
@@ -17,11 +19,16 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
         sudo yum -y install open-vm-tools
+        if [[ $os_release_major -ge 7 ]]; then
+            sudo /bin/systemctl restart vmtoolsd.service
+        else
+            sudo service vmtoolsd restart
+        fi
         
         elif [[ $os = "Fedora" ]]; then
         sudo dnf -y install open-vm-tools
+        sudo /bin/systemctl restart vmtoolsd.service
     fi
-    sudo /bin/systemctl restart vmtoolsd.service
     
     elif [[ $os_family = "Suse" ]]; then
     sudo zypper --non-interactive install open-vm-tools

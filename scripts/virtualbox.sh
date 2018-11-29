@@ -21,7 +21,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo apt-get install -y virtualbox-guest-utils
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         elif [[ $os = "Debian" ]]; then
-        if [ $os_release_major > 7 ]; then
+        if [[ $os_release_major -gt 7 ]]; then
             sudo mkdir -p /mnt/virtualbox
             sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
             sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
@@ -34,7 +34,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     if [[ $os = "Fedora" ]]; then
         sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo dnf -y groupinstall "Development Tools"
-        if [ $os_release_major > 28 ]; then
+        if [[ $os_release_major -gt 28 ]]; then
             sudo dnf -y remove virtualbox-guest-additions
         fi
     else

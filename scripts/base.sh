@@ -48,7 +48,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo apt-get clean
         sudo rm -r /var/lib/apt/lists/*
     fi
-    if [ $os_release_major > 6 ]; then
+    if [[ $os_release_major -gt 6 ]]; then
         sudo apt-get update
         sudo apt-get install -y python-minimal linux-headers-$(uname -r) \
         build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip

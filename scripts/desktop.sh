@@ -27,11 +27,6 @@ if [[ $os_family = "Debian" ]]; then
         # sudo bash -c "echo "[SeatDefaults]" >> $LIGHTDM_CONFIG"
         # sudo bash -c "echo "autologin-user=${USERNAME}" >> $LIGHTDM_CONFIG"
         elif [[ $os = "Ubuntu" ]]; then
-        # We need to create artifact to trigger open-vm-tools-desktop install
-        # Only applies to Ubuntu as of now.
-        if [ "$PACKER_BUILDER_TYPE" = "vmware-iso" ]; then
-            sudo touch /etc/vmware_desktop
-        fi
         echo "==> Installing ubuntu-desktop"
         sudo apt-get install -y --no-install-recommends ubuntu-desktop
         if [[ $os_release_major -lt 17 ]]; then
@@ -79,4 +74,9 @@ if [[ $os_family = "Debian" ]]; then
         sudo bash -c "echo "[SeatDefaults]" > $LIGHTDM_CONFIG"
         sudo bash -c "echo "autologin-user=${USERNAME}" >> $LIGHTDM_CONFIG"
     fi
+fi
+
+# We need to create artifact to trigger open-vm-tools-desktop install
+if [ "$PACKER_BUILDER_TYPE" = "vmware-iso" ]; then
+    sudo touch /etc/vmware_desktop
 fi

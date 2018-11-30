@@ -24,7 +24,11 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
-        sudo yum -y install open-vm-tools
+        if [ -f /etc/vmware_desktop ]; then
+            sudo yum -y install open-vm-tools-desktop
+        else
+            sudo yum -y install open-vm-tools
+        fi
         if [[ $os_release_major -ge 7 ]]; then
             sudo /bin/systemctl restart vmtoolsd.service
         else
@@ -32,7 +36,11 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         fi
         
         elif [[ $os = "Fedora" ]]; then
-        sudo dnf -y install open-vm-tools
+        if [ -f /etc/vmware_desktop ]; then
+            sudo dnf -y install open-vm-tools-desktop
+        else
+            sudo dnf -y install open-vm-tools
+        fi
         sudo /bin/systemctl restart vmtoolsd.service
     fi
     

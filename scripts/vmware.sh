@@ -14,7 +14,13 @@ fi
 
 # Debian/Ubuntu
 if [[ $os_family = "Debian" || $os = "Debian" ]]; then
-    sudo apt-get install -y open-vm-tools
+    # We look for this artifact for Ubuntu when desktop.sh script has been ran.
+    # Only Ubuntu experiences this issue so far. Debian desktops work fine.
+    if [ -f /etc/vmware_desktop ]; then
+        sudo apt-get install -y open-vm-tools-desktop
+    else
+        sudo apt-get install -y open-vm-tools
+    fi
     
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then

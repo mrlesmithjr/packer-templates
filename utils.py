@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import shutil
+import time
 import git
 
 __author__ = "Larry Smith Jr."
@@ -17,6 +18,9 @@ __status__ = "Development"
 # @mrlesmithjr
 
 logging.basicConfig(level=logging.INFO)
+
+
+BUILD_OLDER_THAN_DAYS = 30
 
 
 def main():
@@ -30,9 +34,15 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Packer template utils.")
     parser.add_argument(
         "action", help="Define action to take.", choices=[
-            'build_all', 'cleanup_builds', 'commit_manifests',
-            'rename_templates', 'repo_info', 'upload_boxes', 'view_manifests'])
+            'build_all', 'change_controller', 'cleanup_builds',
+            'commit_manifests', 'rename_templates',
+            'repo_info', 'upload_boxes', 'view_manifests'])
+    parser.add_argument('--controller',
+                        help='Define hard drive controller type',
+                        choices=['ide', 'sata', 'scsi'])
     args = parser.parse_args()
+    if args.action == 'change_controller' and args.controller is None:
+        parser.error('--controller is REQUIRED!')
     return args
 
 
@@ -40,6 +50,8 @@ def decide_action(args):
     """Make decision on what to do from arguments being passed."""
     if args.action == 'build_all':
         build_all()
+    elif args.action == 'change_controller':
+        change_controller(args)
     elif args.action == 'cleanup_builds':
         cleanup_builds()
     elif args.action == 'commit_manifests':
@@ -81,9 +93,39 @@ def build_all():
     for root, dirs, files in os.walk(os.getcwd()):
         for item in files:
             if item == 'build.sh':
-                print 'Executing build.sh in {0}'.format(root)
-                os.chdir(root)
-                os.system('./{0}'.format(item))
+                build_image = latest_build(root)
+                if build_image:
+                    print 'Executing build.sh in {0}'.format(root)
+                    os.chdir(root)
+                    os.system('./{0}'.format(item))
+
+
+def change_controller(args):
+    """Change hard drive controller type for all templates."""
+    controller_type = args.controller
+    for root, dirs, files in os.walk(os.getcwd()):
+        for index, item in enumerate(files):
+            filename, ext = os.path.splitext(item)
+            if ext == '.json':
+                try:
+                    json_file = os.path.join(root, item)
+                    with open(json_file, 'r') as stream:
+                        data = json.load(stream)
+                        try:
+                            controller = data['variables'][
+                                'vm_disk_adapter_type']
+                            if controller != controller_type:
+                                with open(json_file, 'r') as json_file_data:
+                                    read_data = json_file_data.read()
+                                    read_data = read_data.replace(
+                                        controller, controller_type)
+                                with open(json_file, 'w') as (
+                                        json_file_data):
+                                    json_file_data.write(read_data)
+                        except KeyError:
+                            pass
+                except TypeError:
+                    pass
 
 
 def cleanup_builds():
@@ -127,9 +169,9 @@ def rename_templates():
                                 read_data = build_script_data.read()
                                 read_data = read_data.replace(
                                     item, 'template.json')
-                                with open(build_script, 'w') as (
-                                        build_script_data):
-                                    build_script_data.write(read_data)
+                            with open(build_script, 'w') as (
+                                    build_script_data):
+                                build_script_data.write(read_data)
                             os.system('git add {0}'.format(build_script))
                             if item != 'template.json':
                                 os.system('git mv {0} {1}'.format(
@@ -180,6 +222,29 @@ def view_manifests():
                 with open(json_file, 'r') as stream:
                     data = json.load(stream)
                     print json.dumps(data, indent=4)
+
+
+def latest_build(root):
+    build_image = False
+    current_time_epoch = time.mktime(datetime.datetime.now().timetuple())
+    older_than_days_epoch = current_time_epoch - \
+        (86400 * BUILD_OLDER_THAN_DAYS)
+    older_than_days = int((older_than_days_epoch/86400) + 25569)
+    json_file = os.path.join(root, 'manifest.json')
+    if os.path.isfile(json_file):
+        with open(json_file, 'r') as stream:
+            data = json.load(stream)
+            last_run_uuid = data['last_run_uuid']
+            builds = data['builds']
+            for build in builds:
+                if build['packer_run_uuid'] == last_run_uuid:
+                    last_build_time_epoch = build['build_time']
+                    last_build_time = int(
+                        (last_build_time_epoch/86400) + 25569)
+                    if last_build_time < older_than_days:
+                        build_image = True
+                    break
+    return build_image
 
 
 if __name__ == '__main__':

@@ -244,6 +244,8 @@ def latest_build(root):
                     if last_build_time < older_than_days:
                         build_image = True
                     break
+    else:
+        build_image = True
     return build_image
 
 

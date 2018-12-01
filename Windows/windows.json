@@ -52,7 +52,7 @@
     {
       "boot_wait": "2m",
       "communicator": "winrm",
-      "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "floppy_files": [

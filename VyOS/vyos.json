@@ -68,7 +68,7 @@
       ],
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "Debian_64",
-      "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
+      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
       "headless": true,
       "http_directory": "http",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
@@ -135,7 +135,7 @@
         "sudo dpkg -i /tmp/linux-vyatta-kbuild_3.13.11-1+vyos1+helium14_amd64.deb<enter><wait10><wait10><wait10>",
         "sudo ln -s /usr/src/linux-image/debian/build/build-amd64-none-amd64-vyos \"/lib/modules/$(uname -r)/build\"<enter><wait10>"
       ],
-      "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "debian8-64",

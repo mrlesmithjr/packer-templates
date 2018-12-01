@@ -37,7 +37,7 @@
       ],
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "Debian_64",
-      "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
+      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
       "headless": true,
       "http_directory": "http",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
@@ -73,7 +73,7 @@
         "keyboard-configuration/xkb-keymap=us <wait>",
         "<enter><wait>"
       ],
-      "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "debian8-64",

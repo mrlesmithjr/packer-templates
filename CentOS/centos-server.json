@@ -23,7 +23,7 @@
       ],
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "RedHat_64",
-      "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
+      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
       "headless": true,
       "http_directory": "http",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
@@ -45,7 +45,7 @@
       "boot_command": [
         "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
       ],
-      "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "centos-64",

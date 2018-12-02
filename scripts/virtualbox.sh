@@ -67,6 +67,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         echo vboxsf >> /etc/modules
         apk add nfs-utils || true
         rc-update add rpc.statd
+        rc-update add nfsmount
     fi
     elif [[ $os_family = "Archlinux" ]]; then
     sudo /usr/bin/pacman -S --noconfirm linux-headers virtualbox-guest-utils virtualbox-guest-modules-arch nfs-utils

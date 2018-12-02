@@ -93,11 +93,19 @@ def build_all():
     for root, dirs, files in os.walk(os.getcwd()):
         for item in files:
             if item == 'build.sh':
-                build_image = latest_build(root)
-                if build_image:
-                    print 'Executing build.sh in {0}'.format(root)
-                    os.chdir(root)
-                    os.system('./{0}'.format(item))
+                with open(os.path.join(root, 'box_info.json'),
+                          'r') as box_info:
+                    data = json.load(box_info)
+                    try:
+                        auto_build = data['auto_build']
+                    except KeyError:
+                        auto_build = True
+                if auto_build:
+                    build_image = latest_build(root)
+                    if build_image:
+                        print 'Executing build.sh in {0}'.format(root)
+                        os.chdir(root)
+                        os.system('./{0}'.format(item))
 
 
 def change_controller(args):

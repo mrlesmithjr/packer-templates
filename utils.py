@@ -50,6 +50,7 @@ def decide_action(args):
     """Make decision on what to do from arguments being passed."""
     if args.action == 'build_all':
         build_all()
+        upload_boxes()
     elif args.action == 'change_controller':
         change_controller(args)
     elif args.action == 'cleanup_builds':

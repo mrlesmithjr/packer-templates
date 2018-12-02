@@ -1,0 +1,13 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1543781530,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "74828fd5-11b3-88fa-ce40-677127175b4b"
+    }
+  ],
+  "last_run_uuid": "74828fd5-11b3-88fa-ce40-677127175b4b"
+}

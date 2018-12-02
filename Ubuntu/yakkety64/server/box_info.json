@@ -1,5 +1,5 @@
 {
-  "auto_build": false,
+  "auto_build": "False",
   "box_tag": "mrlesmithjr/yakkety64",
   "short_description": "Ubuntu Yakkety"
 }

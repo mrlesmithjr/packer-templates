@@ -98,7 +98,7 @@ def build_all():
                           'r') as box_info:
                     data = json.load(box_info)
                     try:
-                        auto_build = data['auto_build']
+                        auto_build = bool(data['auto_build'])
                     except KeyError:
                         auto_build = True
                 if auto_build:

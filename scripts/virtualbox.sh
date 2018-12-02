@@ -28,6 +28,13 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
             sudo umount /mnt/virtualbox
             sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         fi
+        if [ -f /etc/vyos_build ]; then
+            sudo mkdir -p /mnt/virtualbox
+            sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
+            sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+            sudo umount /mnt/virtualbox
+            sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+        fi
     fi
     
     elif [[ $os_family = "RedHat" ]]; then

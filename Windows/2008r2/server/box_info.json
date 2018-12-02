@@ -1,4 +1,5 @@
 {
+  "auto_build": "False",
   "box_tag": "mrlesmithjr/windows2008r2",
   "short_description": "Windows 2008 R2 Server"
 }

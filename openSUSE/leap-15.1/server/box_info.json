@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "opensuse-leap151",
   "box_tag": "mrlesmithjr/opensuse-leap151",
+  "description": "openSUSE Leap 15.1",
+  "private": "False",
   "short_description": "openSUSE Leap 15.1"
 }

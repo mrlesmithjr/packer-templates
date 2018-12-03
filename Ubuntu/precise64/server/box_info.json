@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "precise64",
   "box_tag": "mrlesmithjr/precise64",
-  "short_description": "Ubuntu Precise"
+  "description": "Ubuntu 12.04 (Precise Pangolin) Server",
+  "private": "False",
+  "short_description": "Ubuntu Precise Server"
 }

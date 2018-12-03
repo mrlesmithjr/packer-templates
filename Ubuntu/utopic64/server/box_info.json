@@ -1,5 +1,8 @@
 {
   "auto_build": "False",
+  "box_name": "utopic64",
   "box_tag": "mrlesmithjr/utopic64",
-  "short_description": "Ubuntu Utopic"
+  "description": "Ubuntu 14.10 (Utopic Unicorn) Server",
+  "private": "False",
+  "short_description": "Ubuntu Utopic Server"
 }

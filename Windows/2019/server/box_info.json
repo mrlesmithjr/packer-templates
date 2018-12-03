@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "windows2019",
   "box_tag": "mrlesmithjr/windows2019",
+  "description": "Windows 2019 Server",
+  "private": "False",
   "short_description": "Windows 2019 Server"
 }

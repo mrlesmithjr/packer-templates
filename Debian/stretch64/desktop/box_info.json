@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "stretch64-desktop",
   "box_tag": "mrlesmithjr/stretch64-desktop",
+  "description": "Debian Stretch Desktop",
+  "private": "False",
   "short_description": "Debian Stretch Desktop"
 }

@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "ol7",
   "box_tag": "mrlesmithjr/ol7",
+  "description": "Oracle Linux 7",
+  "private": "False",
   "short_description": "Oracle Linux 7"
 }

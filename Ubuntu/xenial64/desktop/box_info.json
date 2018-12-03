@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "xenial64-desktop",
   "box_tag": "mrlesmithjr/xenial64-desktop",
+  "description": "Ubuntu 16.04 (Xenial Xerus) Desktop",
+  "private": "False",
   "short_description": "Ubuntu Xenial Desktop"
 }

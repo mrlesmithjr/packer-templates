@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "vyos118",
   "box_tag": "mrlesmithjr/vyos118",
+  "description": "VyOS 1.1.8",
+  "private": "False",
   "short_description": "VyOS 1.1.8"
 }

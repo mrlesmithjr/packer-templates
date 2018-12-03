@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "fedora22",
   "box_tag": "mrlesmithjr/fedora22",
+  "description": "Fedora 22",
+  "private": "False",
   "short_description": "Fedora 22"
 }

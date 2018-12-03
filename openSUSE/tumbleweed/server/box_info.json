@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "opensuse-tumbleweed",
   "box_tag": "mrlesmithjr/opensuse-tumbleweed",
+  "description": "openSUSE Tumbleweed",
+  "private": "False",
   "short_description": "openSUSE Tumbleweed"
 }

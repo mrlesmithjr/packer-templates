@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "trusty64",
   "box_tag": "mrlesmithjr/trusty64",
-  "short_description": "Ubuntu Trusty"
+  "description": "Ubuntu 14.04 (Trusty Tahr) Server",
+  "private": "False",
+  "short_description": "Ubuntu Trusty Server"
 }

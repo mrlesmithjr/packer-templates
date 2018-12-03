@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "fedora27",
   "box_tag": "mrlesmithjr/fedora27",
+  "description": "Fedora 27",
+  "private": "False",
   "short_description": "Fedora 27"
 }

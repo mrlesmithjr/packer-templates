@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "trusty64-desktop",
   "box_tag": "mrlesmithjr/trusty64-desktop",
+  "description": "Ubuntu 14.04 (Trusty Tahr) Desktop",
+  "private": "False",
   "short_description": "Ubuntu Trusty Desktop"
 }

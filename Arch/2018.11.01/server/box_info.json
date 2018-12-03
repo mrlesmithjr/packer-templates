@@ -1,5 +1,8 @@
 {
   "auto_build": "False",
+  "box_name": "arch20181101",
   "box_tag": "mrlesmithjr/arch20181101",
+  "description": "Arch Linux 2018.11.01",
+  "private": "False",
   "short_description": "Arch Linux 2018.11.01"
 }

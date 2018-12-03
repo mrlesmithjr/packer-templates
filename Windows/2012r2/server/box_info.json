@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "windows2012r2",
   "box_tag": "mrlesmithjr/windows2012r2",
+  "description": "Windows 2012 R2 Server",
+  "private": "False",
   "short_description": "Windows 2012 R2 Server"
 }

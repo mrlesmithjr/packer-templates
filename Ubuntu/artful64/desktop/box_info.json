@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "artful64-desktop",
   "box_tag": "mrlesmithjr/artful64-desktop",
+  "description": "Ubuntu 17.10 (Artful Aardvark) Desktop",
+  "private": "False",
   "short_description": "Ubuntu Artful Desktop"
 }

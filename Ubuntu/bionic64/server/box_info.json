@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "bionic64",
   "box_tag": "mrlesmithjr/bionic64",
-  "short_description": "Ubuntu Bionic"
+  "description": "Ubuntu 18.04 (Bionic Beaver) Server",
+  "private": "False",
+  "short_description": "Ubuntu Bionic Server"
 }

@@ -1,5 +1,8 @@
 {
   "auto_build": "False",
+  "box_name": "yakkety64",
   "box_tag": "mrlesmithjr/yakkety64",
-  "short_description": "Ubuntu Yakkety"
+  "description": "Ubuntu 16.10 (Yakkety Yak) Server",
+  "private": "False",
+  "short_description": "Ubuntu Yakkety Server"
 }

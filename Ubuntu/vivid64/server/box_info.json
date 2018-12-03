@@ -1,5 +1,8 @@
 {
   "auto_build": "False",
+  "box_name": "vivid64",
   "box_tag": "mrlesmithjr/vivid64",
-  "short_description": "Ubuntu Vivid"
+  "description": "Ubuntu 15.04 (Vivid Vervet) Server",
+  "private": "False",
+  "short_description": "Ubuntu Vivid Server"
 }

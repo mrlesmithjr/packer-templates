@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "cosmic64",
   "box_tag": "mrlesmithjr/cosmic64",
-  "short_description": "Ubuntu Cosmic"
+  "description": "Ubuntu 18.10 (Cosmic Cuttlefish) Server",
+  "private": "False",
+  "short_description": "Ubuntu Cosmic Server"
 }

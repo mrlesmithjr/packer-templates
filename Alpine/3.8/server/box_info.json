@@ -1,4 +1,8 @@
 {
+  "auto_build": "True",
+  "box_name": "alpine38",
   "box_tag": "mrlesmithjr/alpine38",
+  "description": "Alpine Linux 3.8",
+  "private": "False",
   "short_description": "Alpine Linux 3.8"
 }

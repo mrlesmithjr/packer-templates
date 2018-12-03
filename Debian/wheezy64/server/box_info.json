@@ -1,4 +1,8 @@
 {
-  "box_tag": "mrlesmithjr/centos7",
-  "short_description": "CentOS 7"
+  "auto_build": "True",
+  "box_name": "wheezy64",
+  "box_tag": "mrlesmithjr/wheezy64",
+  "description": "Debian Wheezy",
+  "private": "False",
+  "short_description": "Debian Wheezy"
 }

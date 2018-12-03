@@ -20,51 +20,52 @@ do
     PROVIDER_NAME=$(echo $BOX_FULL_NAME | awk -F- '{ print $5 }')
     VERSION=$(echo $BOX_FULL_NAME | awk -F- '{ print $6 }')
     
+    # Moved to utils.py
     # Check if box exists
-    BOX_CHECK=$(curl -s \
-        --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-    https://app.vagrantup.com/api/v1/box/$BOX_TAG)
+    # BOX_CHECK=$(curl -s \
+    #     --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+    # https://app.vagrantup.com/api/v1/box/$BOX_TAG)
     
-    BOX_CHECK_ERRORS=$(echo $BOX_CHECK | jq .errors)
+    # BOX_CHECK_ERRORS=$(echo $BOX_CHECK | jq .errors)
     
-    if [[ $BOX_CHECK_ERRORS != null ]]; then
-        # Create box if it does not exist
-        echo -e "\n$BOX_TAG not found...Creating."
-        CREATE_BOX=$(curl -s \
-            --header "Content-Type: application/json" \
-            --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-            https://app.vagrantup.com/api/v1/boxes \
-            --data '
-            {
-                "box": {
-                    "username": "'"$USERNAME"'",
-                    "name": "'"$BOX_NAME"'",
-                    "is_private": false,
-                    "short_description": "'"$BOX_SHORT_DESCR"'",
-                    "description": "'"$BOX_SHORT_DESCR"'"
-                }
-            }
-        ')
-    else
-        # Update box
-        echo -e "box: $BOX_TAG already exists...Skipping creation."
-        echo -e "box: $BOX_TAG updating box info."
-        UPDATE_BOX=$(curl -s \
-            --header "Content-Type: application/json" \
-            --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-            https://app.vagrantup.com/api/v1/box/$BOX_TAG \
-            --request PUT \
-            --data '
-            {
-                "box": {
-                    "name": "'"$BOX_NAME"'",
-                    "short_description": "'"$BOX_SHORT_DESCR"'",
-                    "description": "'"$BOX_SHORT_DESCR"'",
-                    "is_private": false
-                }
-            }
-        ')
-    fi
+    # if [[ $BOX_CHECK_ERRORS != null ]]; then
+    #     # Create box if it does not exist
+    #     echo -e "\n$BOX_TAG not found...Creating."
+    #     CREATE_BOX=$(curl -s \
+    #         --header "Content-Type: application/json" \
+    #         --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+    #         https://app.vagrantup.com/api/v1/boxes \
+    #         --data '
+    #         {
+    #             "box": {
+    #                 "username": "'"$USERNAME"'",
+    #                 "name": "'"$BOX_NAME"'",
+    #                 "is_private": false,
+    #                 "short_description": "'"$BOX_SHORT_DESCR"'",
+    #                 "description": "'"$BOX_SHORT_DESCR"'"
+    #             }
+    #         }
+    #     ')
+    # else
+    #     # Update box
+    #     echo -e "box: $BOX_TAG already exists...Skipping creation."
+    #     echo -e "box: $BOX_TAG updating box info."
+    #     UPDATE_BOX=$(curl -s \
+    #         --header "Content-Type: application/json" \
+    #         --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+    #         https://app.vagrantup.com/api/v1/box/$BOX_TAG \
+    #         --request PUT \
+    #         --data '
+    #         {
+    #             "box": {
+    #                 "name": "'"$BOX_NAME"'",
+    #                 "short_description": "'"$BOX_SHORT_DESCR"'",
+    #                 "description": "'"$BOX_SHORT_DESCR"'",
+    #                 "is_private": false
+    #             }
+    #         }
+    #     ')
+    # fi
     
     # Check if version already exists
     VERSION_CHECK=$(curl -s \

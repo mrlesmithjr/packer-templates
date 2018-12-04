@@ -166,7 +166,8 @@ def get_box(box_info):
                 if response.status_code == 200:
                     update_box(priv_data, box_info)
                     current_time = datetime.now()
-                    try:
+                    current_version = json_data['current_version']
+                    if current_version is not None:
                         last_updated_str = json_data['current_version'][
                             'updated_at']
                         last_updated_object = datetime.strptime(
@@ -175,8 +176,8 @@ def get_box(box_info):
                             current_time - last_updated_object).days
                         if since_updated_days > BUILD_OLDER_THAN_DAYS:
                             build_image = True
-                    except TypeError:
-                        pass
+                    else:
+                        build_image = True
                 elif response.status_code == 404:
                     print 'Box missing'
                     create_box(priv_data, box_info)

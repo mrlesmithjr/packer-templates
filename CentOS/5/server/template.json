@@ -1,0 +1,8 @@
+{
+  "boot_command_prefix": "text ks",
+  "iso_checksum": "b6eb0565b636513b90663ff01c6ec4da5058baff0d7d4007d187be997dd985f8",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://archive.kernel.org/centos-vault/5.11/isos/x86_64/CentOS-5.11-x86_64-bin-DVD-1of2.iso",
+  "kickstart_cfg": "ks.5.cfg",
+  "vm_name": "centos5-server-packer-template"
+}

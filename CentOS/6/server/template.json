@@ -3,5 +3,6 @@
   "iso_checksum": "7c0dee2a0494dabd84809b72ddb4b761f9ef92b78a506aef709b531c54d30770",
   "iso_checksum_type": "sha256",
   "iso_url": "http://centos.mirror.constant.com/6.10/isos/x86_64/CentOS-6.10-x86_64-minimal.iso",
+  "kickstart_cfg": "ks.cfg",
   "vm_name": "centos6-server-packer-template"
 }

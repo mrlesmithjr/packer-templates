@@ -5,6 +5,8 @@ set -x
 
 os="$(facter operatingsystem)"
 os_family="$(facter osfamily)"
+os_release="$(facter operatingsystemrelease)"
+os_release_major="$(facter operatingsystemrelease | awk -F. '{ print $1 }')"
 
 if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     sudo apt-get clean
@@ -22,7 +24,15 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
 fi
 
 if [[ $os_family != "Archlinux" ]]; then
-    sudo service rsyslog stop
+    if [[ $os != "CentOS" ]]; then
+        sudo service rsyslog stop
+    else
+        if [[ $os == "CentOS" ]];then
+            if [[ $os_release_major -ge 6 ]];then
+                sudo service rsyslog stop
+            fi
+        fi
+    fi
 fi
 
 #clear audit logs

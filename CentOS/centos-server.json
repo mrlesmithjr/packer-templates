@@ -6,6 +6,7 @@
     "iso_checksum": "",
     "iso_checksum_type": "",
     "iso_url": "",
+    "kickstart_cfg": "",
     "vagrant_cloud_token": "",
     "vagrant_cloud_username": "",
     "vm_disk_adapter_type": "scsi",
@@ -19,7 +20,7 @@
   "builders": [
     {
       "boot_command": [
-        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
+        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/{{ user `kickstart_cfg` }}<enter><wait>"
       ],
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "RedHat_64",
@@ -43,7 +44,7 @@
     },
     {
       "boot_command": [
-        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
+        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/{{ user `kickstart_cfg` }}<enter><wait>"
       ],
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
@@ -59,6 +60,7 @@
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "ssh_wait_timeout": "60m",
+      "tools_upload_flavor": "linux",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {

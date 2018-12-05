@@ -24,14 +24,28 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
-        if [ -f /etc/vmware_desktop ]; then
-            sudo yum -y install open-vm-tools-desktop
-        else
-            sudo yum -y install open-vm-tools
+        if [[ $os_release_major -ge 6 ]]; then
+            if [ -f /etc/vmware_desktop ]; then
+                sudo yum -y install open-vm-tools-desktop
+            else
+                sudo yum -y install open-vm-tools
+            fi
+            elif [[ $os_release_major -eq 5 ]];then
+            export PATH=$PATH:/sbin
+            sudo yum -y install net-tools perl
+            sudo mkdir -p /mnt/vmware
+            sudo mount -o loop /home/vagrant/linux.iso /mnt/vmware
+            cd /tmp
+            cp /mnt/vmware/VMwareTools-*.gz .
+            tar zxvf VMwareTools-*.gz
+            sudo ./vmware-tools-distrib/vmware-install.pl --default
+            sudo umount /mnt/vmware
+            sudo rm -rf /home/vagrant/linux.iso
         fi
+        
         if [[ $os_release_major -ge 7 ]]; then
             sudo /bin/systemctl restart vmtoolsd.service
-        else
+            elif [[ $os_release_major -eq 6 ]]; then
             sudo service vmtoolsd restart
         fi
         

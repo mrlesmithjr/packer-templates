@@ -5,6 +5,47 @@ set -x
 
 # The below is only specific to Fedora 22 as of right now. All other later
 # versions do not have issues with facter.
+if [[ ! -f /etc/os-release || -f /etc/redhat-release ]];then
+    os_name="$(awk '{ print $1 }' /etc/redhat-release | sed 's/"//g')"
+    os_version_id="$(awk '{ print $3 }' /etc/redhat-release | sed 's/"//g')"
+    if [[ $os_name = "CentOS" ]];then
+        if [[ $os_version_id = 5.11 ]];then
+            for F in /etc/yum.repos.d/*.repo; do
+                sudo bash -c "echo '# EOL DISTRO' > $F"
+            done
+cat <<_EOF_ | sudo bash -c "cat > /etc/yum.repos.d/Vault.repo"
+[base]
+name=CentOS-5.11 - Base
+baseurl=http://vault.centos.org/5.11/os/\$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
+[updates]
+name=CentOS-5.11 - Updates
+baseurl=http://vault.centos.org/5.11/updates/\$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
+[extras]
+name=CentOS-5.11 - Extras
+baseurl=http://vault.centos.org/5.11/extras/\$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
+[centosplus]
+name=CentOS-5.11 - Plus
+baseurl=http://vault.centos.org/5.11/centosplus/\$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+enabled=1
+_EOF_
+            sudo yum -y update
+            sudo yum -y install epel-release
+            sudo yum -y install facter perl rsyslog sudo wget
+        fi
+    fi
+fi
+
 if [ -f /etc/os-release ]; then
     os_name="$(awk -F= '/^NAME/{ print $2 }' /etc/os-release | sed 's/"//g')"
     os_version_id="$(awk -F= '/^VERSION_ID/{ print $2}' /etc/os-release | sed 's/"//g')"

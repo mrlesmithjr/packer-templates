@@ -21,6 +21,12 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     else
         sudo apt-get install -y open-vm-tools
     fi
+    if [[ $os -eq "Ubuntu" ]];then
+        if [[ $os_release_major -ge 18 ]];then
+            # This is the fix for https://kb.vmware.com/s/article/56409
+            sudo bash -c "sed -i '2iAfter=dbus.service' /lib/systemd/system/open-vm-tools.service"
+        fi
+    fi
     
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then

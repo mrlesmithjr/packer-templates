@@ -16,7 +16,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         set -e
         sudo apt-get install -y virtualbox-guest-utils
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-        
+
         elif [[ $os = "LinuxMint" ]]; then
         sudo apt-get install -y virtualbox-guest-utils
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
@@ -36,7 +36,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
             sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         fi
     fi
-    
+
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os = "Fedora" ]]; then
         sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
@@ -49,12 +49,17 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
     fi
+    if [ -f /etc/virtualbox_desktop ] && [[ "$os" = "CentOS" ]]; then
+        TEST_GUEST_ADDITIONS="VBoxGuestAdditions_5.2.23-127309.iso"
+        sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+        wget https://www.virtualbox.org/download/testcase/$TEST_GUEST_ADDITIONS -O /home/vagrant/$TEST_GUEST_ADDITIONS
+    fi
     sudo mkdir -p /mnt/virtualbox
     sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
     sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
     sudo umount /mnt/virtualbox
     sudo rm -rf /home/vagrant/VBoxGuest*.iso
-    
+
     elif [[ $os_family = "Suse" || $os = *openSUSE* ]]; then
     sudo zypper --non-interactive install gcc kernel-devel \
     make bzip2 perl
@@ -63,7 +68,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
     sudo umount /mnt/virtualbox
     sudo rm -rf /root/VBoxGuest*.iso
-    
+
     elif [[ $os_family = "Linux" ]]; then
     if [[ $os = "Alpine" ]]; then
         if [[ $os_release = 3.7.1 ]]; then

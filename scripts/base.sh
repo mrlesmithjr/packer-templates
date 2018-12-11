@@ -91,10 +91,10 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     fi
     if [[ $os_release_major -gt 6 ]]; then
         sudo apt-get update
-        sudo apt-get install -y python-minimal linux-headers-$(uname -r) \
+        sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
         build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
     fi
-    
+
     # Check for /etc/rc.local and create if needed. This has been depricated in
     # Debian 9 and later. So we need to resolve this in order to regenerate SSH host
     # keys.
@@ -112,11 +112,11 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo bash -c "echo 'test -f /etc/ssh/ssh_host_dsa_key || dpkg-reconfigure openssh-server' >> /etc/rc.local"
         sudo bash -c "echo 'exit 0' >> /etc/rc.local"
     fi
-    
+
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
         sudo yum -y install python-devel
-        
+
         elif [[ $os = "Fedora" ]]; then
         if [[ $os_version_id -ge 22 ]]; then
             sudo dnf -y install python-devel python-dnf

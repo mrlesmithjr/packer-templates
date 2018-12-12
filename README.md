@@ -1,6 +1,30 @@
-# packer-templates
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-<!-- TOC -->autoauto- [packer-templates](#packer-templates)auto    - [Purpose](#purpose)auto    - [Information](#information)auto    - [Requirements](#requirements)auto        - [Software](#software)auto    - [Usage](#usage)auto        - [Building a box](#building-a-box)auto            - [Select distro](#select-distro)auto            - [Build distro](#build-distro)auto        - [Testing a box](#testing-a-box)auto            - [Add box to Vagrant](#add-box-to-vagrant)auto            - [Create Vagrantfile](#create-vagrantfile)auto            - [Spin it up](#spin-it-up)auto            - [Test it out](#test-it-out)auto            - [Tear it down](#tear-it-down)auto        - [Cleaning up](#cleaning-up)auto        - [Using pre-built and ready for consumption Vagrant templates](#using-pre-built-and-ready-for-consumption-vagrant-templates)auto    - [License](#license)auto    - [Author Information](#author-information)autoauto<!-- /TOC -->
+- [packer-templates](#packer-templates)
+  - [Purpose](#purpose)
+  - [Information](#information)
+  - [Requirements](#requirements)
+    - [Software](#software)
+  - [Usage](#usage)
+    - [Building a box](#building-a-box)
+      - [Select distro](#select-distro)
+      - [Build distro](#build-distro)
+    - [Testing a box](#testing-a-box)
+      - [Add box to Vagrant](#add-box-to-vagrant)
+      - [Create Vagrantfile](#create-vagrantfile)
+      - [Spin it up](#spin-it-up)
+      - [Test it out](#test-it-out)
+      - [Tear it down](#tear-it-down)
+    - [Cleaning up](#cleaning-up)
+    - [Using pre-built and ready for consumption Vagrant templates](#using-pre-built-and-ready-for-consumption-vagrant-templates)
+  - [License](#license)
+  - [Author Information](#author-information)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# packer-templates
 
 ## Purpose
 

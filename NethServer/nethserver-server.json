@@ -74,6 +74,7 @@
       "type": "shell",
       "scripts": [
         "scripts/base.sh",
+        "scripts/nethserver.sh",
         "scripts/vagrant.sh",
         "scripts/virtualbox.sh",
         "scripts/vmware.sh",

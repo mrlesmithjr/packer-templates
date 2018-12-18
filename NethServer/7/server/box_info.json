@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "nethserver7",
+  "box_tag": "mrlesmithjr/nethserver7",
+  "description": "NethServer 7",
+  "private": "False",
+  "short_description": "NethServer 7"
+}

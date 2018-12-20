@@ -35,6 +35,8 @@ if [[ $os_family = "Debian" ]]; then
             echo "==> Configuring lightdm autologin"
             sudo bash -c "echo "[SeatDefaults]" >> $LIGHTDM_CONFIG"
             sudo bash -c "echo "autologin-user=${USERNAME}" >> $LIGHTDM_CONFIG"
+            # Fix issue with Unity apps not showing up
+            sudo apt-get install -y unity-lens-applications unity-lens-files
         else
             GDM_CUSTOM_CONFIG=/etc/gdm3/custom.conf
         fi

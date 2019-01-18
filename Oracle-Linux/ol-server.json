@@ -48,7 +48,7 @@
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
-      "guest_os_type": "oracle-64",
+      "guest_os_type": "oraclelinux7-64",
       "headless": true,
       "http_directory": "http",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",

@@ -1,0 +1,9 @@
+{
+  "alpine_system_part": "/dev/sda2",
+  "alpine_version": "3.9",
+  "boot_command_prefix": "",
+  "iso_checksum": "e87e0256d10ca2125455fb5023687b2346740a8cbae54972312fe1626f07494c",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/x86_64/alpine-virt-3.9.0-x86_64.iso",
+  "vm_name": "alpine39-server-packer-template"
+}

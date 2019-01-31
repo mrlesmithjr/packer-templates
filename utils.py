@@ -7,7 +7,7 @@ import json
 import logging
 import os
 import shutil
-import time
+# import time
 import requests
 import git
 
@@ -329,11 +329,17 @@ def upload_boxes():
     """Looks for upload_boxes script in each directory and then executes it."""
     print 'Uploading all images.'
     for root, dirs, files in os.walk(SCRIPT_DIR):
+        box_found = False
         if root != SCRIPT_DIR:
             if 'upload_boxes.sh' in files:
-                print 'Executing upload_boxes.sh in {0}'.format(root)
-                os.chdir(root)
-                os.system('./{0}'.format('upload_boxes.sh'))
+                for _file in files:
+                    if _file.endswith('.box'):
+                        box_found = True
+                        break
+                if box_found:
+                    print 'Executing upload_boxes.sh in {0}'.format(root)
+                    os.chdir(root)
+                    os.system('./{0}'.format('upload_boxes.sh'))
 
 
 def commit_manifests(repo_facts):

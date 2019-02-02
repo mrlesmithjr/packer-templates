@@ -36,7 +36,7 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
-      "cpus": "{{ user `vm_vcpu ` }}",
+      "cpus": "{{ user `vm_vcpu` }}",
       "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "{{user `guest_os_type`}}",

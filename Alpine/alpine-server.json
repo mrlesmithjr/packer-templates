@@ -55,7 +55,7 @@
         "reboot<enter>"
       ],
       "boot_wait": "30s",
-      "cpus": "{{ user `vm_vcpu ` }}",
+      "cpus": "{{ user `vm_vcpu` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "Linux26_64",
       "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
@@ -109,7 +109,7 @@
         "reboot<enter>"
       ],
       "boot_wait": "30s",
-      "cpus": "{{ user `vm_vcpu ` }}",
+      "cpus": "{{ user `vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,

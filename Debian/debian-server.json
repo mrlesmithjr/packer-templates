@@ -35,7 +35,7 @@
         "keyboard-configuration/xkb-keymap=us <wait>",
         "<enter><wait>"
       ],
-      "cpus": "{{ user `vm_vcpu ` }}",
+      "cpus": "{{ user `vm_vcpu` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "Debian_64",
       "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
@@ -71,7 +71,7 @@
         "keyboard-configuration/xkb-keymap=us <wait>",
         "<enter><wait>"
       ],
-      "cpus": "{{ user `vm_vcpu ` }}",
+      "cpus": "{{ user `vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,

@@ -22,9 +22,10 @@
     {
       "boot_wait": "2m",
       "communicator": "winrm",
+      "cpus": "{{ user `windows_vm_vcpu ` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "floppy_files": [
-        "{{user `autounattend`}}",
+        "{{ user `autounattend` }}",
         "scripts/bootstrap.ps1",
         "scripts/oracle-cert.cer"
       ],
@@ -35,13 +36,10 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `windows_vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "{{ user `windows_vm_memory` }}"],
-        ["modifyvm", "{{.Name}}", "--cpus", "{{ user `windows_vm_vcpu` }}"]
-      ],
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "winrm_insecure": true,
       "winrm_password": "{{ user `vm_winrm_password` }}",
@@ -52,11 +50,12 @@
     {
       "boot_wait": "2m",
       "communicator": "winrm",
+      "cpus": "{{ user `windows_vm_vcpu ` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "floppy_files": [
-        "{{user `autounattend`}}",
+        "{{ user `autounattend` }}",
         "scripts/bootstrap.ps1",
         "scripts/oracle-cert.cer"
       ],
@@ -65,6 +64,7 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `windows_vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "tools_upload_flavor": "windows",
@@ -72,8 +72,6 @@
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {
-        "memsize": "{{ user `windows_vm_memory` }}",
-        "numvcpus": "{{ user `vm_vcpu` }}",
         "scsi0.virtualDev": "lsisas1068"
       },
       "winrm_insecure": true,

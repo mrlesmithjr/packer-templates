@@ -55,6 +55,7 @@
         "reboot<enter>"
       ],
       "boot_wait": "30s",
+      "cpus": "{{ user `vm_vcpu ` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "Linux26_64",
       "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
@@ -63,16 +64,13 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "/sbin/poweroff",
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "ssh_wait_timeout": "60m",
       "type": "virtualbox-iso",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "{{ user `vm_memory` }}"],
-        ["modifyvm", "{{.Name}}", "--cpus", "{{ user `vm_vcpu` }}"]
-      ],
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
     },
     {
@@ -111,6 +109,7 @@
         "reboot<enter>"
       ],
       "boot_wait": "30s",
+      "cpus": "{{ user `vm_vcpu ` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
@@ -120,17 +119,14 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "/sbin/poweroff",
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "ssh_wait_timeout": "60m",
       "type": "vmware-iso",
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
-      "vmx_data": {
-        "memsize": "{{ user `vm_memory` }}",
-        "numvcpus": "{{ user `vm_vcpu` }}"
-      }
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
     }
   ],
   "provisioners": [

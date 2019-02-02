@@ -8,7 +8,9 @@
     "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
     "iso_checksum_type": "none",
     "iso_url": "rhel-server-7.2-x86_64-dvd.iso",
-    "vm_name": "packer-rhel-7-server-x86-64"
+    "vm_memory": "1024",
+    "vm_name": "packer-rhel-7-server-x86-64",
+    "vm_vcpu": "1"
   },
   "provisioners": [
     {
@@ -34,6 +36,7 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
+      "cpus": "{{ user `vm_vcpu ` }}",
       "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "{{user `guest_os_type`}}",
@@ -43,6 +46,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": "{{ user `vm_memory` }}",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,

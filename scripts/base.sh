@@ -92,7 +92,8 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     if [[ $os_release_major -gt 6 ]]; then
         sudo apt-get update
         sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
-        build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
+        build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip \
+        cloud-initramfs-growroot
     fi
 
     # Check for /etc/rc.local and create if needed. This has been depricated in

@@ -116,7 +116,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
 
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
-        sudo yum -y install python-devel
+        sudo yum -y install cloud-utils-growpart python-devel
 
         elif [[ $os = "Fedora" ]]; then
         if [[ $os_version_id -ge 22 ]]; then

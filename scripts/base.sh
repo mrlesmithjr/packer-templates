@@ -114,6 +114,11 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo bash -c "echo 'exit 0' >> /etc/rc.local"
     fi
 
+    # Fix machine-id issue with duplicate IP addresses being assigned
+    if [ -f /etc/machine-id ]; then
+        sudo truncate -s 0 /etc/machine-id
+    fi
+
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
         sudo yum -y install cloud-utils-growpart python-devel

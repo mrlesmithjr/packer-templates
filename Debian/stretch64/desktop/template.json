@@ -1,7 +1,7 @@
 {
   "boot_command_prefix": "<esc><wait>",
-  "iso_checksum": "b2005f036e77ef3028260d5d1aa05141e69068e06f2df4bbfddf762488d7d778",
+  "iso_checksum": "73bd56fb4548efa384bf32fd25808b99198f81c23cf19ab9e6507d898cd58dce",
   "iso_checksum_type": "sha256",
-  "iso_url": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.7.0-amd64-netinst.iso",
+  "iso_url": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.8.0-amd64-netinst.iso",
   "vm_name": "stretch64-desktop-packer-template"
 }

@@ -41,8 +41,11 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     if [[ $os = "Fedora" ]]; then
         sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo dnf -y groupinstall "Development Tools"
-        if [[ $os_release_major -gt 28 ]]; then
+        if [[ $os_release_major -ge 28 ]]; then
             sudo dnf -y remove virtualbox-guest-additions
+            TEST_GUEST_ADDITIONS="VBoxGuestAdditions_6.0.97-128852.iso"
+            sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+            wget https://www.virtualbox.org/download/testcase/$TEST_GUEST_ADDITIONS -O /home/vagrant/$TEST_GUEST_ADDITIONS
         fi
     else
         set -e
@@ -50,7 +53,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo yum -y groupinstall "Development Tools"
     fi
     if [ -f /etc/virtualbox_desktop ] && [[ "$os" = "CentOS" ]]; then
-        TEST_GUEST_ADDITIONS="VBoxGuestAdditions_5.2.23-127309.iso"
+        TEST_GUEST_ADDITIONS="VBoxGuestAdditions_6.0.97-128852.iso"
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         wget https://www.virtualbox.org/download/testcase/$TEST_GUEST_ADDITIONS -O /home/vagrant/$TEST_GUEST_ADDITIONS
     fi

@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "freenas112",
+  "box_tag": "mrlesmithjr/freenas112",
+  "description": "FreeNAS 11.2",
+  "private": "False",
+  "short_description": "FreeNAS 11.2"
+}

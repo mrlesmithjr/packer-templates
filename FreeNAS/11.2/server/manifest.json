@@ -1,0 +1,29 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1550890174,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "9b463543-e76d-3d3d-1174-aba45995501a"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1550898664,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "e4b87537-4739-9d97-da24-6b5e06e85ee8"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1550901089,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "6f298a9a-00c0-a3bf-ab48-2d809212387a"
+    }
+  ],
+  "last_run_uuid": "6f298a9a-00c0-a3bf-ab48-2d809212387a"
+}

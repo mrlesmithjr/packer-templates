@@ -56,6 +56,13 @@ if [ -f /etc/os-release ]; then
             sudo yum -y update
             sudo yum -y install dnf facter perl redhat-lsb-core rsyslog ruby rubygems wget
         fi
+        elif [[ $os_name = *CentOS* ]]; then
+            if ! [ -x "$(command -v facter)" ]; then
+                echo 'Error: facter is not installed.' >&2
+                if [[ $os_version_id = 7 ]]; then
+                    sudo yum -y install http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/facter-2.4.1-1.el7.x86_64.rpm
+                fi
+            fi
         elif [[ $os_name = *openSUSE* ]]; then
         if [[ $os_name = "openSUSE Tumbleweed" || $os_name = "openSUSE Leap" ]]; then
             # Need to sleep for a period of time to ensure zypper completes processes on first startup

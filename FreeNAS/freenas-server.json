@@ -81,7 +81,7 @@
       "boot_command": [
         "<enter>",
         "<wait10><wait5>1<enter>",
-        "y<enter>",
+        "y",
         "<wait5><spacebar>o<enter>",
         "<enter>",
         "freenas<tab>freenas<tab><enter>",
@@ -96,6 +96,7 @@
       ],
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
+      "disk_additional_size": ["{{ user `vm_disk_size` }}"],
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "FreeBSD-64",

@@ -21,18 +21,18 @@
       "boot_command": [
         "<enter>",
         "<wait10><wait5>1<enter>",
-        "y<enter>",
+        "y",
         "<wait5><spacebar>o<enter>",
         "<enter>",
-        "freenas<tab>freenas<tab><enter>",
+        "{{ user `vm_ssh_password` }}<tab>{{ user `vm_ssh_password` }}<tab><enter>",
         "<enter>",
         "<wait60><wait60>",
         "<enter>",
         "3<enter>",
-        "<wait60><wait60><wait60>",
+        "<wait60><wait60><wait30>",
         "9<enter>",
-        "curl -X PUT -u root:freenas -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
-        "curl -X PUT -u root:freenas -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
+        "curl -X PUT -u {{ user `vm_ssh_username` }}:{{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
+        "curl -X PUT -u {{ user `vm_ssh_username` }}:{{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
       ],
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
@@ -84,15 +84,15 @@
         "y",
         "<wait5><spacebar>o<enter>",
         "<enter>",
-        "freenas<tab>freenas<tab><enter>",
+        "{{ user `vm_ssh_password` }}<tab>{{ user `vm_ssh_password` }}<tab><enter>",
         "<enter>",
         "<wait60><wait60>",
         "<enter>",
         "3<enter>",
-        "<wait60><wait60><wait60>",
+        "<wait60><wait60><wait30>",
         "9<enter>",
-        "curl -X PUT -u root:freenas -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
-        "curl -X PUT -u root:freenas -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
+        "curl -X PUT -u {{ user `vm_ssh_username` }}:{{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
+        "curl -X PUT -u {{ user `vm_ssh_username` }}:{{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
       ],
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
@@ -118,6 +118,10 @@
   "provisioners": [
     {
       "type": "shell",
+      "environment_vars": [
+        "SSH_USER={{ user `vm_ssh_username` }}",
+        "SSH_PASS={{ user `vm_ssh_password` }}"
+      ],
       "scripts": ["scripts/freenas.sh"]
     }
   ],

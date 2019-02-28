@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "arch20190201",
   "box_tag": "mrlesmithjr/arch20190201",
   "description": "Arch Linux 2019.02.01",

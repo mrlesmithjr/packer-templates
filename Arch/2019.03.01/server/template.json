@@ -1,0 +1,8 @@
+{
+  "arch_version": "2019.03.01",
+  "boot_command_prefix": "",
+  "iso_checksum": "e32acb5a7b7cfb2bdba10697cce48ab69e13c186",
+  "iso_checksum_type": "sha1",
+  "iso_url": "https://arch.mirror.constant.com/iso/2019.03.01/archlinux-2019.03.01-x86_64.iso",
+  "vm_name": "arch20190301-server-packer-template"
+}

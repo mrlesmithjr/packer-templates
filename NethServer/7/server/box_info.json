@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "nethserver7",
   "box_tag": "mrlesmithjr/nethserver7",
   "description": "NethServer 7",

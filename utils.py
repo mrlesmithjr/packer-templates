@@ -8,6 +8,7 @@ import logging
 import os
 import shutil
 # import time
+import subprocess
 import requests
 import git
 
@@ -64,13 +65,13 @@ def decide_action(args):
     elif args.action == 'get_boxes':
         boxes = dict()
         get_boxes(boxes)
-        print json.dumps(boxes, indent=4)
+        print(json.dumps(boxes, indent=4))
     elif args.action == 'rename_templates':
         rename_templates()
     elif args.action == 'repo_info':
         repo_facts = dict()
         repo_info(repo_facts)
-        print json.dumps(repo_facts, indent=4)
+        print(json.dumps(repo_facts, indent=4))
     elif args.action == 'upload_boxes':
         upload_boxes()
     elif args.action == 'view_manifests':
@@ -84,9 +85,9 @@ def get_boxes(boxes):
     if os.path.isfile(private_vars_file):
         with open(private_vars_file) as priv_vars:
             priv_data = json.load(priv_vars)
-            try:
-                vagrant_cloud_token = priv_data['vagrant_cloud_token']
-                for root, dirs, files in os.walk(SCRIPT_DIR):
+            vagrant_cloud_token = priv_data.get('vagrant_cloud_token')
+            if vagrant_cloud_token is not None:
+                for root, _dirs, files in os.walk(SCRIPT_DIR):
                     if 'box_info.json' in files:
                         with open(os.path.join(root, 'box_info.json'),
                                   'r') as box_info:
@@ -99,10 +100,10 @@ def get_boxes(boxes):
                             if response.status_code == 200:
                                 json_data = response.json()
                                 boxes[json_data['tag']] = json_data
-            except KeyError:
-                print 'Vagrant Cloud token missing...'
+            else:
+                print('Vagrant Cloud token missing...')
     else:
-        print 'private_vars.json missing...'
+        print('private_vars.json missing...')
 
 
 def repo_info(repo_facts):
@@ -124,25 +125,23 @@ def repo_info(repo_facts):
 
 def build_all():
     """Looks for build script in each directory and then executes it."""
-    print 'Building all images.'
-    for root, dirs, files in os.walk(SCRIPT_DIR):
+    print('Building all images.')
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
         if 'build.sh' in files:
             with open(os.path.join(root, 'box_info.json'),
                       'r') as box_info_file:
                 box_info = json.load(box_info_file)
-                try:
-                    auto_build = box_info['auto_build']
-                    if auto_build.lower() == 'true':
-                        auto_build = True
-                    else:
-                        auto_build = False
-                except KeyError:
+                auto_build = box_info.get('auto_build')
+                if auto_build is not None:
+                    auto_build = bool(auto_build)
+                else:
                     auto_build = True
                 build_image = get_box(box_info)
                 if auto_build and build_image:
-                    print 'Executing build.sh in {0}'.format(root)
+                    print('Executing build.sh in {0}'.format(root))
                     os.chdir(root)
-                    os.system('./{0}'.format('build.sh'))
+                    process = subprocess.Popen(['./build.sh'])
+                    process.wait()
                     os.chdir(SCRIPT_DIR)
 
 
@@ -154,9 +153,9 @@ def get_box(box_info):
     if os.path.isfile(private_vars_file):
         with open(private_vars_file) as priv_vars:
             priv_data = json.load(priv_vars)
-            try:
-                username = priv_data['username']
-                vagrant_cloud_token = priv_data['vagrant_cloud_token']
+            username = priv_data.get('username')
+            vagrant_cloud_token = priv_data.get('vagrant_cloud_token')
+            if username is not None and vagrant_cloud_token is not None:
                 url = '{0}/{1}/{2}'.format(box_api_url,
                                            username, box_info['box_name'])
                 headers = {'Authorization': 'Bearer {0}'.format(
@@ -166,7 +165,7 @@ def get_box(box_info):
                 if response.status_code == 200:
                     update_box(priv_data, box_info)
                     current_time = datetime.now()
-                    current_version = json_data['current_version']
+                    current_version = json_data.get('current_version')
                     if current_version is not None:
                         last_updated_str = json_data['current_version'][
                             'updated_at']
@@ -179,15 +178,15 @@ def get_box(box_info):
                     else:
                         build_image = True
                 elif response.status_code == 404:
-                    print 'Box missing'
+                    print('Box missing')
                     create_box(priv_data, box_info)
                     build_image = True
                 else:
-                    print response.status_code
-            except KeyError:
-                print 'Vagrant Cloud token missing...'
+                    print(response.status_code)
+            else:
+                print('Vagrant Cloud token missing...')
     else:
-        print 'private_vars.json missing...'
+        print('private_vars.json missing...')
     return build_image
 
 
@@ -213,8 +212,8 @@ def create_box(priv_data, box_info):
     if response.status_code == 200:
         pass
     else:
-        print response.status_code
-    print json_response
+        print(response.status_code)
+    print(json_response)
 
 
 def update_box(priv_data, box_info):
@@ -234,22 +233,22 @@ def update_box(priv_data, box_info):
             'short_description': box_info['short_description'],
             'description': box_info['description']}
     }
-    print 'Updating box: {0}/{1} info.'.format(username, box_info['box_name'])
+    print('Updating box: {0}/{1} info.'.format(username, box_info['box_name']))
     response = requests.put(url, headers=headers, data=json.dumps(payload))
     json_response = response.json()
     if response.status_code == 200:
         pass
     else:
-        print response.status_code
-        print json_response
+        print(response.status_code)
+        print(json_response)
 
 
 def change_controller(args):
     """Change hard drive controller type for all templates."""
     controller_type = args.controller
-    for root, dirs, files in os.walk(SCRIPT_DIR):
-        for index, item in enumerate(files):
-            filename, ext = os.path.splitext(item)
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
+        for _index, item in enumerate(files):
+            _filename, ext = os.path.splitext(item)
             if ext == '.json':
                 try:
                     json_file = os.path.join(root, item)
@@ -273,7 +272,7 @@ def change_controller(args):
 
 def cleanup_builds():
     """Clean up lingering build data and artifacts."""
-    print 'Cleaning up any lingering build data.'
+    print('Cleaning up any lingering build data.')
     for root, dirs, files in os.walk(SCRIPT_DIR):
         for item in dirs:
             if 'output-' in item:
@@ -295,17 +294,17 @@ def cleanup_builds():
 
 def rename_templates():
     """Renames legacy template names to more standardized template.json."""
-    print 'Renaming templates to follow standard naming.'
-    for root, dirs, files in os.walk(SCRIPT_DIR):
-        for index, item in enumerate(files):
-            filename, ext = os.path.splitext(item)
+    print('Renaming templates to follow standard naming.')
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
+        for _index, item in enumerate(files):
+            _filename, ext = os.path.splitext(item)
             if ext == '.json':
                 try:
                     json_file = os.path.join(root, item)
                     with open(json_file, 'r') as stream:
                         data = json.load(stream)
                         try:
-                            vm_name = data['vm_name']
+                            _vm_name = data['vm_name']
                             json_template = os.path.join(root, 'template.json')
                             build_script = os.path.join(root, 'build.sh')
                             with open(build_script, 'r') as build_script_data:
@@ -315,10 +314,13 @@ def rename_templates():
                             with open(build_script, 'w') as (
                                     build_script_data):
                                 build_script_data.write(read_data)
-                            os.system('git add {0}'.format(build_script))
+                            process = subprocess.Popen(
+                                ['git', 'add', build_script])
+                            process.wait()
                             if item != 'template.json':
-                                os.system('git mv {0} {1}'.format(
-                                    json_file, json_template))
+                                process = subprocess.Popen([
+                                    'git', 'mv', json_file, json_template])
+                                process.wait()
                         except KeyError:
                             pass
                 except TypeError:
@@ -327,8 +329,8 @@ def rename_templates():
 
 def upload_boxes():
     """Looks for upload_boxes script in each directory and then executes it."""
-    print 'Uploading all images.'
-    for root, dirs, files in os.walk(SCRIPT_DIR):
+    print('Uploading all images.')
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
         box_found = False
         if root != SCRIPT_DIR:
             if 'upload_boxes.sh' in files:
@@ -337,12 +339,14 @@ def upload_boxes():
                         box_found = True
                         break
                 if box_found:
-                    print 'Executing upload_boxes.sh in {0}'.format(root)
+                    print('Executing upload_boxes.sh in {0}'.format(root))
                     os.chdir(root)
-                    os.system('./{0}'.format('upload_boxes.sh'))
+                    process = subprocess.Popen(['./upload_boxes.sh'])
+                    process.wait()
 
 
 def commit_manifests(repo_facts):
+    """Auto commit manifests."""
     repo_path = os.getcwd()
     repo = git.Repo(repo_path)
     commit = False
@@ -362,13 +366,16 @@ def commit_manifests(repo_facts):
 
 
 def view_manifests():
-    for root, dirs, files in os.walk(SCRIPT_DIR):
+    """Find build manifests and display to stdout."""
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
         if 'manifest.json' in files:
             json_file = os.path.join(root, 'manifest.json')
-            with open(json_file, 'r') as stream:
-                data = json.load(stream)
-                print json.dumps(data, indent=4)
-
+            try:
+                with open(json_file, 'r') as stream:
+                    data = json.load(stream)
+                    print(json.dumps(data, indent=4))
+            except ValueError:
+                pass
 
 # def latest_build(root):
 #     build_image = False

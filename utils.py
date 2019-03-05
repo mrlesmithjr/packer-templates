@@ -9,6 +9,7 @@ import os
 import shutil
 # import time
 import subprocess
+import sys
 import requests
 import git
 
@@ -100,19 +101,19 @@ def decide_action(args, username, vagrant_cloud_token):
 def get_boxes(boxes, vagrant_cloud_token):
     """Connect to Vagrant Cloud API and get boxes."""
     box_api_url = API_URL + 'box/'
-                for root, _dirs, files in os.walk(SCRIPT_DIR):
-                    if 'box_info.json' in files:
-                        with open(os.path.join(root, 'box_info.json'),
-                                  'r') as box_info:
-                            data = json.load(box_info)
-                            box_tag = data['box_tag']
-                            url = '{0}{1}'.format(box_api_url, box_tag)
-                            headers = {'Authorization': 'Bearer {0}'.format(
-                                vagrant_cloud_token)}
-                            response = requests.get(url, headers=headers)
-                            if response.status_code == 200:
-                                json_data = response.json()
-                                boxes[json_data['tag']] = json_data
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
+        if 'box_info.json' in files:
+            with open(os.path.join(root, 'box_info.json'),
+                      'r') as box_info:
+                data = json.load(box_info)
+                box_tag = data['box_tag']
+                url = '{0}{1}'.format(box_api_url, box_tag)
+                headers = {'Authorization': 'Bearer {0}'.format(
+                    vagrant_cloud_token)}
+                response = requests.get(url, headers=headers)
+                if response.status_code == 200:
+                    json_data = response.json()
+                    boxes[json_data['tag']] = json_data
 
 
 def repo_info(repo_facts):
@@ -132,7 +133,7 @@ def repo_info(repo_facts):
     repo_facts['untracked_files'] = repo.untracked_files
 
 
-def build_all():
+def build_all(username, vagrant_cloud_token):
     """Looks for build script in each directory and then executes it."""
     print('Building all images.')
     for root, _dirs, files in os.walk(SCRIPT_DIR):
@@ -140,12 +141,15 @@ def build_all():
             with open(os.path.join(root, 'box_info.json'),
                       'r') as box_info_file:
                 box_info = json.load(box_info_file)
-                auto_build = box_info.get('auto_build')
+                auto_build = box_info['auto_build']
                 if auto_build is not None:
-                    auto_build = bool(auto_build)
+                    if auto_build.lower() == 'true':
+                        auto_build = True
+                    else:
+                        auto_build = False
                 else:
                     auto_build = True
-                build_image = get_box(box_info)
+                build_image = get_box(box_info, username, vagrant_cloud_token)
                 if auto_build and build_image:
                     print('Executing build.sh in {0}'.format(root))
                     os.chdir(root)
@@ -158,33 +162,33 @@ def get_box(box_info, username, vagrant_cloud_token):
     """Attempt to read box from Vagrant Cloud API."""
     build_image = False
     box_api_url = API_URL + 'box'
-                url = '{0}/{1}/{2}'.format(box_api_url,
-                                           username, box_info['box_name'])
-                headers = {'Authorization': 'Bearer {0}'.format(
-                    vagrant_cloud_token)}
-                response = requests.get(url, headers=headers)
-                json_data = response.json()
-                if response.status_code == 200:
+    url = '{0}/{1}/{2}'.format(box_api_url,
+                               username, box_info['box_name'])
+    headers = {'Authorization': 'Bearer {0}'.format(
+        vagrant_cloud_token)}
+    response = requests.get(url, headers=headers)
+    json_data = response.json()
+    if response.status_code == 200:
         update_box(box_info, username, vagrant_cloud_token)
-                    current_time = datetime.now()
-                    current_version = json_data.get('current_version')
-                    if current_version is not None:
-                        last_updated_str = json_data['current_version'][
-                            'updated_at']
-                        last_updated_object = datetime.strptime(
-                            last_updated_str, '%Y-%m-%dT%H:%M:%S.%fZ')
-                        since_updated_days = (
-                            current_time - last_updated_object).days
-                        if since_updated_days > BUILD_OLDER_THAN_DAYS:
-                            build_image = True
-                    else:
-                        build_image = True
-                elif response.status_code == 404:
-                    print('Box missing')
+        current_time = datetime.now()
+        current_version = json_data.get('current_version')
+        if current_version is not None:
+            last_updated_str = json_data['current_version'][
+                'updated_at']
+            last_updated_object = datetime.strptime(
+                last_updated_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+            since_updated_days = (
+                current_time - last_updated_object).days
+            if since_updated_days > BUILD_OLDER_THAN_DAYS:
+                build_image = True
+        else:
+            build_image = True
+    elif response.status_code == 404:
+        print('Box missing')
         create_box(box_info, username, vagrant_cloud_token)
-                    build_image = True
-                else:
-                    print(response.status_code)
+        build_image = True
+    else:
+        print(response.status_code)
     return build_image
 
 
@@ -350,7 +354,7 @@ def upload_boxes(vagrant_cloud_token):
                                         if box_provider_name in provider[
                                                 'name']:
                                             provider_exists = True
-                        break
+                                            break
                                 break
                         # We convert vmware provider to vmware_desktop
                         if box_provider_name == 'vmware':

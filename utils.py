@@ -328,16 +328,124 @@ def upload_boxes(vagrant_cloud_token):
     get_boxes(boxes, vagrant_cloud_token)
     for root, _dirs, files in os.walk(SCRIPT_DIR):
         if root != SCRIPT_DIR:
-            if 'upload_boxes.sh' in files:
-                for _file in files:
-                    if _file.endswith('.box'):
-                        box_found = True
+            if 'box_info.json' in files:
+                with open(os.path.join(root, 'box_info.json'),
+                          'r') as box_info:
+                    data = json.load(box_info)
+                    box_tag = data['box_tag']
+                    existing_versions = boxes.get(box_tag)['versions']
+                for file in files:
+                    if file.endswith('.box'):
+                        box_path = os.path.join(root, file)
+                        box_provider_name = file.split('-')[4]
+                        box_version = file.split('-')[5].split('.box')[0]
+                        version_exists = False
+                        provider_exists = False
+                        for version in existing_versions:
+                            if version['version'] == box_version:
+                                version_exists = True
+                                version_providers = version.get('providers')
+                                if version_providers is not None:
+                                    for provider in version_providers:
+                                        if box_provider_name in provider[
+                                                'name']:
+                                            provider_exists = True
                         break
-                if box_found:
-                    print('Executing upload_boxes.sh in {0}'.format(root))
-                    os.chdir(root)
-                    process = subprocess.Popen(['./upload_boxes.sh'])
-                    process.wait()
+                                break
+                        # We convert vmware provider to vmware_desktop
+                        if box_provider_name == 'vmware':
+                            box_provider_name = 'vmware_desktop'
+                        if not version_exists:
+                            create_box_version(
+                                box_tag, box_version, vagrant_cloud_token)
+                            create_box_provider(
+                                box_tag, box_version, box_provider_name,
+                                vagrant_cloud_token)
+                            upload_box(box_tag, box_path,
+                                       box_version, box_provider_name,
+                                       vagrant_cloud_token)
+                        if version_exists and not provider_exists:
+                            create_box_provider(
+                                box_tag, box_version, box_provider_name,
+                                vagrant_cloud_token)
+                            upload_box(box_tag, box_path,
+                                       box_version, box_provider_name,
+                                       vagrant_cloud_token)
+
+
+def create_box_version(box_tag, box_version, vagrant_cloud_token):
+    """Create box version if missing using Vagrant Cloud API."""
+    box_api_url = API_URL + 'box'
+    url = '{0}/{1}/versions'.format(box_api_url, box_tag)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': 'Bearer {0}'.format(vagrant_cloud_token)}
+    payload = {'version': {'version': box_version}}
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    json_response = response.json()
+    if response.status_code == 200:
+        pass
+    else:
+        print(json_response)
+        print(response.status_code)
+        sys.exit(1)
+    print(json_response)
+
+
+def create_box_provider(box_tag, box_version, box_provider_name,
+                        vagrant_cloud_token):
+    """Create box version provider if missing using Vagrant Cloud API."""
+    box_api_url = API_URL + 'box'
+    url = '{0}/{1}/version/{2}/providers'.format(
+        box_api_url, box_tag, box_version)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': 'Bearer {0}'.format(vagrant_cloud_token)}
+    payload = {'provider': {'name': box_provider_name}}
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    json_response = response.json()
+    if response.status_code == 200:
+        pass
+    else:
+        print(response.status_code)
+        sys.exit(1)
+    print(json_response)
+
+
+def upload_box(box_tag, box_path, box_version, box_provider_name,
+               vagrant_cloud_token):
+    """Upload box to Vagrant Cloud."""
+    box_api_url = API_URL + 'box'
+    url = '{0}/{1}/version/{2}/provider/{3}/upload'.format(
+        box_api_url, box_tag, box_version, box_provider_name)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': 'Bearer {0}'.format(vagrant_cloud_token)}
+    # Get upload path
+    response = requests.get(url, headers=headers)
+    json_response = response.json()
+    upload_path = json_response.get('upload_path')
+    files = {'file': open(box_path, 'rb')}
+    print('Uploading box: {1} version: {2} provider: {3}'.format(
+        box_tag, box_version, box_provider_name))
+    # Upload box
+    response = requests.post(upload_path, files=files)
+    json_response = response.json()
+    if response.status_code == 200:
+        url = '{0}/{1}/version/{2}/release'.format(
+            box_api_url, box_tag, box_version)
+        # Release version
+        response = requests.put(url, headers=headers)
+        json_response = response.json()
+        if response.status_code == 200:
+            pass
+        else:
+            print(response.status_code)
+            print(json_response)
+            sys.exit(1)
+        print(json_response)
+    else:
+        print(response.status_code)
+        print(json_response)
+        sys.exit(1)
+    print(json_response)
 
 
 def commit_manifests(repo_facts):

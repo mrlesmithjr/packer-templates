@@ -23,7 +23,15 @@
       "files": null,
       "artifact_id": "",
       "packer_run_uuid": "cf269e29-f02b-be40-c587-8039cd83b84a"
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1551748456,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "62ddc60f-a4f3-5f22-e133-85e45790bf59"
     }
   ],
-  "last_run_uuid": "cf269e29-f02b-be40-c587-8039cd83b84a"
+  "last_run_uuid": "62ddc60f-a4f3-5f22-e133-85e45790bf59"
 }

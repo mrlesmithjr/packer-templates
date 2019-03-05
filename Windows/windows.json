@@ -22,7 +22,7 @@
     {
       "boot_wait": "2m",
       "communicator": "winrm",
-      "cpus": "{{ user `windows_vm_vcpu ` }}",
+      "cpus": "{{ user `windows_vm_vcpu` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "floppy_files": [
         "{{ user `autounattend` }}",
@@ -50,7 +50,7 @@
     {
       "boot_wait": "2m",
       "communicator": "winrm",
-      "cpus": "{{ user `windows_vm_vcpu ` }}",
+      "cpus": "{{ user `windows_vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,

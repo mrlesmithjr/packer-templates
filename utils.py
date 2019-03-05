@@ -29,7 +29,26 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 def main():
     """Main program execution."""
     args = parse_args()
-    decide_action(args)
+    username, vagrant_cloud_token = private_vars()
+    decide_action(args, username, vagrant_cloud_token)
+
+
+def private_vars():
+    private_vars_file = os.path.join(SCRIPT_DIR, 'private_vars.json')
+    if os.path.isfile(private_vars_file):
+        with open(private_vars_file) as priv_vars:
+            priv_data = json.load(priv_vars)
+            username = priv_data.get('username')
+            vagrant_cloud_token = priv_data.get('vagrant_cloud_token')
+            if username is not None and vagrant_cloud_token is not None:
+                pass
+            else:
+                print('Vagrant Cloud token/username missing...')
+    else:
+        print('private_vars.json missing...')
+        sys.exit(1)
+
+    return username, vagrant_cloud_token
 
 
 def parse_args():
@@ -49,11 +68,11 @@ def parse_args():
     return args
 
 
-def decide_action(args):
+def decide_action(args, username, vagrant_cloud_token):
     """Make decision on what to do from arguments being passed."""
     if args.action == 'build_all':
-        build_all()
-        # upload_boxes()
+        build_all(username, vagrant_cloud_token)
+        upload_boxes(vagrant_cloud_token)
     elif args.action == 'change_controller':
         change_controller(args)
     elif args.action == 'cleanup_builds':
@@ -64,7 +83,7 @@ def decide_action(args):
         commit_manifests(repo_facts)
     elif args.action == 'get_boxes':
         boxes = dict()
-        get_boxes(boxes)
+        get_boxes(boxes, vagrant_cloud_token)
         print(json.dumps(boxes, indent=4))
     elif args.action == 'rename_templates':
         rename_templates()
@@ -73,20 +92,14 @@ def decide_action(args):
         repo_info(repo_facts)
         print(json.dumps(repo_facts, indent=4))
     elif args.action == 'upload_boxes':
-        upload_boxes()
+        upload_boxes(vagrant_cloud_token)
     elif args.action == 'view_manifests':
         view_manifests()
 
 
-def get_boxes(boxes):
+def get_boxes(boxes, vagrant_cloud_token):
     """Connect to Vagrant Cloud API and get boxes."""
-    private_vars_file = os.path.join(SCRIPT_DIR, 'private_vars.json')
     box_api_url = API_URL + 'box/'
-    if os.path.isfile(private_vars_file):
-        with open(private_vars_file) as priv_vars:
-            priv_data = json.load(priv_vars)
-            vagrant_cloud_token = priv_data.get('vagrant_cloud_token')
-            if vagrant_cloud_token is not None:
                 for root, _dirs, files in os.walk(SCRIPT_DIR):
                     if 'box_info.json' in files:
                         with open(os.path.join(root, 'box_info.json'),
@@ -100,10 +113,6 @@ def get_boxes(boxes):
                             if response.status_code == 200:
                                 json_data = response.json()
                                 boxes[json_data['tag']] = json_data
-            else:
-                print('Vagrant Cloud token missing...')
-    else:
-        print('private_vars.json missing...')
 
 
 def repo_info(repo_facts):
@@ -145,17 +154,10 @@ def build_all():
                     os.chdir(SCRIPT_DIR)
 
 
-def get_box(box_info):
+def get_box(box_info, username, vagrant_cloud_token):
     """Attempt to read box from Vagrant Cloud API."""
     build_image = False
-    private_vars_file = os.path.join(SCRIPT_DIR, 'private_vars.json')
     box_api_url = API_URL + 'box'
-    if os.path.isfile(private_vars_file):
-        with open(private_vars_file) as priv_vars:
-            priv_data = json.load(priv_vars)
-            username = priv_data.get('username')
-            vagrant_cloud_token = priv_data.get('vagrant_cloud_token')
-            if username is not None and vagrant_cloud_token is not None:
                 url = '{0}/{1}/{2}'.format(box_api_url,
                                            username, box_info['box_name'])
                 headers = {'Authorization': 'Bearer {0}'.format(
@@ -163,7 +165,7 @@ def get_box(box_info):
                 response = requests.get(url, headers=headers)
                 json_data = response.json()
                 if response.status_code == 200:
-                    update_box(priv_data, box_info)
+        update_box(box_info, username, vagrant_cloud_token)
                     current_time = datetime.now()
                     current_version = json_data.get('current_version')
                     if current_version is not None:
@@ -179,22 +181,16 @@ def get_box(box_info):
                         build_image = True
                 elif response.status_code == 404:
                     print('Box missing')
-                    create_box(priv_data, box_info)
+        create_box(box_info, username, vagrant_cloud_token)
                     build_image = True
                 else:
                     print(response.status_code)
-            else:
-                print('Vagrant Cloud token missing...')
-    else:
-        print('private_vars.json missing...')
     return build_image
 
 
-def create_box(priv_data, box_info):
+def create_box(box_info, username, vagrant_cloud_token):
     """Create box if missing using Vagrant Cloud API."""
     boxes_api_url = API_URL + 'boxes'
-    username = priv_data['username']
-    vagrant_cloud_token = priv_data['vagrant_cloud_token']
     url = '{0}/'.format(boxes_api_url)
     headers = {'Content-Type': 'application/json',
                'Authorization': 'Bearer {0}'.format(vagrant_cloud_token)}
@@ -216,11 +212,9 @@ def create_box(priv_data, box_info):
     print(json_response)
 
 
-def update_box(priv_data, box_info):
+def update_box(box_info, username, vagrant_cloud_token):
     """Update box info using Vagrant Cloud API."""
     box_api_url = API_URL + 'box'
-    username = priv_data['username']
-    vagrant_cloud_token = priv_data['vagrant_cloud_token']
     url = '{0}/{1}/{2}'.format(box_api_url,
                                username, box_info['box_name'])
     headers = {'Content-Type': 'application/json',
@@ -327,11 +321,12 @@ def rename_templates():
                     pass
 
 
-def upload_boxes():
+def upload_boxes(vagrant_cloud_token):
     """Looks for upload_boxes script in each directory and then executes it."""
     print('Uploading all images.')
+    boxes = dict()
+    get_boxes(boxes, vagrant_cloud_token)
     for root, _dirs, files in os.walk(SCRIPT_DIR):
-        box_found = False
         if root != SCRIPT_DIR:
             if 'upload_boxes.sh' in files:
                 for _file in files:

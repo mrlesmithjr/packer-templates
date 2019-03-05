@@ -1,7 +1,7 @@
 {
   "boot_command_prefix": "",
-  "iso_checksum": "bc10dd10316970cadcb52f2bfe37e2ec2d5277b9f5bd2f34d6f415923408e135",
+  "iso_checksum": "c50f47cf49c57656f9b8fe70d45b9ad7d99a15633c3e48af18407496f3c8f359",
   "iso_checksum_type": "sha256",
-  "iso_url": "http://mirror.us.leaseweb.net/opensuse/distribution/leap/15.1/iso/openSUSE-Leap-15.1-NET-x86_64-Current.iso",
+  "iso_url": "http://download.opensuse.org/distribution/leap/15.1/iso/openSUSE-Leap-15.1-NET-x86_64-Current.iso",
   "vm_name": "leap151-server-packer-template"
 }

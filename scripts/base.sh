@@ -96,15 +96,13 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo apt-get clean
         sudo rm -r /var/lib/apt/lists/*
     fi
-    if [[ $codename = "wheezy" ]]; then
-        wget -O /tmp/cloud-initramfs-growroot_0.18.debian5~bpo70+1_all.deb http://ftp.br.debian.org/debian/pool/main/c/cloud-initramfs-tools/cloud-initramfs-growroot_0.18.debian5~bpo70+1_all.deb
-        sudo dpkg -i /tmp/cloud-initramfs-growroot_0.18.debian5~bpo70+1_all.deb
-    fi
     if [[ $os_release_major -gt 6 ]]; then
         sudo apt-get update
         sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
-        build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip \
-        cloud-initramfs-growroot
+        build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
+    fi
+    if [[ $codename != "wheezy" ]]; then
+        sudo apt-get -y install cloud-initramfs-growroot
     fi
 
     # Check for /etc/rc.local and create if needed. This has been depricated in

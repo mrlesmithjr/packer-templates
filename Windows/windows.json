@@ -74,6 +74,7 @@
       "vmx_data": {
         "scsi0.virtualDev": "lsisas1068"
       },
+      "vmx_remove_ethernet_interfaces": true,
       "winrm_insecure": true,
       "winrm_password": "{{ user `vm_winrm_password` }}",
       "winrm_timeout": "4h",

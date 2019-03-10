@@ -80,7 +80,8 @@
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "ssh_wait_timeout": "60m",
       "type": "vmware-iso",
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_remove_ethernet_interfaces": true
     }
   ],
   "provisioners": [

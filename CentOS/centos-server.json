@@ -63,6 +63,9 @@
       "tools_upload_flavor": "linux",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_data": {
+        "ethernet0.pciSlotNumber": "32"
+      },
       "vmx_remove_ethernet_interfaces": true
     }
   ],

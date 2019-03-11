@@ -21,7 +21,7 @@
   "builders": [
     {
       "boot_command": [
-        "root<enter><wait>",
+        "root<enter><wait><wait>",
         "ifconfig eth0 up && udhcpc -i eth0<enter><wait10>",
         "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/alpine/{{ user `alpine_version` }}/answers<enter><wait>",
         "setup-alpine -f $PWD/answers<enter><wait5>",
@@ -39,8 +39,9 @@
         "mount -o bind /dev /mnt/dev<enter>",
         "chroot /mnt /bin/sh -l<enter>",
         "apk update<enter>",
-        "apk add bash curl rsyslog ruby shadow sudo<enter>",
+        "apk add bash curl rsyslog ruby shadow sudo<enter><wait>",
         "gem install facter<enter>",
+        "<wait60><wait60>",
         "groupadd vagrant<enter>",
         "useradd vagrant -g vagrant -G wheel<enter>",
         "passwd vagrant<enter><wait>",
@@ -75,7 +76,7 @@
     },
     {
       "boot_command": [
-        "root<enter><wait>",
+        "root<enter><wait><wait>",
         "ifconfig eth0 up && udhcpc -i eth0<enter><wait10>",
         "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/alpine/{{ user `alpine_version` }}/answers<enter><wait>",
         "setup-alpine -f $PWD/answers<enter><wait5>",
@@ -93,8 +94,9 @@
         "mount -o bind /dev /mnt/dev<enter>",
         "chroot /mnt /bin/sh -l<enter>",
         "apk update<enter>",
-        "apk add bash curl rsyslog ruby shadow sudo<enter>",
+        "apk add bash curl rsyslog ruby shadow sudo<enter><wait>",
         "gem install facter<enter>",
+        "<wait60><wait60>",
         "groupadd vagrant<enter>",
         "useradd vagrant -g vagrant -G wheel<enter>",
         "passwd vagrant<enter><wait>",
@@ -127,6 +129,9 @@
       "ssh_wait_timeout": "60m",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_data": {
+        "ethernet0.pciSlotNumber": "32"
+      },
       "vmx_remove_ethernet_interfaces": true
     }
   ],

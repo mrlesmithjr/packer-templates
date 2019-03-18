@@ -43,11 +43,9 @@
         "<enter><wait>"
       ],
       "cpus": "{{ user `vm_vcpu` }}",
-      "disk_interface": "virtio",
+      "disk_interface": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "format": "qcow2",
-      "guest_os_type": "Ubuntu_64",
-      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
       "headless": true,
       "http_directory": "http",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",

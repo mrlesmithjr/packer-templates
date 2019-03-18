@@ -43,7 +43,7 @@
         "<enter><wait>"
       ],
       "cpus": "{{ user `vm_vcpu` }}",
-      "disk_interface": "{{ user `vm_disk_adapter_type` }}",
+      "disk_interface": "virtio",
       "disk_size": "{{ user `vm_disk_size` }}",
       "format": "qcow2",
       "headless": true,
@@ -52,7 +52,6 @@
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
       "memory": "{{ user `vm_memory` }}",
-      "net_device": "virtio-net",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
       "ssh_password": "{{ user `vm_ssh_password` }}",

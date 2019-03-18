@@ -19,6 +19,33 @@
   },
   "builders": [
     {
+      "accelerator": "kvm",
+      "boot_command": [
+        "<enter><wait10><wait10><wait10>",
+        "/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/arch/bootstrap.sh<enter><wait5>",
+        "/usr/bin/bash ./bootstrap.sh<enter>"
+      ],
+      "boot_wait": "30s",
+      "cpus": "{{ user `vm_vcpu` }}",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "format": "qcow2",
+      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `vm_memory` }}",
+      "net_device": "virtio-net",
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
+      "shutdown_command": "sudo systemctl isolate poweroff.target",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "qemu",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+    },
+    {
       "boot_command": [
         "<enter><wait10><wait10><wait10>",
         "/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/arch/bootstrap.sh<enter><wait5>",

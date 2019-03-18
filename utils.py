@@ -155,6 +155,8 @@ def build_all(username, vagrant_cloud_token):
                     os.chdir(root)
                     process = subprocess.Popen(['./build.sh'])
                     process.wait()
+                    if process.returncode != 0:
+                        sys.exit(1)
                     os.chdir(SCRIPT_DIR)
 
 

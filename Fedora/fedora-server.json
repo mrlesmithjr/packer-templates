@@ -18,6 +18,29 @@
   },
   "builders": [
     {
+      "accelerator": "kvm",
+      "boot_command": [
+        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/fedora/ks.cfg <enter><wait>"
+      ],
+      "cpus": "{{ user `vm_vcpu` }}",
+      "disk_interface": "virtio",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "format": "qcow2",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `vm_memory` }}",
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "qemu",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+    },
+    {
       "boot_command": [
         "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/fedora/ks.cfg <enter><wait>"
       ],

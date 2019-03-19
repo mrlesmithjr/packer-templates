@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "linuxmint19-desktop",
   "box_tag": "mrlesmithjr/linuxmint19-desktop",
   "description": "Linux Mint 19",

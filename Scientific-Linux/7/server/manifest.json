@@ -6,7 +6,8 @@
       "build_time": 1543395383,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "088f07a6-0e29-1ba5-beda-f394c845a363"
+      "packer_run_uuid": "088f07a6-0e29-1ba5-beda-f394c845a363",
+      "custom_data": null
     },
     {
       "name": "virtualbox-iso",
@@ -14,7 +15,8 @@
       "build_time": 1543718620,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "333714c2-b7c5-4dc9-4205-f861d2f2f734"
+      "packer_run_uuid": "333714c2-b7c5-4dc9-4205-f861d2f2f734",
+      "custom_data": null
     },
     {
       "name": "virtualbox-iso",
@@ -22,7 +24,8 @@
       "build_time": 1543902495,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "cf269e29-f02b-be40-c587-8039cd83b84a"
+      "packer_run_uuid": "cf269e29-f02b-be40-c587-8039cd83b84a",
+      "custom_data": null
     },
     {
       "name": "virtualbox-iso",
@@ -30,8 +33,18 @@
       "build_time": 1551748456,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "62ddc60f-a4f3-5f22-e133-85e45790bf59"
+      "packer_run_uuid": "62ddc60f-a4f3-5f22-e133-85e45790bf59",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1554473472,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "bb9492ac-52b2-2892-af4d-caf1892ba3dc",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "62ddc60f-a4f3-5f22-e133-85e45790bf59"
+  "last_run_uuid": "bb9492ac-52b2-2892-af4d-caf1892ba3dc"
 }

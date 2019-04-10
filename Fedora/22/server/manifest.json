@@ -6,7 +6,8 @@
       "build_time": 1543392753,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "81304185-381f-4f81-6d82-c97dd05521e4"
+      "packer_run_uuid": "81304185-381f-4f81-6d82-c97dd05521e4",
+      "custom_data": null
     },
     {
       "name": "vmware-iso",
@@ -14,7 +15,8 @@
       "build_time": 1543751606,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "1164a69b-5ef8-7f32-a3d7-9e2294736a7d"
+      "packer_run_uuid": "1164a69b-5ef8-7f32-a3d7-9e2294736a7d",
+      "custom_data": null
     },
     {
       "name": "virtualbox-iso",
@@ -22,7 +24,8 @@
       "build_time": 1543751756,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "1164a69b-5ef8-7f32-a3d7-9e2294736a7d"
+      "packer_run_uuid": "1164a69b-5ef8-7f32-a3d7-9e2294736a7d",
+      "custom_data": null
     },
     {
       "name": "vmware-iso",
@@ -30,7 +33,8 @@
       "build_time": 1547824032,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "7dc4666b-9e3d-3d77-4409-3e31cc7ed8a5"
+      "packer_run_uuid": "7dc4666b-9e3d-3d77-4409-3e31cc7ed8a5",
+      "custom_data": null
     },
     {
       "name": "virtualbox-iso",
@@ -38,8 +42,36 @@
       "build_time": 1547824232,
       "files": null,
       "artifact_id": "",
-      "packer_run_uuid": "7dc4666b-9e3d-3d77-4409-3e31cc7ed8a5"
+      "packer_run_uuid": "7dc4666b-9e3d-3d77-4409-3e31cc7ed8a5",
+      "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1554460145,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "fec14275-7420-5b5d-1b8e-725d38b12076",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1554460417,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "fec14275-7420-5b5d-1b8e-725d38b12076",
+      "custom_data": null
+    },
+    {
+      "name": "qemu",
+      "builder_type": "qemu",
+      "build_time": 1554462455,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "8b9e4309-6b30-75b8-bf38-07ab1b0a8de8",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "7dc4666b-9e3d-3d77-4409-3e31cc7ed8a5"
+  "last_run_uuid": "8b9e4309-6b30-75b8-bf38-07ab1b0a8de8"
 }

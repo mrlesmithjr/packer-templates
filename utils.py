@@ -39,7 +39,7 @@ def private_vars():
     if os.path.isfile(private_vars_file):
         with open(private_vars_file) as priv_vars:
             priv_data = json.load(priv_vars)
-            username = priv_data.get('username')
+            username = priv_data.get('vagrant_cloud_username')
             vagrant_cloud_token = priv_data.get('vagrant_cloud_token')
             if username is not None and vagrant_cloud_token is not None:
                 pass
@@ -73,7 +73,7 @@ def decide_action(args, username, vagrant_cloud_token):
     """Make decision on what to do from arguments being passed."""
     if args.action == 'build_all':
         build_all(username, vagrant_cloud_token)
-        upload_boxes(vagrant_cloud_token)
+        upload_boxes(username, vagrant_cloud_token)
     elif args.action == 'change_controller':
         change_controller(args)
     elif args.action == 'cleanup_builds':
@@ -93,7 +93,7 @@ def decide_action(args, username, vagrant_cloud_token):
         repo_info(repo_facts)
         print(json.dumps(repo_facts, indent=4))
     elif args.action == 'upload_boxes':
-        upload_boxes(vagrant_cloud_token)
+        upload_boxes(username, vagrant_cloud_token)
     elif args.action == 'view_manifests':
         view_manifests()
 
@@ -327,7 +327,7 @@ def rename_templates():
                     pass
 
 
-def upload_boxes(vagrant_cloud_token):
+def upload_boxes(username, vagrant_cloud_token):
     """Looks for upload_boxes script in each directory and then executes it."""
     print('Uploading all images.')
     boxes = dict()
@@ -336,47 +336,53 @@ def upload_boxes(vagrant_cloud_token):
         if root != SCRIPT_DIR:
             if 'box_info.json' in files:
                 with open(os.path.join(root, 'box_info.json'),
-                          'r') as box_info:
-                    data = json.load(box_info)
-                    box_tag = data['box_tag']
+                          'r') as box_info_file:
+                    box_info = json.load(box_info_file)
+                    box_tag = box_info['box_tag']
+                    box_check = boxes.get(box_tag)
+                    if box_check is None:
+                        create_box(box_info, username, vagrant_cloud_token)
+                        get_boxes(boxes, vagrant_cloud_token)
                     existing_versions = boxes.get(box_tag)['versions']
-                for file in files:
-                    if file.endswith('.box'):
-                        box_path = os.path.join(root, file)
-                        box_provider_name = file.split('-')[4]
-                        box_version = file.split('-')[5].split('.box')[0]
-                        version_exists = False
-                        provider_exists = False
-                        for version in existing_versions:
-                            if version['version'] == box_version:
-                                version_exists = True
-                                version_providers = version.get('providers')
-                                if version_providers is not None:
-                                    for provider in version_providers:
-                                        if box_provider_name in provider[
-                                                'name']:
-                                            provider_exists = True
-                                            break
-                                break
-                        # We convert vmware provider to vmware_desktop
-                        if box_provider_name == 'vmware':
-                            box_provider_name = 'vmware_desktop'
-                        if not version_exists:
-                            create_box_version(
-                                box_tag, box_version, vagrant_cloud_token)
-                            create_box_provider(
-                                box_tag, box_version, box_provider_name,
-                                vagrant_cloud_token)
-                            upload_box(box_tag, box_path,
-                                       box_version, box_provider_name,
-                                       vagrant_cloud_token)
-                        if version_exists and not provider_exists:
-                            create_box_provider(
-                                box_tag, box_version, box_provider_name,
-                                vagrant_cloud_token)
-                            upload_box(box_tag, box_path,
-                                       box_version, box_provider_name,
-                                       vagrant_cloud_token)
+                    for file in files:
+                        if file.endswith('.box'):
+                            box_path = os.path.join(root, file)
+                            box_provider_name = file.split('-')[4]
+                            box_version = file.split(
+                                '-')[5].split('.box')[0]
+                            version_exists = False
+                            provider_exists = False
+                            for version in existing_versions:
+                                if version['version'] == box_version:
+                                    version_exists = True
+                                    version_providers = version.get(
+                                        'providers')
+                                    if version_providers is not None:
+                                        for provider in version_providers:
+                                            if box_provider_name in provider[
+                                                    'name']:
+                                                provider_exists = True
+                                                break
+                                    break
+                            # We convert vmware provider to vmware_desktop
+                            if box_provider_name == 'vmware':
+                                box_provider_name = 'vmware_desktop'
+                            if not version_exists:
+                                create_box_version(
+                                    box_tag, box_version, vagrant_cloud_token)
+                                create_box_provider(
+                                    box_tag, box_version, box_provider_name,
+                                    vagrant_cloud_token)
+                                upload_box(box_tag, box_path,
+                                           box_version, box_provider_name,
+                                           vagrant_cloud_token)
+                            if version_exists and not provider_exists:
+                                create_box_provider(
+                                    box_tag, box_version, box_provider_name,
+                                    vagrant_cloud_token)
+                                upload_box(box_tag, box_path,
+                                           box_version, box_provider_name,
+                                           vagrant_cloud_token)
 
 
 def create_box_version(box_tag, box_version, vagrant_cloud_token):

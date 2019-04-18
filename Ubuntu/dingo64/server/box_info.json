@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "dingo64",
+  "box_tag": "mrlesmithjr/dingo64",
+  "description": "Ubuntu 19.04 (Disco Dingo) Server",
+  "private": "False",
+  "short_description": "Ubuntu Dingo Server"
+}

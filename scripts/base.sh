@@ -101,8 +101,10 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
         build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
     fi
-    if [[ $codename != "wheezy" ]]; then
-        sudo apt-get -y install cloud-initramfs-growroot
+    if [[ ! -f /etc/vyos_build ]]; then
+        if [[ $codename != "wheezy" ]]; then
+            sudo apt-get -y install cloud-initramfs-growroot
+        fi 
     fi
 
     # Check for /etc/rc.local and create if needed. This has been depricated in

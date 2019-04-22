@@ -83,13 +83,14 @@
     }
   ],
   "provisioners": [
+    { "type": "windows-restart", "check_registry": true },
     {
       "type": "powershell",
       "script": "scripts/windows_updates.ps1",
       "elevated_user": "SYSTEM",
       "elevated_password": ""
     },
-    { "type": "windows-restart", "check_registry": true },
+    { "type": "windows-restart", "check_registry": true, "timeout": "1h" },
     {
       "type": "powershell",
       "scripts": [

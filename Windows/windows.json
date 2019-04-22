@@ -83,7 +83,7 @@
     }
   ],
   "provisioners": [
-    { "type": "windows-restart", "check_registry": true },
+    { "type": "windows-restart" },
     {
       "type": "powershell",
       "script": "scripts/windows_updates.ps1",

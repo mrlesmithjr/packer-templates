@@ -85,13 +85,19 @@
   "provisioners": [
     {
       "type": "powershell",
+      "script": "scripts/windows_updates.ps1",
+      "elevated_user": "SYSTEM",
+      "elevated_password": ""
+    },
+    { "type": "windows-restart", "check_registry": true },
+    {
+      "type": "powershell",
       "scripts": [
         "scripts/base.ps1",
         "scripts/vagrant.ps1",
         "scripts/remove_default_apps.ps1",
         "scripts/virtualbox.ps1",
         "scripts/vmware.ps1",
-        "scripts/windows_updates.ps1",
         "scripts/cleanup.ps1"
       ]
     }

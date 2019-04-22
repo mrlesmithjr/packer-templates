@@ -90,7 +90,6 @@
       "elevated_user": "SYSTEM",
       "elevated_password": ""
     },
-    { "type": "windows-restart", "check_registry": true, "timeout": "1h" },
     {
       "type": "powershell",
       "scripts": [

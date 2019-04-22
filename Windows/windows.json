@@ -27,7 +27,8 @@
       "floppy_files": [
         "{{ user `autounattend` }}",
         "scripts/bootstrap.ps1",
-        "scripts/oracle-cert.cer"
+        "scripts/oracle-cert.cer",
+        "scripts/windows_updates.ps1"
       ],
       "guest_additions_mode": "attach",
       "guest_os_type": "{{ user `virtualbox_guest_type` }}",
@@ -57,7 +58,8 @@
       "floppy_files": [
         "{{ user `autounattend` }}",
         "scripts/bootstrap.ps1",
-        "scripts/oracle-cert.cer"
+        "scripts/oracle-cert.cer",
+        "scripts/windows_updates.ps1"
       ],
       "guest_os_type": "{{ user `vmware_guest_type` }}",
       "headless": true,
@@ -84,12 +86,6 @@
   ],
   "provisioners": [
     { "type": "windows-restart" },
-    {
-      "type": "powershell",
-      "script": "scripts/windows_updates.ps1",
-      "elevated_user": "SYSTEM",
-      "elevated_password": ""
-    },
     {
       "type": "powershell",
       "scripts": [

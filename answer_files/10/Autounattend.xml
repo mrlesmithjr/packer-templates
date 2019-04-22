@@ -166,8 +166,8 @@
           <Description>Disable password expiration for vagrant user</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -File a:\bootstrap.ps1 -username "Administrator" -password "vagrant" -Verbose</CommandLine>
-          <Description>Bootstrap host</Description>
+          <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -File a:\windows_updates.ps1</CommandLine>
+          <Description>Install Windows updates on host</Description>
           <Order>100</Order>
           <RequiresUserInput>true</RequiresUserInput>
         </SynchronousCommand>

@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "wheezy64",
   "box_tag": "mrlesmithjr/wheezy64",
   "description": "Debian Wheezy",

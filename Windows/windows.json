@@ -44,7 +44,7 @@
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "winrm_insecure": true,
       "winrm_password": "{{ user `vm_winrm_password` }}",
-      "winrm_timeout": "4h",
+      "winrm_timeout": "8h",
       "winrm_use_ssl": false,
       "winrm_username": "{{ user `vm_winrm_username` }}"
     },
@@ -79,7 +79,7 @@
       "vmx_remove_ethernet_interfaces": true,
       "winrm_insecure": true,
       "winrm_password": "{{ user `vm_winrm_password` }}",
-      "winrm_timeout": "4h",
+      "winrm_timeout": "8h",
       "winrm_use_ssl": false,
       "winrm_username": "{{ user `vm_winrm_username` }}"
     }

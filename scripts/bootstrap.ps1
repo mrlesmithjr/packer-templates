@@ -97,11 +97,6 @@ if (-not (Test-Path -Path $tmp_dir)) {
   New-Item -Path $tmp_dir -ItemType Directory > $null
 }
 
-# Add The Oracle Cert For VirtualBox
-if ($env:PACKER_BUILDER_TYPE -eq "virtualbox-iso") {
-  certutil -addstore -f "TrustedPublisher" a:\oracle-cert.cer
-}
-
 Function Enable-WinRM {
   # Supress network location Prompt
   # New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Network\NewNetworkWindowOff" -Force

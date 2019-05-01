@@ -7,6 +7,7 @@
     "iso_checksum_type": "",
     "iso_url": "",
     "kickstart_cfg": "",
+    "qemu_accelerator": "kvm",
     "vagrant_cloud_token": "",
     "vagrant_cloud_username": "",
     "vm_disk_adapter_type": "scsi",
@@ -19,7 +20,7 @@
   },
   "builders": [
     {
-      "accelerator": "kvm",
+      "accelerator": "{{ user `qemu_accelerator` }}",
       "boot_command": [
         "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/{{ user `kickstart_cfg` }}<enter><wait>"
       ],

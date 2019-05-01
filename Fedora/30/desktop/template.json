@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "inst.text inst.ks",
+  "iso_checksum": "5e4eac4566d8c572bfb3bcf54b7d6c82006ec3c6c882a2c9235c6d3494d7b100",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://fedora.mirrors.pair.com/linux/releases/30/Server/x86_64/iso/Fedora-Server-netinst-x86_64-30-1.2.iso",
+  "vm_name": "fedora30-desktop-packer-template"
+}

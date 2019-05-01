@@ -43,7 +43,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo dnf -y groupinstall "Development Tools"
         if [[ $os_release_major -ge 28 ]]; then
             sudo dnf -y remove virtualbox-guest-additions
-            TEST_GUEST_ADDITIONS="VBoxGuestAdditions_6.0.97-128852.iso"
+            TEST_GUEST_ADDITIONS="VBoxGuestAdditions_6.0.7-130129.iso"
             sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
             wget https://www.virtualbox.org/download/testcase/$TEST_GUEST_ADDITIONS -O /home/vagrant/$TEST_GUEST_ADDITIONS
         fi

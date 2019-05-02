@@ -53,7 +53,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo yum -y groupinstall "Development Tools"
     fi
     if [ -f /etc/virtualbox_desktop ] && [[ "$os" = "CentOS" ]]; then
-        TEST_GUEST_ADDITIONS="VBoxGuestAdditions_6.0.97-128852.iso"
+        TEST_GUEST_ADDITIONS="VBoxGuestAdditions_6.0.7-130129.iso"
         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
         wget https://www.virtualbox.org/download/testcase/$TEST_GUEST_ADDITIONS -O /home/vagrant/$TEST_GUEST_ADDITIONS
     fi

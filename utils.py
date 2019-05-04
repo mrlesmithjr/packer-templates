@@ -211,11 +211,10 @@ def create_box(box_info, username, vagrant_cloud_token):
     }
     response = requests.post(url, headers=headers, data=json.dumps(payload))
     json_response = response.json()
-    if response.status_code == 200:
-        pass
-    else:
+    if response.status_code != 200:
         print(response.status_code)
-    print(json_response)
+    else:
+        print(json_response)
 
 
 def update_box(box_info, username, vagrant_cloud_token):
@@ -236,9 +235,7 @@ def update_box(box_info, username, vagrant_cloud_token):
     print('Updating box: {0}/{1} info.'.format(username, box_info['box_name']))
     response = requests.put(url, headers=headers, data=json.dumps(payload))
     json_response = response.json()
-    if response.status_code == 200:
-        pass
-    else:
+    if response.status_code != 200:
         print(response.status_code)
         print(json_response)
 
@@ -394,9 +391,7 @@ def create_box_version(box_tag, box_version, vagrant_cloud_token):
     payload = {'version': {'version': box_version}}
     response = requests.post(url, headers=headers, data=json.dumps(payload))
     json_response = response.json()
-    if response.status_code == 200:
-        pass
-    else:
+    if response.status_code != 200:
         print(json_response)
         print(response.status_code)
         sys.exit(1)
@@ -414,9 +409,7 @@ def create_box_provider(box_tag, box_version, box_provider_name,
     payload = {'provider': {'name': box_provider_name}}
     response = requests.post(url, headers=headers, data=json.dumps(payload))
     json_response = response.json()
-    if response.status_code == 200:
-        pass
-    else:
+    if response.status_code != 200:
         print(response.status_code)
         sys.exit(1)
     print(json_response)
@@ -446,9 +439,7 @@ def upload_box(box_tag, box_path, box_version, box_provider_name,
         # Release version
         response = requests.put(url, headers=headers)
         json_response = response.json()
-        if response.status_code == 200:
-            pass
-        else:
+        if response.status_code != 200:
             print(response.status_code)
             print(json_response)
             sys.exit(1)

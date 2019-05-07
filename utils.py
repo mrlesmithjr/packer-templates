@@ -73,7 +73,7 @@ def decide_action(args, username, vagrant_cloud_token):
     """Make decision on what to do from arguments being passed."""
     if args.action == 'build_all':
         build_all(username, vagrant_cloud_token)
-        upload_boxes(username, vagrant_cloud_token)
+        # upload_boxes(username, vagrant_cloud_token)
     elif args.action == 'change_controller':
         change_controller(args)
     elif args.action == 'cleanup_builds':

@@ -80,7 +80,34 @@
       "artifact_id": "",
       "packer_run_uuid": "5eb9f152-e329-65bc-1c3a-577b2e431d6f",
       "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1557198853,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "003aaef7-74d6-7214-9cdf-40975dea92e7",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1557199353,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "003aaef7-74d6-7214-9cdf-40975dea92e7",
+      "custom_data": null
+    },
+    {
+      "name": "qemu",
+      "builder_type": "qemu",
+      "build_time": 1557201256,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "f26a2e06-be10-c8af-c8cd-4e0716ab665a",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "5eb9f152-e329-65bc-1c3a-577b2e431d6f"
+  "last_run_uuid": "f26a2e06-be10-c8af-c8cd-4e0716ab665a"
 }

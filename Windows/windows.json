@@ -27,7 +27,6 @@
       "floppy_files": [
         "{{ user `autounattend` }}",
         "scripts/bootstrap.ps1",
-        "scripts/oracle-cert.cer",
         "scripts/windows_updates.ps1"
       ],
       "guest_additions_mode": "attach",
@@ -58,7 +57,6 @@
       "floppy_files": [
         "{{ user `autounattend` }}",
         "scripts/bootstrap.ps1",
-        "scripts/oracle-cert.cer",
         "scripts/windows_updates.ps1"
       ],
       "guest_os_type": "{{ user `vmware_guest_type` }}",

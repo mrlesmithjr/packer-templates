@@ -15,6 +15,3 @@ choco install -y 7zip sdelete
 # Setup WinRM for Ansible Management
 Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression (
   (New-Object System.Net.WebClient).DownloadString($ansible_script))
-
-# Add The Oracle Cert For VirtualBox
-certutil -addstore -f "TrustedPublisher" a:\oracle-cert.cer

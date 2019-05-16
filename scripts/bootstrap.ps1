@@ -101,9 +101,12 @@ Function Enable-WinRM {
   # Supress network location Prompt
   # New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Network\NewNetworkWindowOff" -Force
 
-  # Set network to private
-  # $ifaceinfo = Get-NetConnectionProfile
-  # Set-NetConnectionProfile -InterfaceIndex $ifaceinfo.InterfaceIndex -NetworkCategory Private
+  $os_version = [Version](Get-Item -Path "$env:SystemRoot\System32\kernel32.dll").VersionInfo.ProductVersion
+  if ($os_version.Major -eq 10) {
+    # Set network to private
+    $ifaceinfo = Get-NetConnectionProfile
+    Set-NetConnectionProfile -InterfaceIndex $ifaceinfo.InterfaceIndex -NetworkCategory Private
+  }
 
   Write-Host "Enable WinRM"
   netsh advfirewall firewall set rule group="remote administration" new enable=yes

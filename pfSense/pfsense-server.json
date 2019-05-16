@@ -1,0 +1,157 @@
+{
+  "variables": {
+    "boot_command_prefix": "",
+    "box_tag": "",
+    "compression_level": "6",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vagrant_cloud_token": "",
+    "vagrant_cloud_username": "",
+    "vm_disk_adapter_type": "scsi",
+    "vm_disk_size": "36864",
+    "vm_memory": "1024",
+    "vm_name": "",
+    "vm_ssh_password": "vagrant",
+    "vm_ssh_username": "vagrant",
+    "vm_vcpu": "1"
+  },
+  "builders": [
+    {
+      "boot_command": [
+        "<enter><wait><enter><wait><enter><wait><enter><wait>",
+        "<wait60><enter><wait><enter><wait60><wait30>",
+        "<wait><wait>8<enter><wait>",
+        "pkg install -y pfSense-pkg-sudo<enter><wait><wait><wait>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/libICE-1.0.9_3,1.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/libSM-1.2.3,1.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/libXau-1.0.9.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/xorgproto-2018.4.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/libXdmcp-1.1.3.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/libpthread-stubs-0.4.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/libxcb-1.13.1.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/libX11-1.6.7,1.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/dbus-1.12.12.txz<wait><enter><wait5>",
+        "pkg add http://pkg.freebsd.org/freebsd:11:x86:64/latest/All/virtualbox-ose-additions-nox11-5.2.26_4.txz<wait><enter><wait5>",
+        "rehash<wait><enter><wait5>",
+        "echo vagrant | pw user add vagrant -m -h 0<enter><wait>",
+        "pw group mod wheel -m vagrant<enter><wait>",
+        "chmod 660 /usr/local/etc/sudoers &&  echo 'vagrant ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers &&  echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers &&  chmod 440 /usr/local/etc/sudoers && chflags schg /usr/local/etc/sudoers<enter><wait5>",
+        "[ ! -d /home/vagrant/.ssh ] && mkdir -p /home/vagrant/.ssh<wait><enter><wait5>",
+        "chmod 0700 /home/vagrant/.ssh<wait><enter><wait5>",
+        "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key' >> /home/vagrant/.ssh/authorized_keys<wait><enter><wait5>",
+        "chown -R vagrant /home/vagrant/.ssh<wait><enter><wait5>",
+        "chmod 0600 /home/vagrant/.ssh/authorized_keys<wait><enter><wait5>",
+        "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/pfsense/config.xml > /conf/config.xml<wait5><enter>",
+        "reboot<wait5><enter>"
+      ],
+      "boot_wait": "30s",
+      "communicator": "ssh",
+      "cpus": "{{ user `vm_vcpu` }}",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "guest_additions_mode": "disable",
+      "guest_additions_path": "",
+      "guest_os_type": "FreeBSD_64",
+      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
+      "headless": false,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `vm_memory` }}",
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
+      "shutdown_command": "sudo poweroff",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--nic2",
+          "hostonly",
+          "--hostonlyadapter2",
+          "vboxnet0",
+          "--nictype2",
+          "82540EM"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--nic3",
+          "hostonly",
+          "--hostonlyadapter2",
+          "vboxnet0",
+          "--nictype3",
+          "82540EM"
+        ]
+      ],
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+    },
+    {
+      "boot_command": [
+        "<enter><wait><enter><wait><enter><wait><enter><wait>",
+        "<wait60><enter><wait><enter><wait60><wait60>",
+        "14<enter><wait>y<enter>",
+        "<wait><wait>8<enter><wait>",
+        "pkg install -y pfSense-pkg-sudo<enter><wait><wait><wait>",
+        "pkg install -y pfSense-pkg-Open-VM-Tools<enter><wait><wait><wait>",
+        "echo vagrant | pw user add vagrant -m -h 0<enter><wait>",
+        "pw group mod wheel -m vagrant<enter><wait>",
+        "chmod 660 /usr/local/etc/sudoers &&  echo 'vagrant ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers &&  echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers &&  chmod 440 /usr/local/etc/sudoers && chflags schg /usr/local/etc/sudoers<enter><wait5>",
+        "[ ! -d /home/vagrant/.ssh ] && mkdir -p /home/vagrant/.ssh<wait><enter><wait5>",
+        "chmod 0700 /home/vagrant/.ssh<wait><enter><wait5>",
+        "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key' >> /home/vagrant/.ssh/authorized_keys<wait><enter><wait5>",
+        "chown -R vagrant /home/vagrant/.ssh<wait><enter><wait5>",
+        "chmod 0600 /home/vagrant/.ssh/authorized_keys<wait><enter><wait5>",
+        "curl http://{{ .HTTPIP }}:{{ .HTTPPort }}/pfsense/config.xml > /conf/config.xml<wait5><enter>",
+        "reboot<wait5><enter>"
+      ],
+      "cpus": "{{ user `vm_vcpu` }}",
+      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
+      "disk_additional_size": ["{{ user `vm_disk_size` }}"],
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "disk_type_id": 0,
+      "guest_os_type": "FreeBSD-64",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `vm_memory` }}",
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
+      "shutdown_command": "shutdown -p now",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_data": {
+        "ethernet0.pciSlotNumber": "32"
+      },
+      "vmx_remove_ethernet_interfaces": true
+    }
+  ],
+  "provisioners": [],
+  "post-processors": [
+    [
+      {
+        "compression_level": "{{ user `compression_level` }}",
+        "output": "{{ user `vm_name` }}-{{.Provider}}-{{ timestamp }}.box",
+        "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "{{ user `box_tag` }}",
+        "access_token": "{{ user `vagrant_cloud_token` }}",
+        "version": "{{ timestamp }}"
+      },
+      {
+        "type": "manifest",
+        "output": "manifest.json",
+        "strip_path": true
+      }
+    ]
+  ]
+}

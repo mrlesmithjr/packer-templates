@@ -1,0 +1,8 @@
+{
+  "auto_build": "False",
+  "box_name": "pfsense24",
+  "box_tag": "mrlesmithjr/pfsense24",
+  "description": "pfSense 2.4",
+  "private": "False",
+  "short_description": "pfSense 2.4"
+}

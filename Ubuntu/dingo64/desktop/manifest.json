@@ -26,7 +26,16 @@
       "artifact_id": "",
       "packer_run_uuid": "48a55cea-e5cd-ef71-b680-1477a5c7ea2f",
       "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1559629926,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "faf703e7-16b5-b9a5-da29-59340b4ce2b3",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "48a55cea-e5cd-ef71-b680-1477a5c7ea2f"
+  "last_run_uuid": "faf703e7-16b5-b9a5-da29-59340b4ce2b3"
 }

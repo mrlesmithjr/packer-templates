@@ -1,0 +1,9 @@
+{
+  "alpine_system_part": "/dev/sda2",
+  "alpine_version": "3.10",
+  "boot_command_prefix": "",
+  "iso_checksum": "b3d8fe65c2777edcbc30b52cde7f5ae21dff8ecda612d5fe7b10d5c23cda40c4",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/x86_64/alpine-virt-3.10.0-x86_64.iso",
+  "vm_name": "alpine310-server-packer-template"
+}

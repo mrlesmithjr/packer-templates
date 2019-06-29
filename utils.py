@@ -205,7 +205,7 @@ def create_box(box_info, username, vagrant_cloud_token):
         {
             'username': username,
             'name': box_info['box_name'],
-            'is_private': box_info['private'],
+            'is_private': box_info['private'].lower(),
             'short_description': box_info['short_description'],
             'description': box_info['description']}
     }
@@ -228,7 +228,7 @@ def update_box(box_info, username, vagrant_cloud_token):
         'box':
         {
             'name': box_info['box_name'],
-            'is_private': box_info['private'],
+            'is_private': box_info['private'].lower(),
             'short_description': box_info['short_description'],
             'description': box_info['description']}
     }

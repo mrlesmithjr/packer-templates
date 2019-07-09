@@ -11,7 +11,7 @@
     "vagrant_cloud_username": "",
     "vm_disk_adapter_type": "scsi",
     "vm_disk_size": "36864",
-    "vm_memory": "512",
+    "vm_memory": "1024",
     "vm_name": "",
     "vm_ssh_password": "vagrant",
     "vm_ssh_username": "vagrant",

@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "buster64-desktop",
+  "box_tag": "mrlesmithjr/buster64-desktop",
+  "description": "Debian Buster Desktop",
+  "private": "False",
+  "short_description": "Debian Buster Desktop"
+}

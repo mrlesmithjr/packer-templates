@@ -98,6 +98,8 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
     fi
     if [[ $os_release_major -gt 6 ]]; then
         sudo apt-get update
+        echo "libc6:amd64     libraries/restart-without-asking        boolean true" | sudo debconf-set-selections
+        echo "libssl1.1:amd64 libssl1.1/restart-services      string" | sudo debconf-set-selections
         sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
         build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
     fi

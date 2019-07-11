@@ -1,6 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
 
 - [packer-templates](#packer-templates)
   - [Purpose](#purpose)
@@ -51,7 +52,7 @@ All of my Packer templates are configured to upload to Vagrant Cloud after a suc
 ```json
 {
   "vagrant_cloud_token": "Your Vagrant Cloud private API token",
-  "username": "Your Vagrant Cloud username"
+  "vagrant_cloud_username": "Your Vagrant Cloud username"
 }
 ```
 

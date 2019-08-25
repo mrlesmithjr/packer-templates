@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "sl7",
   "box_tag": "mrlesmithjr/sl7",
   "description": "Scientific Linux 7",

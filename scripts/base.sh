@@ -61,6 +61,9 @@ if [ -f /etc/os-release ]; then
                 echo 'Error: facter is not installed.' >&2
                 if [[ $os_version_id = 7 ]]; then
                     sudo yum -y install http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/facter-2.4.1-1.el7.x86_64.rpm
+                elif [[ $os_version_id = 8 ]]; then
+                    echo 'y' | sudo yum -y install ruby dmidecode net-tools pciutils virt-what which
+                    sudo yum -y install http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/facter-2.4.1-1.el7.x86_64.rpm
                 fi
             fi
         elif [[ $os_name = *openSUSE* ]]; then
@@ -134,7 +137,11 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
 
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os != "Fedora" ]]; then
-        sudo yum -y install cloud-utils-growpart python-devel
+        if [[ $os_version_id -lt 8 ]]; then
+            sudo yum -y install cloud-utils-growpart python-devel
+        else
+            sudo yum -y install cloud-utils-growpart platform-python-devel
+        fi
 
         elif [[ $os = "Fedora" ]]; then
         if [[ $os_version_id -ge 22 ]]; then

@@ -1,4 +1,4 @@
-ansible==2.7.10
+ansible==2.7.12
 requests==2.21.0
 GitPython==2.1.11
 pywinrm==0.3.0

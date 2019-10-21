@@ -1,4 +1,4 @@
-ansible==2.7.10
+ansible==2.7.12
 asn1crypto==0.24.0
 astroid==1.6.5
 autopep8==1.4.3

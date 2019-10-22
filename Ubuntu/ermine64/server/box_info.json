@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "ermine64",
+  "box_tag": "mrlesmithjr/ermine64",
+  "description": "Ubuntu 19.10 (Eoan Ermine) Server",
+  "private": "False",
+  "short_description": "Ubuntu Ermine Server"
+}

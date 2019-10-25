@@ -48,11 +48,16 @@ if [[ $os_family = "Debian" ]]; then
     fi
     elif [[ $os_family == "RedHat" ]]; then
     if [[ $os = "CentOS" ]]; then
-        if [[ $os_release_major -gt 6 ]]; then
+        if [[ $os_release_major -gt 6 ]] && [[ $os_release_major -lt 8 ]]; then
             sudo yum -y groupinstall "X Window System"
             sudo yum -y install gnome-classic-session gnome-terminal \
             nautilus-open-terminal control-center liberation-mono-fonts
             sudo ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target
+        elif [[ $os_release_major -ge 8 ]]; then
+            sudo yum -y groupinstall "Server with GUI"
+            sudo systemctl set-default graphical
+        fi
+        if [[ $os_release_major -gt 6 ]]; then
             GDM_CUSTOM_CONFIG=/etc/gdm/custom.conf
             sudo mkdir -p "$(dirname ${GDM_CUSTOM_CONFIG})"
             sudo bash -c "echo "[daemon]" > $GDM_CUSTOM_CONFIG"

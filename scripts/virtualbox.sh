@@ -52,11 +52,6 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
     fi
-    if [ -f /etc/virtualbox_desktop ] && [[ "$os" = "CentOS" ]]; then
-        TEST_GUEST_ADDITIONS="VBoxGuestAdditions_6.0.7-130129.iso"
-        sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-        wget https://www.virtualbox.org/download/testcase/$TEST_GUEST_ADDITIONS -O /home/vagrant/$TEST_GUEST_ADDITIONS
-    fi
     sudo mkdir -p /mnt/virtualbox
     sudo mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
     sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run

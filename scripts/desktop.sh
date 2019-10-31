@@ -29,6 +29,8 @@ if [[ $os_family = "Debian" ]]; then
         elif [[ $os = "Ubuntu" ]]; then
         echo "==> Installing ubuntu-desktop"
         sudo apt-get install -y --no-install-recommends ubuntu-desktop
+        # Fixes issue with gnome-terminal starting
+        sudo update-locale LANG="en_US.UTF-8" LANGUAGE
         if [[ $os_release_major -lt 17 ]]; then
             GDM_CUSTOM_CONFIG=/etc/gdm/custom.conf
             LIGHTDM_CONFIG=/etc/lightdm/lightdm.conf

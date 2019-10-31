@@ -12,29 +12,38 @@ if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
 fi
 
 if [[ $os_family = "Debian" || $os = "Debian" ]]; then
-    if [[ $os = "Ubuntu" ]]; then
-        set -e
-        sudo apt-get install -y virtualbox-guest-utils
-        sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+    # if [[ $os = "Ubuntu" ]]; then
+    #     set -e
+    #     sudo apt-get install -y virtualbox-guest-utils
+    #     sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
 
-        elif [[ $os = "LinuxMint" ]]; then
-        sudo apt-get install -y virtualbox-guest-utils
-        sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-        elif [[ $os = "Debian" ]]; then
-        if [[ $os_release_major -gt 7 ]]; then
-            sudo mkdir -p /mnt/virtualbox
-            sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
-            sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
-            sudo umount /mnt/virtualbox
-            sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-        fi
-        if [ -f /etc/vyos_build ]; then
-            sudo mkdir -p /mnt/virtualbox
-            sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
-            sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
-            sudo umount /mnt/virtualbox
-            sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-        fi
+    #     elif [[ $os = "LinuxMint" ]]; then
+    #     sudo apt-get install -y virtualbox-guest-utils
+    #     sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+    #     elif [[ $os = "Debian" ]]; then
+    #     if [[ $os_release_major -gt 7 ]]; then
+    #         sudo mkdir -p /mnt/virtualbox
+    #         sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
+    #         sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    #         sudo umount /mnt/virtualbox
+    #         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+    #     fi
+    #     if [ -f /etc/vyos_build ]; then
+    #         sudo mkdir -p /mnt/virtualbox
+    #         sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
+    #         sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    #         sudo umount /mnt/virtualbox
+    #         sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+    #     fi
+    # fi
+    sudo mkdir -p /mnt/virtualbox
+    sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
+    sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    sudo umount /mnt/virtualbox
+    sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+
+    if [ -f /etc/virtualbox_desktop ]; then
+        sudo apt-get install -y xserver-xorg-video-vmware
     fi
 
     elif [[ $os_family = "RedHat" ]]; then

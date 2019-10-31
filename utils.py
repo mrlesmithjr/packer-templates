@@ -6,6 +6,7 @@ from datetime import datetime
 import json
 import logging
 import os
+import re
 import shutil
 # import time
 import subprocess
@@ -58,7 +59,7 @@ def parse_args():
     parser.add_argument(
         "action", help="Define action to take.", choices=[
             'build_all', 'change_controller', 'cleanup_builds',
-            'commit_manifests', 'get_boxes', 'rename_templates',
+            'commit_manifests', 'get_boxes', 'prep_builds', 'rename_templates',
             'repo_info', 'upload_boxes', 'view_manifests'])
     parser.add_argument('--controller',
                         help='Define hard drive controller type',
@@ -79,23 +80,97 @@ def decide_action(args, username, vagrant_cloud_token):
     elif args.action == 'cleanup_builds':
         cleanup_builds()
     elif args.action == 'commit_manifests':
-        repo_facts = dict()
-        repo_info(repo_facts)
+        repo_facts = repo_info()
         commit_manifests(repo_facts)
     elif args.action == 'get_boxes':
         boxes = dict()
         get_boxes(boxes, vagrant_cloud_token)
         print(json.dumps(boxes, indent=4))
+    elif args.action == 'prep_builds':
+        repo, repo_facts = repo_info()
+        builds = parse_folders()
+        prep_builds(repo, repo_facts, builds)
     elif args.action == 'rename_templates':
         rename_templates()
     elif args.action == 'repo_info':
-        repo_facts = dict()
-        repo_info(repo_facts)
+        repo, repo_facts = repo_info()
         print(json.dumps(repo_facts, indent=4))
     elif args.action == 'upload_boxes':
         upload_boxes(username, vagrant_cloud_token)
     elif args.action == 'view_manifests':
         view_manifests()
+
+
+def parse_folders():
+    """Parse folders to find environment.yml"""
+    builds = list()
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
+        if 'build.sh' in files:
+            builds.append(root)
+    return builds
+
+
+def prep_builds(repo, repo_facts, builds):
+    for build_dir in builds:
+        cleanup_linked_dirs(build_dir, repo, repo_facts)
+        cleanup_linked_files(build_dir, repo, repo_facts)
+
+
+def cleanup_linked_dirs(build_dir, repo, repo_facts):
+    linked_dirs = ['http', 'scripts']
+
+    for linked_dir in linked_dirs:
+        dir_path = os.path.join(build_dir, linked_dir)
+        entry = f'{build_dir}/{linked_dir}'.replace(
+            f'{SCRIPT_DIR}/', '')
+        if os.path.exists(dir_path):
+            if not os.path.islink(dir_path):
+                entry_regex = re.compile(f'.*{entry}.*')
+                if any(entry_regex.match(line) for line
+                       in repo_facts['entries']):
+                    repo.index.remove(entry, r=True)
+                    if os.path.isdir(entry):
+                        shutil.rmtree(entry)
+                    os.symlink(os.path.join('..', '..', '..', linked_dir),
+                               dir_path)
+                    repo.index.add(entry)
+                else:
+                    if os.path.isdir(entry):
+                        shutil.rmtree(entry)
+                        os.symlink(os.path.join('..', '..', '..', linked_dir),
+                                   dir_path)
+                        repo.index.add(entry)
+
+        else:
+            os.symlink(os.path.join('..', '..', '..', linked_dir),
+                       dir_path)
+            repo.index.add(entry)
+
+
+def cleanup_linked_files(build_dir, repo, repo_facts):
+    """Cleanup linked files."""
+
+    # Defines files that should be linked in environment directory
+    linked_files = ['upload_boxes.sh']
+
+    for linked_file in linked_files:
+        file_path = os.path.join(build_dir, linked_file)
+        if os.path.exists(file_path):
+            if not os.path.islink(file_path):
+                entry = f'{build_dir}/{linked_file}'.replace(
+                    f'{SCRIPT_DIR}/', '')
+                if entry in repo_facts['entries']:
+                    repo.index.remove(entry)
+                    os.remove(entry)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                os.symlink(os.path.join(
+                    '..', '..', '..', linked_file), file_path)
+                repo.index.add(entry)
+        else:
+            os.symlink(os.path.join(
+                '..', '..', '..', linked_file), file_path)
+            repo.index.add(entry)
 
 
 def get_boxes(boxes, vagrant_cloud_token):
@@ -116,21 +191,29 @@ def get_boxes(boxes, vagrant_cloud_token):
                     boxes[json_data['tag']] = json_data
 
 
-def repo_info(repo_facts):
+def repo_info():
     """Collect important repo info and store as facts."""
-    changed_files = []
-    repo_remotes = []
+    changed_files = list()
+    entries = list()
+    repo_remotes = list()
     repo_path = os.getcwd()
     repo = git.Repo(repo_path)
+    for (path, _stage), _entry in repo.index.entries.items():
+        entries.append(path)
     for item in repo.index.diff(None):
         changed_files.append(item.a_path)
     for item in repo.remotes:
         remote_info = dict()
-        remote_info[item.name] = {"url": item.url}
+        remote_info[item.name] = dict(url=item.url)
         repo_remotes.append(remote_info)
-    repo_facts['changed_files'] = changed_files
-    repo_facts['remotes'] = repo_remotes
-    repo_facts['untracked_files'] = repo.untracked_files
+    repo_facts = dict(
+        changed_files=changed_files,
+        entries=entries,
+        remotes=repo_remotes,
+        untracked_files=repo.untracked_files,
+        working_tree_dir=repo.working_tree_dir
+    )
+    return repo, repo_facts
 
 
 def build_all(username, vagrant_cloud_token):

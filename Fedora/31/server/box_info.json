@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "fedora31",
+  "box_tag": "mrlesmithjr/fedora31",
+  "description": "Fedora 31",
+  "private": "False",
+  "short_description": "Fedora 31"
+}

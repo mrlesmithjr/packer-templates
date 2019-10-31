@@ -80,7 +80,7 @@ def decide_action(args, username, vagrant_cloud_token):
     elif args.action == 'cleanup_builds':
         cleanup_builds()
     elif args.action == 'commit_manifests':
-        repo_facts = repo_info()
+        repo, repo_facts = repo_info()
         commit_manifests(repo_facts)
     elif args.action == 'get_boxes':
         boxes = dict()

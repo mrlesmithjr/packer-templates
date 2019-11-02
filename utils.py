@@ -2,7 +2,7 @@
 """Just a small little script to help manage Packer templates in this repo."""
 
 import argparse
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 import logging
 import os
@@ -255,13 +255,13 @@ def get_box(box_info, username, vagrant_cloud_token):
     json_data = response.json()
     if response.status_code == 200:
         update_box(box_info, username, vagrant_cloud_token)
-        current_time = datetime.now()
+        current_time = datetime.now(timezone.utc)
         current_version = json_data.get('current_version')
         if current_version is not None:
             last_updated_str = json_data['current_version'][
                 'updated_at']
             last_updated_object = datetime.strptime(
-                last_updated_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+                last_updated_str, '%Y-%m-%dT%H:%M:%S.%f%z')
             since_updated_days = (
                 current_time - last_updated_object).days
             if since_updated_days > BUILD_OLDER_THAN_DAYS:

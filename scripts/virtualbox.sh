@@ -48,7 +48,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
 
     elif [[ $os_family = "RedHat" ]]; then
     if [[ $os = "Fedora" ]]; then
-        sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
+        sudo dnf -y install gcc kernel-devel-$(uname -r) kernel-headers-$(uname -r) dkms make bzip2 perl && \
         sudo dnf -y groupinstall "Development Tools"
         if [[ $os_release_major -ge 28 ]]; then
             sudo dnf -y remove virtualbox-guest-additions
@@ -58,7 +58,7 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         fi
     else
         set -e
-        sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
+        sudo yum -y install gcc kernel-devel-$(uname -r) kernel-headers-$(uname -r) dkms make bzip2 perl && \
         sudo yum -y groupinstall "Development Tools"
     fi
     sudo mkdir -p /mnt/virtualbox

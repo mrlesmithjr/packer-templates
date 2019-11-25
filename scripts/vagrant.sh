@@ -3,7 +3,14 @@
 set -e
 set -x
 
-os="$(facter operatingsystem)"
+if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
+    source /etc/os-release
+    id=$ID
+    
+    elif [ -f /etc/redhat-release ]; then
+    id="$(awk '{ print tolower($1) }' /etc/redhat-release | sed 's/"//g')"
+fi
 
 # Vagrant specific
 sudo bash -c "date > /etc/vagrant_box_build_time"
@@ -27,6 +34,6 @@ else
     sudo chown -R vagrant /home/vagrant/.ssh
 fi
 # We need to do this here as our autoinst.xml does not do it for us
-if [[ $os = *openSUSE* || $os = *OpenSuSE* ]]; then
+if [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
     echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 fi

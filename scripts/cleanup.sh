@@ -3,37 +3,31 @@
 set -e
 set -x
 
-os="$(facter operatingsystem)"
-os_family="$(facter osfamily)"
-os_release="$(facter operatingsystemrelease)"
-os_release_major="$(facter operatingsystemrelease | awk -F. '{ print $1 }')"
+if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
+    source /etc/os-release
+    id=$ID
+    
+    elif [ -f /etc/redhat-release ]; then
+    id="$(awk '{ print tolower($1) }' /etc/redhat-release | sed 's/"//g')"
+fi
 
-if [[ $os_family = "Debian" || $os = "Debian" ]]; then
+if [[ $id == "arch" ]]; then
+    /usr/bin/yes | sudo /usr/bin/pacman -Scc
+    
+    elif [[ $id == "centos" ]]; then
+    sudo yum clean all
+    sudo rm -rf /var/cache/yum
+    
+    elif [[ $id == "debian" || $id == "ubuntu" ]]; then
     sudo apt-get clean
     
-    elif [[ $os_family = "RedHat" ]]; then
-    if [[ $os != "Fedora" ]]; then
-        sudo yum clean all
-        sudo rm -rf /var/cache/yum
-        
-        elif [[ $os = "Fedora" ]]; then
-        sudo dnf clean all
-    fi
-    elif [[ $os_family = "Archlinux" ]]; then
-    /usr/bin/yes | sudo /usr/bin/pacman -Scc
+    elif [[ $id == "fedora" ]]; then
+    sudo dnf clean all
 fi
 
-if [[ $os_family != "Archlinux" ]]; then
-    if [[ $os != "CentOS" ]]; then
-        sudo service rsyslog stop
-    else
-        if [[ $os == "CentOS" ]];then
-            if [[ $os_release_major -ge 6 ]];then
-                sudo service rsyslog stop
-            fi
-        fi
-    fi
-fi
+# Stop rsyslog service
+sudo service rsyslog stop
 
 #clear audit logs
 if [ -f /var/log/audit/audit.log ]; then

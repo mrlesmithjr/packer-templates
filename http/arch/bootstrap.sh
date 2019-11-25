@@ -35,7 +35,7 @@ echo -e "Mounting root partition..."
 
 echo -e "Bootstrapping base installation..."
 /usr/bin/pacstrap $CHROOT_DIR base base-devel
-/usr/bin/arch-chroot $CHROOT_DIR pacman -S --noconfirm facter gptfdisk openssh syslinux
+/usr/bin/arch-chroot $CHROOT_DIR pacman -S --noconfirm gptfdisk openssh syslinux
 /usr/bin/arch-chroot $CHROOT_DIR syslinux-install_update -i -a -m
 /usr/bin/sed -i "s|sda3|sda1|" "$CHROOT_DIR/boot/syslinux/syslinux.cfg"
 /usr/bin/sed -i "s/TIMEOUT 50/TIMEOUT 10/" "$CHROOT_DIR/boot/syslinux/syslinux.cfg"

@@ -4,6 +4,7 @@ set -e
 set -x
 
 if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     source /etc/os-release
     id=$ID
     
@@ -33,6 +34,6 @@ else
     sudo chown -R vagrant /home/vagrant/.ssh
 fi
 # We need to do this here as our autoinst.xml does not do it for us
-if [[ $id == "opensuse" ]]; then
+if [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
     echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 fi

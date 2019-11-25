@@ -6,6 +6,7 @@ if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
 fi
 
 if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     source /etc/os-release
     id=$ID
     os_version_id=$VERSION_ID
@@ -34,7 +35,7 @@ if [[ $id == "alpine" ]]; then
     sudo /usr/bin/usermod --append --groups vagrant,vboxsf vagrant
     
     elif [[ $id == "centos" ]]; then
-    sudo yum -y install gcc kernel-devel-$(uname -r) kernel-headers-$(uname -r) dkms make bzip2 perl && \
+    sudo yum -y install gcc kernel-devel-"$(uname -r)" kernel-headers-"$(uname -r)" dkms make bzip2 perl && \
     sudo yum -y groupinstall "Development Tools"
     
     elif [[ $id == "debian" || $id == "ubuntu" ]]; then
@@ -43,27 +44,33 @@ if [[ $id == "alpine" ]]; then
     fi
     
     elif [[ $id == "fedora" ]]; then
-    sudo dnf -y install gcc kernel-devel-$(uname -r) kernel-headers-$(uname -r) dkms make bzip2 perl && \
+    sudo dnf -y install gcc kernel-devel-"$(uname -r)" kernel-headers-"$(uname -r)" dkms make bzip2 perl && \
     sudo dnf -y groupinstall "Development Tools"
     if [[ $os_version_id -ge 28 ]]; then
         sudo dnf -y remove virtualbox-guest-additions
     fi
     
-    elif [[ $id == "opensuse" ]]; then
+    elif [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
     sudo zypper --non-interactive install gcc kernel-devel \
     make bzip2 perl
 fi
 
 if [[ $id != "alpine" && $id != "arch" ]]; then
+    if [[ -f /home/vagrant/VBoxGuestAdditions.iso ]]; then
+        vbox_guest_additions_path="/home/vagrant/VBoxGuestAdditions.iso"
+        
+        elif [[ -f /root/VBoxGuestAdditions.iso ]]; then
+        vbox_guest_additions_path="/root/VBoxGuestAdditions.iso"
+    fi
     sudo mkdir -p /mnt/virtualbox
-    sudo mount -o loop /home/vagrant/VBoxGuestAdditions*.iso /mnt/virtualbox
+    sudo mount -o loop "$vbox_guest_additions_path" /mnt/virtualbox
     sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
     sudo umount /mnt/virtualbox
-    sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
+    sudo rm -rf "$vbox_guest_additions_path"
 fi
 
-if [ -f /home/vagrant/VBoxGuestAdditions*.iso ]; then
-    sudo rm -rf /home/vagrant/VBoxGuestAdditions*.iso
-    elif [ -f /root/VBoxGuestAdditions*.iso ]; then
-    sudo rm -rf /root/VBoxGuestAdditions*.iso
+if [ -f /home/vagrant/VBoxGuestAdditions.iso ]; then
+    sudo rm -rf /home/vagrant/VBoxGuestAdditions.iso
+    elif [ -f /root/VBoxGuestAdditions.iso ]; then
+    sudo rm -rf /root/VBoxGuestAdditions.iso
 fi

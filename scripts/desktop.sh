@@ -5,6 +5,7 @@ set -x
 USERNAME=vagrant
 
 if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     source /etc/os-release
     id=$ID
     os_version_id=$VERSION_ID

@@ -3,6 +3,7 @@ set -e
 set -x
 
 if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     source /etc/os-release
     id=$ID
     os_version_id=$VERSION_ID
@@ -85,7 +86,7 @@ _EOF_
         sudo dnf -y install initscripts python-devel python3-dnf
     fi
     
-    elif [[ $id == "opensuse" ]]; then
+    elif [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
     sudo zypper --non-interactive install python-devel
     
     elif [[ $id == "ubuntu" ]]; then

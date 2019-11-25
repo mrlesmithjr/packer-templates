@@ -8,6 +8,7 @@ if [ "$PACKER_BUILDER_TYPE" != "vmware-iso" ]; then
 fi
 
 if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     source /etc/os-release
     id=$ID
     os_version_id=$VERSION_ID
@@ -71,6 +72,6 @@ if [[ $id == "alpine" ]]; then
     fi
     sudo /bin/systemctl restart vmtoolsd.service
     
-    elif [[ $id == "opensuse" ]]; then
+    elif [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
     sudo zypper --non-interactive install open-vm-tools
 fi

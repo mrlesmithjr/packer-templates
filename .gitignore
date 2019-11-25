@@ -3,7 +3,8 @@
 *.box
 *.iso
 output-*
-packer_cache
+packer_cache/*
+!packer_cache/.gitkeep
 private_vars.json
 Vagrantfile
 venv

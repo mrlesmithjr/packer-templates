@@ -117,7 +117,7 @@ def prep_builds(repo, repo_facts, builds):
 
 
 def cleanup_linked_dirs(build_dir, repo, repo_facts):
-    linked_dirs = ['http', 'scripts']
+    linked_dirs = ['http', 'packer_cache', 'scripts']
 
     for linked_dir in linked_dirs:
         dir_path = os.path.join(build_dir, linked_dir)
@@ -359,8 +359,8 @@ def cleanup_builds():
                 shutil.rmtree(os.path.join(root, item))
             if item == '.vagrant':
                 shutil.rmtree(os.path.join(root, item))
-            if item == 'packer_cache':
-                shutil.rmtree(os.path.join(root, item))
+            # if item == 'packer_cache':
+            #     shutil.rmtree(os.path.join(root, item))
 
         for item in files:
             filename, ext = os.path.splitext(item)

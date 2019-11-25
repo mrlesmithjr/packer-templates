@@ -1,18 +1,34 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 set -e
 set -x
 
-# The below is only specific to Fedora 22 as of right now. All other later
-# versions do not have issues with facter.
-if [[ ! -f /etc/os-release || -f /etc/redhat-release ]];then
-    os_name="$(awk '{ print $1 }' /etc/redhat-release | sed 's/"//g')"
-    os_version_id="$(awk '{ print $3 }' /etc/redhat-release | sed 's/"//g')"
-    if [[ $os_name = "CentOS" ]];then
-        if [[ $os_version_id = 5.11 ]];then
-            for F in /etc/yum.repos.d/*.repo; do
-                sudo bash -c "echo '# EOL DISTRO' > $F"
-            done
+if [ -f /etc/os-release ]; then
+    source /etc/os-release
+    id=$ID
+    os_version_id=$VERSION_ID
+    
+    elif [ -f /etc/redhat-release ]; then
+    id="$(awk '{ print tolower($1) }' /etc/redhat-release | sed 's/"//g')"
+    os_version_id="$(awk '{ print $3 }' /etc/redhat-release | sed 's/"//g' | awk -F. '{ print $1 }')"
+fi
+
+if [[ $id == "alpine" ]]; then
+    chmod u+s /usr/bin/sudo
+    apk add python alpine-sdk || true
+    
+    elif [[ $id == "arch" ]]; then
+    yes | sudo pacman -Syyu && yes | sudo pacman -S gc guile autoconf automake \
+    binutils bison fakeroot file findutils flex gcc gettext grep \
+    groff gzip libtool m4 make pacman patch pkgconf sed sudo systemd \
+    texinfo util-linux which python-setuptools python-virtualenv python-pip \
+    python-pyopenssl python2-setuptools python2-virtualenv python2-pip \
+    python2-pyopenssl
+    
+    elif [[ $id == "centos" ]]; then
+    if [[ $os_version_id -eq 5 ]]; then
+        for F in /etc/yum.repos.d/*.repo; do
+            sudo bash -c "echo '# EOL DISTRO' > $F"
+        done
 cat <<_EOF_ | sudo bash -c "cat > /etc/yum.repos.d/Vault.repo"
 [base]
 name=CentOS-5.11 - Base
@@ -39,79 +55,55 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
 enabled=1
 _EOF_
-            sudo yum -y update
-            sudo yum -y install epel-release
-            sudo yum -y install facter perl rsyslog sudo wget
-        fi
     fi
-fi
-
-if [ -f /etc/os-release ]; then
-    os_name="$(awk -F= '/^NAME/{ print $2 }' /etc/os-release | sed 's/"//g')"
-    os_version_id="$(awk -F= '/^VERSION_ID/{ print $2}' /etc/os-release | sed 's/"//g')"
-    if [[ $os_name = "Fedora" ]]; then
-        if [[ $os_version_id = 22 ]]; then
-            sudo dnf -y install facter ruby rubygems
-            elif [[ $os_version_id -le 21 ]]; then
-            sudo yum -y update
-            sudo yum -y install dnf facter perl redhat-lsb-core rsyslog ruby rubygems wget
-        fi
-        elif [[ $os_name = *CentOS* ]]; then
-            if ! [ -x "$(command -v facter)" ]; then
-                echo 'Error: facter is not installed.' >&2
-                if [[ $os_version_id = 7 ]]; then
-                    sudo yum -y install http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/facter-2.4.1-1.el7.x86_64.rpm
-                elif [[ $os_version_id = 8 ]]; then
-                    echo 'y' | sudo yum -y install ruby dmidecode net-tools pciutils virt-what which
-                    sudo yum -y install http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/facter-2.4.1-1.el7.x86_64.rpm
-                fi
-            fi
-        elif [[ $os_name = *openSUSE* ]]; then
-        if [[ $os_name = "openSUSE Tumbleweed" || $os_name = "openSUSE Leap" ]]; then
-            # Need to sleep for a period of time to ensure zypper completes processes on first startup
-            sleep 2m
-            sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/systemsmanagement:puppet/openSUSE_Tumbleweed/systemsmanagement:puppet.repo
-            sudo zypper --gpg-auto-import-keys refresh
-            sudo zypper --non-interactive install rubygem-facter
-        else
-            if [[ $os_version_id = *13.* ]]; then
-                sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/13.2/repo/oss/suse/x86_64/facter-2.0.2-2.2.1.x86_64.rpm
-                elif [[ $os_version_id = *42.1* ]]; then
-                sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.1/repo/oss/suse/x86_64/rubygem-facter-2.4.3-4.6.x86_64.rpm
-                elif [[ $os_version_id = *42.2* ]]; then
-                sudo zypper --non-interactive install https://ftp5.gwdg.de/pub/opensuse/discontinued/distribution/leap/42.2/repo/oss/suse/x86_64/rubygem-facter-2.4.6-7.1.x86_64.rpm
-            fi
-        fi
-        elif [[ $os_name = *Oracle* ]]; then
-        sudo yum -y install https://yum.oracle.com/repo/OracleLinux/OL7/developer_EPEL/x86_64/getPackage/facter-2.4.1-1.el7.x86_64.rpm
+    
+    sudo yum -y install epel-release
+    
+    if [[ $os_version_id -lt 8 ]]; then
+        sudo yum -y install cloud-utils-growpart python-devel
+    else
+        sudo yum -y install cloud-utils-growpart platform-python-devel
     fi
-fi
-
-codename="$(facter lsbdistcodename)"
-os="$(facter operatingsystem)"
-os_family="$(facter osfamily)"
-os_release="$(facter operatingsystemrelease)"
-os_release_major="$(facter operatingsystemrelease | awk -F. '{ print $1 }')"
-
-if [[ $os_family = "Debian" || $os = "Debian" ]]; then
-    # We need to cleanup for old repo update issues for hash mismatch
-    if [[ $codename = "precise" ]]; then
-        sudo apt-get clean
-        sudo rm -r /var/lib/apt/lists/*
-    fi
-    if [[ $os_release_major -gt 6 ]]; then
-        sudo apt-get update
-        echo "libc6:amd64     libraries/restart-without-asking        boolean true" | sudo debconf-set-selections
-        echo "libssl1.1:amd64 libssl1.1/restart-services      string" | sudo debconf-set-selections
-        sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
-        build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
-    fi
+    
+    elif [[ $id == "debian" ]]; then
+    sudo apt-get update
+    echo "libc6:amd64     libraries/restart-without-asking        boolean true" | sudo debconf-set-selections
+    echo "libssl1.1:amd64 libssl1.1/restart-services      string" | sudo debconf-set-selections
+    sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
+    build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
+    
     if [[ ! -f /etc/vyos_build ]]; then
-        if [[ $codename != "wheezy" ]]; then
+        if [[ $os_version_id -gt 7 ]]; then
             sudo apt-get -y install cloud-initramfs-growroot
         fi
     fi
+    
+    elif [[ $id == "fedora" ]]; then
+    if [[ $os_version_id -lt 30 ]]; then
+        sudo dnf -y install python-devel python-dnf
+    else
+        sudo dnf -y install initscripts python-devel python3-dnf
+    fi
+    
+    elif [[ $id == "opensuse" ]]; then
+    sudo zypper --non-interactive install python-devel
+    
+    elif [[ $id == "ubuntu" ]]; then
+    if [[ $os_version_id == 12.04 ]]; then
+        sudo apt-get clean
+        sudo rm -r /var/lib/apt/lists/*
+    fi
+    sudo apt-get update
+    echo "libc6:amd64     libraries/restart-without-asking        boolean true" | sudo debconf-set-selections
+    echo "libssl1.1:amd64 libssl1.1/restart-services      string" | sudo debconf-set-selections
+    sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
+    build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
+    if [[ ! -f /etc/vyos_build ]]; then
+        sudo apt-get -y install cloud-initramfs-growroot
+    fi
+fi
 
+if [[ $id == "debian" || $id == "ubuntu" ]]; then
     # Check for /etc/rc.local and create if needed. This has been depricated in
     # Debian 9 and later. So we need to resolve this in order to regenerate SSH host
     # keys.
@@ -129,44 +121,9 @@ if [[ $os_family = "Debian" || $os = "Debian" ]]; then
         sudo bash -c "echo 'test -f /etc/ssh/ssh_host_dsa_key || dpkg-reconfigure openssh-server' >> /etc/rc.local"
         sudo bash -c "echo 'exit 0' >> /etc/rc.local"
     fi
+fi
 
-    # Fix machine-id issue with duplicate IP addresses being assigned
-    if [ -f /etc/machine-id ]; then
-        sudo truncate -s 0 /etc/machine-id
-    fi
-
-    elif [[ $os_family = "RedHat" ]]; then
-    if [[ $os != "Fedora" ]]; then
-        if [[ $os_version_id -lt 8 ]]; then
-            sudo yum -y install cloud-utils-growpart python-devel
-        else
-            sudo yum -y install cloud-utils-growpart platform-python-devel
-        fi
-
-        elif [[ $os = "Fedora" ]]; then
-        if [[ $os_version_id -ge 22 ]]; then
-            if [[ $os_version_id -lt 30 ]]; then
-                sudo dnf -y install python-devel python-dnf
-            else
-                # initscripts should be removed at some point
-                sudo dnf -y install initscripts python-devel python3-dnf
-            fi
-        else
-            sudo dnf -y install python-devel
-        fi
-    fi
-    elif [[ $os_family = "Suse" || $os = *openSUSE* || $os = *OpenSuSE* ]]; then
-    sudo zypper --non-interactive install python-devel
-    elif [[ $os_family = "Linux" ]]; then
-    if [[ $os = "Alpine" ]]; then
-        chmod u+s /usr/bin/sudo
-        apk add python alpine-sdk || true
-    fi
-    elif [[ $os_family = "Archlinux" ]]; then
-    yes | sudo pacman -Syyu && yes | sudo pacman -S gc guile autoconf automake \
-    binutils bison fakeroot file findutils flex gcc gettext grep \
-    groff gzip libtool m4 make pacman patch pkgconf sed sudo systemd \
-    texinfo util-linux which python-setuptools python-virtualenv python-pip \
-    python-pyopenssl python2-setuptools python2-virtualenv python2-pip \
-    python2-pyopenssl
+# Fix machine-id issue with duplicate IP addresses being assigned
+if [ -f /etc/machine-id ]; then
+    sudo truncate -s 0 /etc/machine-id
 fi

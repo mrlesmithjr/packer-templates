@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "alpine37",
   "box_tag": "mrlesmithjr/alpine37",
   "description": "Alpine Linux 3.7",

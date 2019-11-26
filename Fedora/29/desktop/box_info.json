@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "fedora29-desktop",
   "box_tag": "mrlesmithjr/fedora29-desktop",
   "description": "Fedora 29 Desktop",

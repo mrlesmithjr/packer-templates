@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "fedora29",
   "box_tag": "mrlesmithjr/fedora29",
   "description": "Fedora 29",

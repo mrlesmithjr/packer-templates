@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "fedora28-desktop",
   "box_tag": "mrlesmithjr/fedora28-desktop",
   "description": "Fedora 28 Desktop",

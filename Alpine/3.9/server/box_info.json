@@ -1,5 +1,5 @@
 {
-  "auto_build": "True",
+  "auto_build": "False",
   "box_name": "alpine39",
   "box_tag": "mrlesmithjr/alpine39",
   "description": "Alpine Linux 3.9",

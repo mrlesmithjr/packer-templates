@@ -39,14 +39,15 @@ if [[ $id == "alpine" ]]; then
         fi
     fi
     
-    elif [[ $id == "centos" ]]; then
-    if [[ $os_version_id -ge 6 ]]; then
+    elif [[ $id == "centos" || $id == "ol" ]]; then
+    os_version_id_short="$(echo $os_version_id | cut -f1 -d".")"
+    if [[ $os_version_id_short -ge 6 ]]; then
         if [ -f /etc/vmware_desktop ]; then
             sudo yum -y install open-vm-tools-desktop
         else
             sudo yum -y install open-vm-tools
         fi
-        elif [[ $os_version_id -eq 5 ]];then
+        elif [[ $os_version_id_short -eq 5 ]];then
         export PATH=$PATH:/sbin
         sudo yum -y install net-tools perl
         sudo mkdir -p /mnt/vmware
@@ -58,9 +59,9 @@ if [[ $id == "alpine" ]]; then
         sudo umount /mnt/vmware
         sudo rm -rf /home/vagrant/linux.iso
     fi
-    if [[ $os_version_id -ge 7 ]]; then
+    if [[ $os_version_id_short -ge 7 ]]; then
         sudo /bin/systemctl restart vmtoolsd.service
-        elif [[ $os_version_id -eq 6 ]]; then
+        elif [[ $os_version_id_short -eq 6 ]]; then
         sudo service vmtoolsd restart
     fi
     

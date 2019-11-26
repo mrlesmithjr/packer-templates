@@ -116,7 +116,70 @@
       "artifact_id": "",
       "packer_run_uuid": "9eca4ec7-54bb-b1b8-85ca-96a691bdf66a",
       "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574718764,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "250fa45a-ddf0-cb31-49ad-fb173034ece6",
+      "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574721882,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "be8f05e5-98a7-b599-2a48-04f5fe77093c",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1574721995,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "be8f05e5-98a7-b599-2a48-04f5fe77093c",
+      "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574734411,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "2ccb71a0-c0ea-380a-688a-e70de5e156a8",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1574734557,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "2ccb71a0-c0ea-380a-688a-e70de5e156a8",
+      "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574738454,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "e35f7267-5a1a-cd65-e3b1-f5c522376f8a",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1574738679,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "e35f7267-5a1a-cd65-e3b1-f5c522376f8a",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "9eca4ec7-54bb-b1b8-85ca-96a691bdf66a"
+  "last_run_uuid": "e35f7267-5a1a-cd65-e3b1-f5c522376f8a"
 }

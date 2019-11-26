@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "ol8",
+  "box_tag": "mrlesmithjr/ol8",
+  "description": "Oracle Linux 8",
+  "private": "False",
+  "short_description": "Oracle Linux 8"
+}

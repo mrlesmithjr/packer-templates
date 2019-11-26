@@ -13,6 +13,8 @@ if [ -f /etc/os-release ]; then
     os_version_id="$(awk '{ print $3 }' /etc/redhat-release | sed 's/"//g' | awk -F. '{ print $1 }')"
 fi
 
+os_version_id_short="$(echo $os_version_id | cut -f1 -d".")"
+
 if [[ $id == "alpine" ]]; then
     chmod u+s /usr/bin/sudo
     apk add python alpine-sdk || true
@@ -25,8 +27,8 @@ if [[ $id == "alpine" ]]; then
     python-pyopenssl python2-setuptools python2-virtualenv python2-pip \
     python2-pyopenssl
     
-    elif [[ $id == "centos" ]]; then
-    if [[ $os_version_id -eq 5 ]]; then
+    elif [[ $id == "centos" || $id == "ol" ]]; then
+    if [[ $os_version_id_short -eq 5 ]]; then
         for F in /etc/yum.repos.d/*.repo; do
             sudo bash -c "echo '# EOL DISTRO' > $F"
         done
@@ -58,9 +60,18 @@ enabled=1
 _EOF_
     fi
     
-    sudo yum -y install epel-release
+    if [[ $id != "ol" ]]; then
+        sudo yum -y install epel-release
+    else
+        if [[ $os_version_id_short -eq 7 ]]; then
+            sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+            
+            elif [[ $os_version_id_short -eq 8 ]]; then
+            sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+        fi
+    fi
     
-    if [[ $os_version_id -lt 8 ]]; then
+    if [[ $os_version_id_short -lt 8 ]]; then
         sudo yum -y install cloud-utils-growpart python-devel
     else
         sudo yum -y install cloud-utils-growpart platform-python-devel

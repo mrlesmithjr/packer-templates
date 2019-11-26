@@ -15,7 +15,7 @@ fi
 if [[ $id == "arch" ]]; then
     /usr/bin/yes | sudo /usr/bin/pacman -Scc
     
-    elif [[ $id == "centos" ]]; then
+    elif [[ $id == "centos" || $id == "ol" ]]; then
     sudo yum clean all
     sudo rm -rf /var/cache/yum
     

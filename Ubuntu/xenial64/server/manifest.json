@@ -152,7 +152,52 @@
       "artifact_id": "",
       "packer_run_uuid": "b3890aff-793c-ec07-a247-a9e431e7cdcf",
       "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574744958,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "f66098e7-f638-023d-8b9f-4a462a283d97",
+      "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574746043,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "4264913c-ffce-0f13-76de-7c2885efa875",
+      "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574750366,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "c2a26957-b871-cdca-4220-1a6431661a95",
+      "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1574778775,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "09ddd464-6017-7959-11d4-4774160e886a",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1574778976,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "09ddd464-6017-7959-11d4-4774160e886a",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "b3890aff-793c-ec07-a247-a9e431e7cdcf"
+  "last_run_uuid": "09ddd464-6017-7959-11d4-4774160e886a"
 }

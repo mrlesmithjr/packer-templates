@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 set -x
 
 if [ "$PACKER_BUILDER_TYPE" != "virtualbox-iso" ]; then
@@ -16,12 +17,16 @@ if [ -f /etc/os-release ]; then
     os_version_id="$(awk '{ print $3 }' /etc/redhat-release | sed 's/"//g' | awk -F. '{ print $1 }')"
 fi
 
-os_version_id_short="$(echo $os_version_id | cut -f1-2 -d".")"
+if [[ $id == "ol" ]]; then
+    os_version_id_short="$(echo $os_version_id | cut -f1 -d".")"
+else
+    os_version_id_short="$(echo $os_version_id | cut -f1-2 -d".")"
+fi
 
 if [[ $id == "alpine" ]]; then
     echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
     apk update
-    if [[ $os_version_id_short == 3.7 ]]; then
+    if (($(echo $os_version_id_short '==' 3.7|bc))); then
         apk add -U virtualbox-guest-additions virtualbox-guest-modules-virthardened || true
     else
         apk add -U virtualbox-guest-additions virtualbox-guest-modules-virt || true

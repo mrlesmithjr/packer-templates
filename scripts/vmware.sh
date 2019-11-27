@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 set -x
@@ -18,6 +18,12 @@ if [ -f /etc/os-release ]; then
     os_version_id="$(awk '{ print $3 }' /etc/redhat-release | sed 's/"//g' | awk -F. '{ print $1 }')"
 fi
 
+if [[ $id == "ol" ]]; then
+    os_version_id_short="$(echo $os_version_id | cut -f1 -d".")"
+else
+    os_version_id_short="$(echo $os_version_id | cut -f1-2 -d".")"
+fi
+
 if [[ $id == "alpine" ]]; then
     apk add open-vm-tools || true
     
@@ -33,14 +39,13 @@ if [[ $id == "alpine" ]]; then
         sudo apt-get install -y open-vm-tools
     fi
     if [[ $id == "ubuntu" ]];then
-        if [[ $os_version_id -ge 18 ]];then
+        if (($(echo $os_version_id '>=' 18.04|bc))); then
             # This is the fix for https://kb.vmware.com/s/article/56409
             sudo bash -c "sed -i '2iAfter=dbus.service' /lib/systemd/system/open-vm-tools.service"
         fi
     fi
     
     elif [[ $id == "centos" || $id == "ol" ]]; then
-    os_version_id_short="$(echo $os_version_id | cut -f1 -d".")"
     if [[ $os_version_id_short -ge 6 ]]; then
         if [ -f /etc/vmware_desktop ]; then
             sudo yum -y install open-vm-tools-desktop

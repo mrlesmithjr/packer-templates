@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 set -x
 
 curl -X POST \
-  -u $SSH_USER:$SSH_PASS \
-  http://localhost/api/v1.0/storage/volume/ \
-  -H 'Content-Type: application/json' \
-  -d '{
+-u $SSH_USER:$SSH_PASS \
+http://localhost/api/v1.0/storage/volume/ \
+-H 'Content-Type: application/json' \
+-d '{
     "volume_name": "tank",
     "layout": [
         {
@@ -20,18 +20,18 @@ curl -X POST \
 }'
 
 curl -X POST \
-  -u $SSH_USER:$SSH_PASS \
-  http://localhost/api/v1.0/storage/volume/tank/datasets/ \
-  -H 'Content-Type: application/json' \
-  -d '{
+-u $SSH_USER:$SSH_PASS \
+http://localhost/api/v1.0/storage/volume/tank/datasets/ \
+-H 'Content-Type: application/json' \
+-d '{
     "name": "vagrant"
 }'
 
 curl -X POST \
-  -u $SSH_USER:$SSH_PASS \
-  http://localhost/api/v1.0/account/users/ \
-  -H 'Content-Type: application/json' \
-  -d '{
+-u $SSH_USER:$SSH_PASS \
+http://localhost/api/v1.0/account/users/ \
+-H 'Content-Type: application/json' \
+-d '{
    "bsdusr_username": "vagrant",
    "bsdusr_creategroup": true,
    "bsdusr_full_name": "Vagrant User",

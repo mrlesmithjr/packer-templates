@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -e
 set -x
 
@@ -13,7 +14,11 @@ if [ -f /etc/os-release ]; then
     os_version_id="$(awk '{ print $3 }' /etc/redhat-release | sed 's/"//g' | awk -F. '{ print $1 }')"
 fi
 
-os_version_id_short="$(echo $os_version_id | cut -f1 -d".")"
+if [[ $id == "ol" ]]; then
+    os_version_id_short="$(echo $os_version_id | cut -f1 -d".")"
+else
+    os_version_id_short="$(echo $os_version_id | cut -f1-2 -d".")"
+fi
 
 if [[ $id == "alpine" ]]; then
     chmod u+s /usr/bin/sudo
@@ -101,7 +106,7 @@ _EOF_
     sudo zypper --non-interactive install python-devel
     
     elif [[ $id == "ubuntu" ]]; then
-    if [[ $os_version_id == 12.04 ]]; then
+    if (($(echo $os_version_id '==' 12.04|bc))); then
         sudo apt-get clean
         sudo rm -r /var/lib/apt/lists/*
     fi

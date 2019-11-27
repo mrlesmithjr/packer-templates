@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 set -e
 set -x
 
@@ -41,7 +42,7 @@ if [[ $id == "debian" ]]; then
     # Fixes issue with gnome-terminal starting
     sudo update-locale LANG="en_US.UTF-8" LANGUAGE
     
-    if [[ $os_version_id -lt 17 ]]; then
+    if (($(echo $os_version_id '<' 17.04|bc))); then
         GDM_CUSTOM_CONFIG=/etc/gdm/custom.conf
         LIGHTDM_CONFIG=/etc/lightdm/lightdm.conf
         echo "==> Configuring lightdm autologin"
@@ -66,8 +67,9 @@ if [[ $id == "debian" ]]; then
         nautilus-open-terminal control-center liberation-mono-fonts
         sudo ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target
         elif [[ $os_version_id -ge 8 ]]; then
-        sudo yum -y groupinstall "Server with GUI"
-        sudo systemctl set-default graphical
+        sudo yum -y update
+        sudo yum -y group install "Server with GUI"
+        sudo systemctl set-default graphical.target
     fi
     if [[ $os_version_id -gt 6 ]]; then
         GDM_CUSTOM_CONFIG=/etc/gdm/custom.conf

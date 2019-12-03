@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "",
+  "iso_checksum": "a8c7b8c54aeb0889bb3245356ffcd95b77e9835ffb5ac56376a3b627c3e1950f",
+  "iso_checksum_type": "sha256",
+  "iso_url": "https://nyc3.dl.elementary.io/download/MTU3NTM1MTQxMw==/elementaryos-5.0-stable.20181016.iso",
+  "vm_name": "elementary-5-packer-template"
+}

@@ -36,6 +36,20 @@ if [[ $id == "debian" ]]; then
     # sudo bash -c "echo "[SeatDefaults]" >> $LIGHTDM_CONFIG"
     # sudo bash -c "echo "autologin-user=${USERNAME}" >> $LIGHTDM_CONFIG"
     
+    elif [[ $id == "elementary" ]]; then
+    GDM_CUSTOM_CONFIG=/etc/gdm3/custom.conf
+    LIGHTDM_CONFIG=/etc/lightdm/lightdm.conf
+    
+    echo "==> Configuring lightdm autologin"
+    sudo bash -c "echo "[SeatDefaults]" >> $LIGHTDM_CONFIG"
+    sudo bash -c "echo "autologin-user=${USERNAME}" >> $LIGHTDM_CONFIG"
+    
+    sudo mkdir -p "$(dirname ${GDM_CUSTOM_CONFIG})"
+    sudo bash -c "echo "[daemon]" >> $GDM_CUSTOM_CONFIG"
+    sudo bash -c "echo "# Enabling automatic login" >> $GDM_CUSTOM_CONFIG"
+    sudo bash -c "echo "AutomaticLoginEnable=True" >> $GDM_CUSTOM_CONFIG"
+    sudo bash -c "echo "AutomaticLogin=${USERNAME}" >> $GDM_CUSTOM_CONFIG"
+    
     elif [[ $id == "ubuntu" ]]; then
     echo "==> Installing ubuntu-desktop"
     sudo apt-get install -y --no-install-recommends ubuntu-desktop

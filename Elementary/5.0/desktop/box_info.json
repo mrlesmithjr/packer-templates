@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "elementary-5.0",
+  "box_tag": "mrlesmithjr/elementary-5.0",
+  "description": "Elementary OS 5.0",
+  "private": "False",
+  "short_description": "Elementary OS 5.0"
+}

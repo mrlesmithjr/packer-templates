@@ -32,7 +32,7 @@ if [[ $id == "alpine" ]]; then
     sudo /usr/bin/systemctl enable vmtoolsd.service
     sudo /usr/bin/systemctl enable rpcbind.service
     
-    elif [[ $id == "debian" || $id == "ubuntu" ]]; then
+    elif [[ $id == "debian" || $id == "elementary" || $id == "ubuntu" ]]; then
     if [ -f /etc/vmware_desktop ]; then
         sudo apt-get install -y open-vm-tools-desktop
     else

@@ -24,6 +24,14 @@ if [[ $id == "arch" ]]; then
     
     elif [[ $id == "fedora" ]]; then
     sudo dnf clean all
+    
+    elif [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
+    if [ -f /var/lib/misc/random-seed ]; then
+        rm /var/lib/misc/random-seed
+    fi
+    if [ -f /var/lib/systemd/random-seed ]; then
+        rm /var/lib/systemd/random-seed
+    fi
 fi
 
 # Stop rsyslog service

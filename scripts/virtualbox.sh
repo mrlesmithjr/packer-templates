@@ -53,7 +53,7 @@ if [[ $id == "alpine" ]]; then
         fi
     fi
     
-    elif [[ $id == "debian" || $id == "elementary" || $id == "linuxmint" || $id == "ubuntu" ]]; then
+    elif [[ $id == "debian" || $id == "linuxmint" || $id == "ubuntu" ]]; then
     if [ -f /etc/virtualbox_desktop ]; then
         sudo apt-get install -y xserver-xorg-video-vmware
     fi

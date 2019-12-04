@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "<esc><wait><tab><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+  "iso_checksum": "bb4b3ad584f2fec1d91ad60fe57ad4044e5c0934a5e3d229da129c9513862eb0",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://mirrors.gigenet.com/linuxmint/iso/stable/19.1/linuxmint-19.1-cinnamon-64bit.iso",
+  "vm_name": "linuxmint19-desktop-packer-template"
+}

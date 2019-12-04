@@ -36,7 +36,7 @@ if [[ $id == "debian" ]]; then
     # sudo bash -c "echo "[SeatDefaults]" >> $LIGHTDM_CONFIG"
     # sudo bash -c "echo "autologin-user=${USERNAME}" >> $LIGHTDM_CONFIG"
     
-    elif [[ $id == "elementary" ]]; then
+    elif [[ $id == "elementary" || $id == "linuxmint" ]]; then
     GDM_CUSTOM_CONFIG=/etc/gdm3/custom.conf
     LIGHTDM_CONFIG=/etc/lightdm/lightdm.conf
     

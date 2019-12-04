@@ -115,6 +115,19 @@ _EOF_
         sudo dnf -y install initscripts python-devel python3-dnf
     fi
     
+    elif [[ $id == "linuxmint" ]]; then
+    sudo apt-get update
+    echo "libc6:amd64     libraries/restart-without-asking        boolean true" | sudo debconf-set-selections
+    echo "libssl1.1:amd64 libssl1.1/restart-services      string" | sudo debconf-set-selections
+    sudo apt-get install -y python-minimal linux-headers-"$(uname -r)" \
+    build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev unzip
+    
+    if [[ ! -f /etc/vyos_build ]]; then
+        if [[ $os_version_id -gt 7 ]]; then
+            sudo apt-get -y install cloud-initramfs-growroot
+        fi
+    fi
+    
     elif [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
     sudo zypper --non-interactive install python-devel
     
@@ -133,8 +146,8 @@ _EOF_
     fi
 fi
 
-if [[ $id == "debian" || $id == "elementary" || $id == "ubuntu" ]]; then
-    if [[ $id == "elementary" ]]; then
+if [[ $id == "debian" || $id == "elementary" || $id == "linuxmint" || $id == "ubuntu" ]]; then
+    if [[ $id == "elementary" || $id == "linuxmint" ]]; then
         # Remove /etc/rc.local used for provisioning
         sudo rm /etc/rc.local
         if [ -f /etc/rc.local.orig ]; then

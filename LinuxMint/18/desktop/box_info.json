@@ -1,8 +1,0 @@
-{
-  "auto_build": "False",
-  "box_name": "linuxmint18-desktop",
-  "box_tag": "mrlesmithjr/linuxmint18-desktop",
-  "description": "Linux Mint 18",
-  "private": "False",
-  "short_description": "Linux Mint 18"
-}

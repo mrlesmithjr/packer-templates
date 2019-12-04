@@ -19,7 +19,7 @@ if [[ $id == "arch" ]]; then
     sudo yum clean all
     sudo rm -rf /var/cache/yum
     
-    elif [[ $id == "debian" || $id == "elementary" || $id == "ubuntu" ]]; then
+    elif [[ $id == "debian" || $id == "elementary" || $id == "linuxmint" || $id == "ubuntu" ]]; then
     sudo apt-get clean
     
     elif [[ $id == "fedora" ]]; then

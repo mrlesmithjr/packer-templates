@@ -1,0 +1,8 @@
+{
+  "auto_build": "False",
+  "box_name": "linuxmint-19.1",
+  "box_tag": "mrlesmithjr/linuxmint-19.1",
+  "description": "Linux Mint 19.1",
+  "private": "False",
+  "short_description": "Linux Mint 19.1"
+}

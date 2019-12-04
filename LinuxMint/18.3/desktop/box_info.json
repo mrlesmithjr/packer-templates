@@ -1,0 +1,8 @@
+{
+  "auto_build": "False",
+  "box_name": "linuxmint-18.3",
+  "box_tag": "mrlesmithjr/linuxmint-18.3",
+  "description": "Linux Mint 18.3",
+  "private": "False",
+  "short_description": "Linux Mint 18.3"
+}

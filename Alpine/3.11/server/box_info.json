@@ -1,0 +1,8 @@
+{
+  "auto_build": "True",
+  "box_name": "alpine311",
+  "box_tag": "mrlesmithjr/alpine311",
+  "description": "Alpine Linux 3.11",
+  "private": "False",
+  "short_description": "Alpine Linux 3.11"
+}

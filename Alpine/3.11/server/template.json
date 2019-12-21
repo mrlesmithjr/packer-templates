@@ -1,0 +1,9 @@
+{
+  "alpine_system_part": "/dev/sda2",
+  "alpine_version": "3.11",
+  "boot_command_prefix": "",
+  "iso_checksum": "722a4a97e99138ac6d429c996801687231b7aab5467e686ce816d58da8387b1e",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://dl-cdn.alpinelinux.org/alpine/v3.11/releases/x86_64/alpine-virt-3.11.0-x86_64.iso",
+  "vm_name": "alpine311-server-packer-template"
+}

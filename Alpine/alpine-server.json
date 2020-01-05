@@ -42,7 +42,7 @@
         "mount -o bind /dev /mnt/dev<enter>",
         "chroot /mnt /bin/sh -l<enter>",
         "apk update<enter>",
-        "apk add bash curl rsyslog ruby shadow sudo<enter><wait>",
+        "apk add bash curl rsyslog ruby shadow open-vm-tools sudo<enter><wait>",
         "<wait30>",
         "groupadd vagrant<enter>",
         "useradd vagrant -g vagrant -G wheel<enter>",

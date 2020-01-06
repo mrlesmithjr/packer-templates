@@ -26,6 +26,11 @@ fi
 
 if [[ $id == "alpine" ]]; then
     apk add open-vm-tools || true
+    rc-update add open-vm-tools default
+    modprobe fuse
+    echo "fuse" >> /etc/modules
+    mkdir -p /mnt/hgfs
+    echo "vmhgfs-fuse /mnt/hgfs fuse defaults,allow_other 0 0" >> /etc/fstab
     
     elif [[ $id == "arch" ]]; then
     sudo /usr/bin/pacman -S --noconfirm linux-headers open-vm-tools nfs-utils

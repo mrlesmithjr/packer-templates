@@ -26,7 +26,7 @@
         "/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/arch/bootstrap.sh<enter><wait5>",
         "/usr/bin/bash ./bootstrap.sh<enter>"
       ],
-      "boot_wait": "30s",
+      "boot_wait": "10s",
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_interface": "virtio",
       "disk_size": "{{ user `vm_disk_size` }}",
@@ -51,7 +51,7 @@
         "/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/arch/bootstrap.sh<enter><wait5>",
         "/usr/bin/bash ./bootstrap.sh<enter>"
       ],
-      "boot_wait": "30s",
+      "boot_wait": "10s",
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_size": "{{ user `vm_disk_size` }}",
       "guest_os_type": "ArchLinux_64",
@@ -76,7 +76,7 @@
         "/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/arch/bootstrap.sh<enter><wait5>",
         "/usr/bin/bash ./bootstrap.sh<enter>"
       ],
-      "boot_wait": "30s",
+      "boot_wait": "10s",
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
       "disk_size": "{{ user `vm_disk_size` }}",

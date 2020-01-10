@@ -12,7 +12,7 @@ MIRRORLIST="https://www.archlinux.org/mirrorlist/?country=US&protocol=http&proto
 PASSWORD=$(/usr/bin/openssl passwd -crypt 'vagrant')
 
 echo -e "Downloading mirror list..."
-curl -s "$MIRRORLIST" |  sed 's/^#Server/Server/' > /etc/pacman.d/mirrorlist
+curl -s "$MIRRORLIST" | sed 's/^#Server/Server/' >/etc/pacman.d/mirrorlist
 
 echo -e "Clearing partition table..."
 /usr/bin/sgdisk --zap $DISK
@@ -34,19 +34,19 @@ echo -e "Mounting root partition..."
 /usr/bin/mount -o noatime,errors=remount-ro $ROOT_PART $CHROOT_DIR
 
 echo -e "Bootstrapping base installation..."
-/usr/bin/pacstrap $CHROOT_DIR base base-devel
-/usr/bin/arch-chroot $CHROOT_DIR pacman -S --noconfirm gptfdisk openssh syslinux
+/usr/bin/pacstrap $CHROOT_DIR base base-devel linux linux-firmware
+/usr/bin/arch-chroot $CHROOT_DIR pacman -S --noconfirm dhcpcd gptfdisk openssh syslinux
 /usr/bin/arch-chroot $CHROOT_DIR syslinux-install_update -i -a -m
 /usr/bin/sed -i "s|sda3|sda1|" "$CHROOT_DIR/boot/syslinux/syslinux.cfg"
 /usr/bin/sed -i "s/TIMEOUT 50/TIMEOUT 10/" "$CHROOT_DIR/boot/syslinux/syslinux.cfg"
 
 echo -e "Generating filesystem table..."
-/usr/bin/genfstab -p $CHROOT_DIR >> "$CHROOT_DIR/etc/fstab"
+/usr/bin/genfstab -p $CHROOT_DIR >>"$CHROOT_DIR/etc/fstab"
 
 echo -e "Generating config script..."
 /usr/bin/install --mode=0755 /dev/null "$CHROOT_DIR/usr/local/bin/arch-config.sh"
 
-cat <<-EOF > "$CHROOT_DIR/usr/local/bin/arch-config.sh"
+cat <<-EOF >"$CHROOT_DIR/usr/local/bin/arch-config.sh"
     echo -e "Configuring base system..."
     echo "localhost" > /etc/hostname
     /usr/bin/ln -s /usr/share/zoneinfo/UTC /etc/localtime
@@ -65,6 +65,8 @@ cat <<-EOF > "$CHROOT_DIR/usr/local/bin/arch-config.sh"
     /usr/bin/ln -s '/usr/lib/systemd/system/dhcpcd@.service' '/etc/systemd/system/multi-user.target.wants/dhcpcd@eth0.service'
     /usr/bin/sed -i 's/#UseDNS yes/UseDNS no/' /etc/ssh/sshd_config
     /usr/bin/systemctl enable sshd.service
+    /usr/bin/pacman -S --noconfirm rng-tools
+    /usr/bin/systemctl enable rngd
 
     echo -e "Configuring Vagrant specific settings..."
     /usr/bin/useradd --password $PASSWORD --comment 'Vagrant User' --create-home --user-group vagrant
@@ -88,5 +90,3 @@ echo -e "Completing installation and rebooting..."
 /usr/bin/sleep 3
 /usr/bin/umount $CHROOT_DIR
 /usr/bin/systemctl reboot
-
-

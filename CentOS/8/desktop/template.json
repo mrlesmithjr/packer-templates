@@ -1,8 +1,8 @@
 {
   "boot_command_prefix": "inst.text inst.ks",
-  "iso_checksum": "ea17ef71e0df3f6bf1d4bf1fc25bec1a76d1f211c115d39618fe688be34503e8",
+  "iso_checksum": "3ee3f4ea1538e026fff763e2b284a6f20b259d91d1ad5688f5783a67d279423b",
   "iso_checksum_type": "sha256",
-  "iso_url": "http://mirror.twinlakes.net/centos/8.0.1905/isos/x86_64/CentOS-8-x86_64-1905-dvd1.iso",
+  "iso_url": "http://centos.mirror.globo.tech/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
   "kickstart_cfg": "ks.8.cfg",
   "vm_name": "centos8-desktop-packer-template"
 }

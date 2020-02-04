@@ -70,6 +70,7 @@
       "tools_upload_flavor": "windows",
       "tools_upload_path": "c:/Windows/Temp/windows.iso",
       "type": "vmware-iso",
+      "version": 11,
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {
         "scsi0.virtualDev": "lsisas1068"

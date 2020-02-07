@@ -8,7 +8,7 @@ import logging
 import os
 import re
 import shutil
-# import time
+import time
 import subprocess
 import sys
 import requests
@@ -60,7 +60,8 @@ def parse_args():
         "action", help="Define action to take.", choices=[
             'build_all', 'change_controller', 'cleanup_builds',
             'commit_manifests', 'get_boxes', 'prep_builds', 'rename_templates',
-            'repo_info', 'upload_boxes', 'view_manifests'])
+            'repo_info', 'upload_boxes', 'view_last_build_times',
+            'view_manifests'])
     parser.add_argument('--controller',
                         help='Define hard drive controller type',
                         choices=['ide', 'sata', 'scsi'])
@@ -97,6 +98,8 @@ def decide_action(args, username, vagrant_cloud_token):
         print(json.dumps(repo_facts, indent=4))
     elif args.action == 'upload_boxes':
         upload_boxes(username, vagrant_cloud_token)
+    elif args.action == 'view_last_build_times':
+        view_last_build_times()
     elif args.action == 'view_manifests':
         view_manifests()
 
@@ -236,8 +239,9 @@ def build_all(username, vagrant_cloud_token):
                 if auto_build and build_image:
                     print('Executing build.sh in {0}'.format(root))
                     os.chdir(root)
-                    process = subprocess.Popen(['./build.sh'])
-                    process.wait()
+                    process = subprocess.run('./build.sh')
+                    # process = subprocess.Popen(['./build.sh'])
+                    # process.wait()
                     if process.returncode != 0:
                         sys.exit(1)
                     os.chdir(SCRIPT_DIR)
@@ -368,8 +372,8 @@ def cleanup_builds():
                 os.remove(os.path.join(root, item))
             if ext == '.box':
                 os.remove(os.path.join(root, item))
-            if ext == '.iso':
-                os.remove(os.path.join(root, item))
+            # if ext == '.iso':
+            #     os.remove(os.path.join(root, item))
 
 
 def rename_templates():
@@ -566,29 +570,38 @@ def view_manifests():
             except ValueError:
                 pass
 
-# def latest_build(root):
-#     build_image = False
-#     current_time_epoch = time.mktime(datetime.now().timetuple())
-#     older_than_days_epoch = current_time_epoch - \
-#         (86400 * BUILD_OLDER_THAN_DAYS)
-#     older_than_days = int((older_than_days_epoch/86400) + 25569)
-#     json_file = os.path.join(root, 'manifest.json')
-#     if os.path.isfile(json_file):
-#         with open(json_file, 'r') as stream:
-#             data = json.load(stream)
-#             last_run_uuid = data['last_run_uuid']
-#             builds = data['builds']
-#             for build in builds:
-#                 if build['packer_run_uuid'] == last_run_uuid:
-#                     last_build_time_epoch = build['build_time']
-#                     last_build_time = int(
-#                         (last_build_time_epoch/86400) + 25569)
-#                     if last_build_time < older_than_days:
-#                         build_image = True
-#                     break
-#     else:
-#         build_image = True
-#     return build_image
+
+def view_last_build_times():
+    """Find build manifests and display to stdout."""
+    build_manifests = dict()
+    for root, _dirs, files in os.walk(SCRIPT_DIR):
+        if 'manifest.json' in files and 'box_info.json' in files:
+            box_info = os.path.join(root, 'box_info.json')
+            try:
+                with open(box_info, 'r') as box_data:
+                    box_tag = json.load(box_data).get('box_tag')
+            except ValueError:
+                pass
+
+            manifest = os.path.join(root, 'manifest.json')
+            try:
+                with open(manifest, 'r') as manifest_data:
+                    data = json.load(manifest_data)
+                    last_run_uuid = data.get('last_run_uuid')
+                    builds = data.get('builds')
+                    if builds is not None:
+                        for build in builds:
+                            if build['packer_run_uuid'] == last_run_uuid:
+                                current_time_epoch = time.mktime(
+                                    datetime.now().timetuple())
+                                last_build_time_epoch = build['build_time']
+                                build_manifests[box_tag] = dict(
+                                    days_since_last_build=int(
+                                        (current_time_epoch -
+                                         last_build_time_epoch)/86400))
+            except ValueError:
+                pass
+    print(json.dumps(build_manifests))
 
 
 if __name__ == '__main__':

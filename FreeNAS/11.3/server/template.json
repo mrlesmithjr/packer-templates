@@ -1,0 +1,7 @@
+{
+  "boot_command_prefix": "",
+  "iso_checksum": "13164d809d2d2aa70e7a75c3cd156ccae9610c3a6062eff7e6ae17dacdc7b74e",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://download.freenas.org/11.3/STABLE/RELEASE/x64/FreeNAS-11.3-RELEASE.iso",
+  "vm_name": "freenas113-server-packer-template"
+}

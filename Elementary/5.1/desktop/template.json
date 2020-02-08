@@ -1,8 +1,8 @@
 {
   "boot_command_prefix": "<esc><wait><wait><tab><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
   "boot_wait": "3s",
-  "iso_checksum": "cd66c32d53eab6f789b8e69e499305b7af0c9b3083ed54d50b111136d2795ea1",
+  "iso_checksum": "190bbf738db0f15daa9ee4095bb64c307950082819081a969f8edd51f1faab07",
   "iso_checksum_type": "sha256",
-  "iso_url": "https://nyc3.dl.elementary.io/download/MTU3NTQ0MDQ5MQ==/elementaryos-5.1-stable.20191202.iso",
+  "iso_url": "https://nyc3.dl.elementary.io/download/MTU4MTEzNzI2MQ==/elementaryos-5.1-stable.20200204.iso",
   "vm_name": "elementary-5-packer-template"
 }

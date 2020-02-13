@@ -50,11 +50,17 @@
     {
       "boot_command": [
         "{{ user `boot_command_prefix` }}",
+        "<wait>",
         "/install/vmlinuz",
+        "<wait>",
         " initrd=/install/initrd.gz",
+        "<wait>",
         " auto=true",
+        "<wait>",
         " priority=critical",
+        "<wait>",
         " url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu/preseed.cfg <wait>",
+        "<wait>",
         "<enter>"
       ],
       "cpus": "{{ user `vm_vcpu` }}",

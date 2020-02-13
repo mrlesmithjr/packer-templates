@@ -260,7 +260,25 @@
       "artifact_id": "",
       "packer_run_uuid": "6fd87c74-a764-be8e-d48f-32f638d56594",
       "custom_data": null
+    },
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1581573987,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "e4c877fe-8efa-4e90-dc54-30caeb1d8007",
+      "custom_data": null
+    },
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1581574083,
+      "files": null,
+      "artifact_id": "",
+      "packer_run_uuid": "e4c877fe-8efa-4e90-dc54-30caeb1d8007",
+      "custom_data": null
     }
   ],
-  "last_run_uuid": "6fd87c74-a764-be8e-d48f-32f638d56594"
+  "last_run_uuid": "e4c877fe-8efa-4e90-dc54-30caeb1d8007"
 }

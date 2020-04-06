@@ -7,8 +7,8 @@ if [ -f /etc/os-release ]; then
     # shellcheck disable=SC1091
     source /etc/os-release
     id=$ID
-    
-    elif [ -f /etc/redhat-release ]; then
+
+elif [ -f /etc/redhat-release ]; then
     id="$(awk '{ print tolower($1) }' /etc/redhat-release | sed 's/"//g')"
 fi
 
@@ -35,5 +35,5 @@ else
 fi
 # We need to do this here as our autoinst.xml does not do it for us
 if [[ $id == "opensuse" || $id == "opensuse-leap" ]]; then
-    echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+    echo "vagrant        ALL=(ALL)       NOPASSWD: ALL" >>/etc/sudoers
 fi

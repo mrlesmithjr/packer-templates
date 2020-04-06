@@ -52,7 +52,6 @@
       "ssh_port": 22,
       "ssh_pty": true,
       "ssh_username": "vagrant",
-      "ssh_wait_timeout": "10000s",
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{user `vm_name`}}"
     }

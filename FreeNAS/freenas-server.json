@@ -49,7 +49,6 @@
       "shutdown_command": "shutdown -p now",
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
-      "ssh_wait_timeout": "60m",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -112,7 +111,6 @@
       "shutdown_command": "shutdown -p now",
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
-      "ssh_wait_timeout": "60m",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {

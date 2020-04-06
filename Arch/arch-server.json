@@ -41,7 +41,6 @@
       "shutdown_command": "sudo systemctl isolate poweroff.target",
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
-      "ssh_wait_timeout": "60m",
       "type": "qemu",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
     },
@@ -66,7 +65,6 @@
       "shutdown_command": "sudo systemctl isolate poweroff.target",
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
-      "ssh_wait_timeout": "60m",
       "type": "virtualbox-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
     },
@@ -92,7 +90,6 @@
       "shutdown_command": "sudo systemctl isolate poweroff.target",
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
-      "ssh_wait_timeout": "60m",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {

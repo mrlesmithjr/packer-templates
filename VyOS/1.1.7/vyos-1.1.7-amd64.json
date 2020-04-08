@@ -47,13 +47,23 @@
         "save<enter><wait>",
         "exit<enter><wait>"
       ],
-      "ssh_timeout": "{{user `ssh_timeout`}}",
+      "ssh_timeout": "60m",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "shutdown_command": "sudo poweroff",
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
-        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{user `memory`}}"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "{{user `cpus`}}"
+        ]
       ]
     }
   ],

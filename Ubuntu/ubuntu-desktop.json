@@ -44,7 +44,8 @@
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "type": "qemu",
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "ssh_timeout": "60m"
     },
     {
       "boot_command": [
@@ -77,7 +78,8 @@
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "type": "virtualbox-iso",
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "ssh_timeout": "60m"
     },
     {
       "boot_command": [
@@ -109,7 +111,8 @@
       "vmx_data": {
         "ethernet0.pciSlotNumber": "32"
       },
-      "vmx_remove_ethernet_interfaces": true
+      "vmx_remove_ethernet_interfaces": true,
+      "ssh_timeout": "60m"
     }
   ],
   "provisioners": [

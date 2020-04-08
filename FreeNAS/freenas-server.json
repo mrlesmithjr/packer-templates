@@ -75,7 +75,8 @@
           "disk2.vdi"
         ]
       ],
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "ssh_timeout": "60m"
     },
     {
       "boot_command": [
@@ -97,7 +98,9 @@
       "boot_wait": "30s",
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
-      "disk_additional_size": ["{{ user `vm_disk_size` }}"],
+      "disk_additional_size": [
+        "{{ user `vm_disk_size` }}"
+      ],
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "FreeBSD-64",
@@ -116,7 +119,8 @@
       "vmx_data": {
         "ethernet0.pciSlotNumber": "32"
       },
-      "vmx_remove_ethernet_interfaces": true
+      "vmx_remove_ethernet_interfaces": true,
+      "ssh_timeout": "60m"
     }
   ],
   "provisioners": [
@@ -126,7 +130,9 @@
         "SSH_USER={{ user `vm_ssh_username` }}",
         "SSH_PASS={{ user `vm_ssh_password` }}"
       ],
-      "scripts": ["scripts/freenas.sh"]
+      "scripts": [
+        "scripts/freenas.sh"
+      ]
     }
   ],
   "post-processors": [

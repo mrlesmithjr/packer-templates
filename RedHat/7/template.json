@@ -53,7 +53,8 @@
       "ssh_pty": true,
       "ssh_username": "vagrant",
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "{{user `vm_name`}}"
+      "vm_name": "{{user `vm_name`}}",
+      "ssh_timeout": "60m"
     }
   ],
   "post-processors": [

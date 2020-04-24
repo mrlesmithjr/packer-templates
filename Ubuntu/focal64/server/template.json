@@ -1,7 +1,7 @@
 {
   "boot_command_prefix": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-  "iso_checksum": "412e8ed419d7ca7e1cfc533ee4e2220e01da706c72033d3b4e35a177fd10595f",
+  "iso_checksum": "36f15879bd9dfd061cd588620a164a82972663fdd148cce1f70d57d314c21b73",
   "iso_checksum_type": "sha256",
-  "iso_url": "http://cdimage.ubuntu.com/releases/20.04/beta/ubuntu-20.04-beta-server-amd64.iso",
+  "iso_url": "http://cdimage.ubuntu.com/ubuntu-legacy-server/releases/20.04/release/ubuntu-20.04-legacy-server-amd64.iso",
   "vm_name": "focal64-server-packer-template"
 }

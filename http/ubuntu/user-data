@@ -1,0 +1,44 @@
+#cloud-config
+autoinstall:
+  version: 1
+  early-commands:
+    # Block inbound SSH to stop Packer trying to connect during intial install
+    - iptables -A INPUT -p tcp --dport 22 -j DROP
+  identity:
+    hostname: ubuntu-server
+    password: "$6$QcYGVT8VX$KP00V37zpxoGwxo111LC2kzCWp8rqN3UVoz.wmoDx87M8mVdoz58djMA3or1q5JArQLeuRTe3XS6xuR2h9hAw0"
+    username: vagrant
+  late-commands:
+    - sed -i 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
+    - sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf
+    - "echo 'Defaults:vagrant !requiretty' > /target/etc/sudoers.d/vagrant"
+    - "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' >> /target/etc/sudoers.d/vagrant"
+    - "chmod 440 /target/etc/sudoers.d/vagrant"
+    - 'sed -i "s/dhcp4: true/&\n      dhcp-identifier: mac/" /target/etc/netplan/00-installer-config.yaml'
+  packages:
+    - bc
+    - curl
+    - lsb-release
+    - openssh-server
+    - ntp
+    - wget
+  ssh:
+    # For now we install openssh-server during package installs
+    allow-pw: true
+    install-server: false
+  storage:
+    layout:
+      name: direct
+    config:
+      - type: disk
+        id: disk0
+        match:
+          size: largest
+      - type: partition
+        id: boot-partition
+        device: disk0
+        size: 1024M
+      - type: partition
+        id: root-partition
+        device: disk0
+        size: -1

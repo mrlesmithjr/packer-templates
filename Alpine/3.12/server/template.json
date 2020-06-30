@@ -1,0 +1,9 @@
+{
+  "alpine_system_part": "/dev/sda2",
+  "alpine_version": "3.12",
+  "boot_command_prefix": "",
+  "iso_checksum": "746a7af837fcb3451b7587e881d6706269cf4f300f7cf37964e200e50a52c93c",
+  "iso_checksum_type": "sha256",
+  "iso_url": "http://dl-cdn.alpinelinux.org/alpine/v3.12/releases/x86_64/alpine-standard-3.12.0-x86_64.iso",
+  "vm_name": "alpine312-server-packer-template"
+}

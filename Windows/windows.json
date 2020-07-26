@@ -1,23 +1,4 @@
 {
-  "variables": {
-    "autounattend": "",
-    "boot_command_prefix": "",
-    "box_tag": "",
-    "compression_level": "6",
-    "iso_checksum_type": "",
-    "iso_checksum": "",
-    "iso_url": "",
-    "vagrant_cloud_token": "",
-    "virtualbox_guest_type": "",
-    "vm_disk_adapter_type": "sata",
-    "vm_disk_size": "36864",
-    "vm_name": "",
-    "vm_winrm_password": "vagrant",
-    "vm_winrm_username": "vagrant",
-    "vmware_guest_type": "",
-    "windows_vm_memory": "2048",
-    "windows_vm_vcpu": "2"
-  },
   "builders": [
     {
       "boot_wait": "2m",
@@ -33,8 +14,7 @@
       "guest_os_type": "{{ user `virtualbox_guest_type` }}",
       "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
       "headless": true,
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
       "memory": "{{ user `windows_vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
@@ -61,8 +41,7 @@
       ],
       "guest_os_type": "{{ user `vmware_guest_type` }}",
       "headless": true,
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
       "memory": "{{ user `windows_vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
@@ -83,19 +62,6 @@
       "winrm_username": "{{ user `vm_winrm_username` }}"
     }
   ],
-  "provisioners": [
-    { "type": "windows-restart" },
-    {
-      "type": "powershell",
-      "scripts": [
-        "scripts/base.ps1",
-        "scripts/remove_default_apps.ps1",
-        "scripts/virtualbox.ps1",
-        "scripts/vmware.ps1",
-        "scripts/cleanup.ps1"
-      ]
-    }
-  ],
   "post-processors": [
     [
       {
@@ -104,16 +70,50 @@
         "type": "vagrant"
       },
       {
-        "type": "vagrant-cloud",
-        "box_tag": "{{ user `box_tag` }}",
         "access_token": "{{ user `vagrant_cloud_token` }}",
+        "box_tag": "{{ user `box_tag` }}",
+        "type": "vagrant-cloud",
         "version": "{{ timestamp }}"
       },
       {
-        "type": "manifest",
         "output": "manifest.json",
-        "strip_path": true
+        "strip_path": true,
+        "type": "manifest"
       }
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "type": "windows-restart"
+    },
+    {
+      "scripts": [
+        "scripts/base.ps1",
+        "scripts/remove_default_apps.ps1",
+        "scripts/virtualbox.ps1",
+        "scripts/vmware.ps1",
+        "scripts/cleanup.ps1"
+      ],
+      "type": "powershell"
+    }
+  ],
+  "variables": {
+    "autounattend": "",
+    "boot_command_prefix": "",
+    "box_tag": "",
+    "compression_level": "6",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vagrant_cloud_token": "",
+    "virtualbox_guest_type": "",
+    "vm_disk_adapter_type": "sata",
+    "vm_disk_size": "36864",
+    "vm_name": "",
+    "vm_winrm_password": "vagrant",
+    "vm_winrm_username": "vagrant",
+    "vmware_guest_type": "",
+    "windows_vm_memory": "2048",
+    "windows_vm_vcpu": "2"
+  }
 }

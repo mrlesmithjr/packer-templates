@@ -1,0 +1,95 @@
+{
+  "builders": [
+    {
+      "CPUS": "{{ user `CPUS` }}",
+      "NestedHV": true,
+      "RAM": "{{ user `RAM` }}",
+      "boot_command": [
+        "<enter><wait>O<wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/esxi/ks.cfg<enter>"
+      ],
+      "boot_order": "disk,cdrom",
+      "cluster": "{{ user `cluster` }}",
+      "communicator": "ssh",
+      "convert_to_template": true,
+      "datacenter": "{{ user `datacenter` }}",
+      "datastore": "{{ user `datastore` }}",
+      "disk_controller_type": "pvscsi",
+      "folder": "{{ user `folder` }}",
+      "guest_os_type": "{{ user `guest_os_type` }}",
+      "http_directory": "{{ template_dir }}/../http",
+      "insecure_connection": "{{ user `insecure_connection` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_urls": ["{{ user `iso_url` }}"],
+      "network_adapters": [
+        {
+          "network": "{{ user `network` }}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "password": "{{ user `password` }}",
+      "pause_before_connecting": "10m",
+      "resource_pool": "",
+      "shutdown_command": "{{ user `shutdown_command` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_timeout": "60m",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "storage": [
+        {
+          "disk_size": "{{ user `disk_size` }}",
+          "disk_thin_provisioned": true
+        },
+        {
+          "disk_size": "{{ user `disk_size` }}",
+          "disk_thin_provisioned": true
+        }
+      ],
+      "type": "vsphere-iso",
+      "username": "{{ user `username` }}",
+      "vcenter_server": "{{ user `vcenter_server` }}",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vm_version": "{{ user `vm_version` }}"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "{{ template_dir }}/packer-manifest.json",
+      "strip_path": true,
+      "type": "manifest"
+    }
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "esxcli system settings advanced set -o /Net/FollowHardwareMac -i 1",
+        "sed -i '/\\/system\\/uuid/d' /etc/vmware/esx.conf",
+        "sed -i '/\\/net\\/pnic\\/child\\[0000\\]\\/mac/d' /etc/vmware/esx.conf",
+        "sed -i '/\\/net\\/vmkernelnic\\/child\\[0000\\]\\/mac/d' /etc/vmware/esx.conf",
+        "/sbin/auto-backup.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "CPUS": "2",
+    "RAM": "4096",
+    "cluster": "",
+    "datacenter": "",
+    "datastore": "",
+    "disk_size": "8192",
+    "folder": "",
+    "guest_os_type": "vmkernel5Guest",
+    "insecure_connection": "true",
+    "iso_checksum": "884ead30532f4a5c2152e4ac450839a0062aba3ae859b5fa5e233ce4275c8cb6",
+    "iso_url": "ISOs/VMware-VMvisor-Installer-6.7.0-8169922.x86_64.iso",
+    "network": "",
+    "password": "",
+    "shutdown_command": "esxcli system maintenanceMode set -e true -t 0; esxcli system shutdown poweroff -d 10 -r \"Packer Shutdown\"; esxcli system maintenanceMode set -e false -t 0",
+    "ssh_password": "",
+    "ssh_username": "root",
+    "username": "",
+    "vcenter_server": "",
+    "version": "10",
+    "vm_name": "esxi67_x64",
+    "vm_version": "10"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "builds": [
+    {
+      "name": "vmware-iso",
+      "builder_type": "vmware-iso",
+      "build_time": 1595742798,
+      "files": [
+        {
+          "name": "disk.vmdk",
+          "size": 345047040
+        },
+        {
+          "name": "esxi67_x64-1595741806.nvram",
+          "size": 8684
+        },
+        {
+          "name": "esxi67_x64-1595741806.vmsd",
+          "size": 0
+        },
+        {
+          "name": "esxi67_x64-1595741806.vmx",
+          "size": 3099
+        },
+        {
+          "name": "esxi67_x64-1595741806.vmxf",
+          "size": 276
+        }
+      ],
+      "artifact_id": "esxi67_x64-1595741806",
+      "packer_run_uuid": "35aaf5e5-6de3-d696-40a4-3b1c5141b2d2",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "35aaf5e5-6de3-d696-40a4-3b1c5141b2d2"
+}

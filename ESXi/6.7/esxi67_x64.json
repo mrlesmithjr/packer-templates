@@ -1,6 +1,33 @@
 {
   "builders": [
     {
+      "boot_command": [
+        "<enter><wait>O<wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/esxi/ks.cfg<enter>"
+      ],
+      "communicator": "ssh",
+      "cpus": "{{ user `CPUS` }}",
+      "disk_adapter_type": "pvscsi",
+      "disk_size": "{{ user `disk_size` }}",
+      "disk_type_id": 0,
+      "guest_os_type": "{{ user `guest_os_type` }}",
+      "http_directory": "{{ template_dir }}/http",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_urls": ["{{ user `iso_url` }}"],
+      "memory": "{{ user `RAM` }}",
+      "pause_before_connecting": "10m",
+      "shutdown_command": "{{ user `shutdown_command` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_timeout": "60m",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "type": "vmware-iso",
+      "version": "{{ user `vm_version` }}",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_data": {
+        "vhv.enable": true
+      },
+      "vmx_remove_ethernet_interfaces": false
+    },
+    {
       "CPUS": "{{ user `CPUS` }}",
       "NestedHV": true,
       "RAM": "{{ user `RAM` }}",
@@ -16,7 +43,7 @@
       "disk_controller_type": "pvscsi",
       "folder": "{{ user `folder` }}",
       "guest_os_type": "{{ user `guest_os_type` }}",
-      "http_directory": "{{ template_dir }}/../http",
+      "http_directory": "{{ template_dir }}/http",
       "insecure_connection": "{{ user `insecure_connection` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_urls": ["{{ user `iso_url` }}"],
@@ -79,12 +106,12 @@
     "folder": "",
     "guest_os_type": "vmkernel5Guest",
     "insecure_connection": "true",
-    "iso_checksum": "884ead30532f4a5c2152e4ac450839a0062aba3ae859b5fa5e233ce4275c8cb6",
-    "iso_url": "ISOs/VMware-VMvisor-Installer-6.7.0-8169922.x86_64.iso",
+    "iso_checksum": "fcbaa4cd952abd9e629fb131b8f46a949844405d8976372e7e5b55917623fbe0",
+    "iso_url": "ISOs/VMware-VMvisor-Installer-6.7.0.update03-14320388.x86_64.iso",
     "network": "",
     "password": "",
     "shutdown_command": "esxcli system maintenanceMode set -e true -t 0; esxcli system shutdown poweroff -d 10 -r \"Packer Shutdown\"; esxcli system maintenanceMode set -e false -t 0",
-    "ssh_password": "",
+    "ssh_password": "VMware123",
     "ssh_username": "root",
     "username": "",
     "vcenter_server": "",

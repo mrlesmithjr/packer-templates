@@ -1,29 +1,10 @@
 {
-  "variables": {
-    "alpine_system_part": "",
-    "alpine_version": "",
-    "boot_command_prefix": "",
-    "box_tag": "",
-    "compression_level": "6",
-    "iso_checksum": "",
-    "iso_url": "",
-    "qemu_accelerator": "kvm",
-    "vagrant_cloud_token": "",
-    "vagrant_cloud_username": "",
-    "vm_disk_adapter_type": "scsi",
-    "vm_disk_size": "36864",
-    "vm_memory": "512",
-    "vm_name": "",
-    "vm_ssh_password": "vagrant",
-    "vm_ssh_username": "root",
-    "vm_vcpu": "1"
-  },
   "builders": [
     {
       "accelerator": "{{ user `qemu_accelerator` }}",
       "boot_command": [
         "root<enter><wait><wait>",
-        "ifconfig eth0 up && udhcpc -i eth0<enter><wait10>",
+        "ifconfig eth0 up \u0026\u0026 udhcpc -i eth0<enter><wait10>",
         "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/alpine/{{ user `alpine_version` }}/answers<enter><wait>",
         "sed -i 's/sda/vda/g' $PWD/answers<enter>",
         "setup-alpine -f $PWD/answers<enter><wait5>",
@@ -69,15 +50,15 @@
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "/sbin/poweroff",
       "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_timeout": "60m",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "type": "qemu",
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
-      "ssh_timeout": "60m"
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
     },
     {
       "boot_command": [
         "root<enter><wait><wait>",
-        "ifconfig eth0 up && udhcpc -i eth0<enter><wait10>",
+        "ifconfig eth0 up \u0026\u0026 udhcpc -i eth0<enter><wait10>",
         "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/alpine/{{ user `alpine_version` }}/answers<enter><wait>",
         "setup-alpine -f $PWD/answers<enter><wait5>",
         "vagrant<enter><wait>",
@@ -122,15 +103,15 @@
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "/sbin/poweroff",
       "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_timeout": "60m",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "type": "virtualbox-iso",
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
-      "ssh_timeout": "60m"
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
     },
     {
       "boot_command": [
         "root<enter><wait><wait>",
-        "ifconfig eth0 up && udhcpc -i eth0<enter><wait10>",
+        "ifconfig eth0 up \u0026\u0026 udhcpc -i eth0<enter><wait10>",
         "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/alpine/{{ user `alpine_version` }}/answers<enter><wait>",
         "setup-alpine -f $PWD/answers<enter><wait5>",
         "vagrant<enter><wait>",
@@ -176,27 +157,14 @@
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "/sbin/poweroff",
       "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_timeout": "60m",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {
         "ethernet0.pciSlotNumber": "32"
       },
-      "vmx_remove_ethernet_interfaces": true,
-      "ssh_timeout": "60m"
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "scripts": [
-        "scripts/base.sh",
-        "scripts/vagrant.sh",
-        "scripts/virtualbox.sh",
-        "scripts/vmware.sh",
-        "scripts/cleanup.sh",
-        "scripts/zerodisk.sh"
-      ]
+      "vmx_remove_ethernet_interfaces": true
     }
   ],
   "post-processors": [
@@ -207,16 +175,48 @@
         "type": "vagrant"
       },
       {
-        "type": "vagrant-cloud",
-        "box_tag": "{{ user `box_tag` }}",
         "access_token": "{{ user `vagrant_cloud_token` }}",
+        "box_tag": "{{ user `box_tag` }}",
+        "type": "vagrant-cloud",
         "version": "{{ timestamp }}"
       },
       {
-        "type": "manifest",
         "output": "manifest.json",
-        "strip_path": true
+        "strip_path": true,
+        "type": "manifest"
       }
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/vagrant.sh",
+        "scripts/virtualbox.sh",
+        "scripts/vmware.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "alpine_system_part": "",
+    "alpine_version": "",
+    "boot_command_prefix": "",
+    "box_tag": "",
+    "compression_level": "6",
+    "iso_checksum": "",
+    "iso_url": "",
+    "qemu_accelerator": "kvm",
+    "vagrant_cloud_token": "",
+    "vagrant_cloud_username": "",
+    "vm_disk_adapter_type": "scsi",
+    "vm_disk_size": "36864",
+    "vm_memory": "512",
+    "vm_name": "",
+    "vm_ssh_password": "vagrant",
+    "vm_ssh_username": "root",
+    "vm_vcpu": "1"
+  }
 }

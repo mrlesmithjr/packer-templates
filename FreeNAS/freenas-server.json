@@ -1,21 +1,4 @@
 {
-  "variables": {
-    "boot_command_prefix": "",
-    "box_tag": "",
-    "compression_level": "6",
-    "iso_checksum": "",
-    "iso_checksum_type": "",
-    "iso_url": "",
-    "vagrant_cloud_token": "",
-    "vagrant_cloud_username": "",
-    "vm_disk_adapter_type": "scsi",
-    "vm_disk_size": "36864",
-    "vm_memory": "1024",
-    "vm_name": "",
-    "vm_ssh_password": "freenas",
-    "vm_ssh_username": "root",
-    "vm_vcpu": "1"
-  },
   "builders": [
     {
       "boot_command": [
@@ -41,13 +24,13 @@
       "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
       "memory": "{{ user `vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown -p now",
       "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_timeout": "60m",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "type": "virtualbox-iso",
       "vboxmanage": [
@@ -75,8 +58,7 @@
           "disk2.vdi"
         ]
       ],
-      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
-      "ssh_timeout": "60m"
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
     },
     {
       "boot_command": [
@@ -98,41 +80,26 @@
       "boot_wait": "30s",
       "cpus": "{{ user `vm_vcpu` }}",
       "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
-      "disk_additional_size": [
-        "{{ user `vm_disk_size` }}"
-      ],
+      "disk_additional_size": ["{{ user `vm_disk_size` }}"],
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "FreeBSD-64",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
       "memory": "{{ user `vm_memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown -p now",
       "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_timeout": "60m",
       "ssh_username": "{{ user `vm_ssh_username` }}",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {
         "ethernet0.pciSlotNumber": "32"
       },
-      "vmx_remove_ethernet_interfaces": true,
-      "ssh_timeout": "60m"
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "environment_vars": [
-        "SSH_USER={{ user `vm_ssh_username` }}",
-        "SSH_PASS={{ user `vm_ssh_password` }}"
-      ],
-      "scripts": [
-        "scripts/freenas.sh"
-      ]
+      "vmx_remove_ethernet_interfaces": true
     }
   ],
   "post-processors": [
@@ -143,16 +110,43 @@
         "type": "vagrant"
       },
       {
-        "type": "vagrant-cloud",
-        "box_tag": "{{ user `box_tag` }}",
         "access_token": "{{ user `vagrant_cloud_token` }}",
+        "box_tag": "{{ user `box_tag` }}",
+        "type": "vagrant-cloud",
         "version": "{{ timestamp }}"
       },
       {
-        "type": "manifest",
         "output": "manifest.json",
-        "strip_path": true
+        "strip_path": true,
+        "type": "manifest"
       }
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "SSH_USER={{ user `vm_ssh_username` }}",
+        "SSH_PASS={{ user `vm_ssh_password` }}"
+      ],
+      "scripts": ["scripts/freenas.sh"],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "boot_command_prefix": "",
+    "box_tag": "",
+    "compression_level": "6",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vagrant_cloud_token": "",
+    "vagrant_cloud_username": "",
+    "vm_disk_adapter_type": "scsi",
+    "vm_disk_size": "36864",
+    "vm_memory": "1024",
+    "vm_name": "",
+    "vm_ssh_password": "freenas",
+    "vm_ssh_username": "root",
+    "vm_vcpu": "1"
+  }
 }

@@ -3,8 +3,8 @@
     {
       "boot_wait": "2m",
       "communicator": "winrm",
-      "cpus": "{{ user `windows_vm_vcpu` }}",
-      "disk_size": "{{ user `vm_disk_size` }}",
+      "cpus": "{{ user `vcpus` }}",
+      "disk_size": "{{ user `disk_size` }}",
       "floppy_files": [
         "{{ user `autounattend` }}",
         "scripts/bootstrap.ps1",
@@ -12,27 +12,27 @@
       ],
       "guest_additions_mode": "attach",
       "guest_os_type": "{{ user `virtualbox_guest_type` }}",
-      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
+      "hard_drive_interface": "{{ user `disk_adapter_type` }}",
       "headless": true,
       "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
-      "memory": "{{ user `windows_vm_memory` }}",
+      "memory": "{{ user `memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "winrm_insecure": true,
-      "winrm_password": "{{ user `vm_winrm_password` }}",
+      "winrm_password": "{{ user `winrm_password` }}",
       "winrm_timeout": "8h",
       "winrm_use_ssl": false,
-      "winrm_username": "{{ user `vm_winrm_username` }}"
+      "winrm_username": "{{ user `winrm_username` }}"
     },
     {
       "boot_wait": "2m",
       "communicator": "winrm",
-      "cpus": "{{ user `windows_vm_vcpu` }}",
-      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
-      "disk_size": "{{ user `vm_disk_size` }}",
+      "cpus": "{{ user `vcpus` }}",
+      "disk_adapter_type": "{{ user `disk_adapter_type` }}",
+      "disk_size": "{{ user `disk_size` }}",
       "disk_type_id": 0,
       "floppy_files": [
         "{{ user `autounattend` }}",
@@ -43,7 +43,7 @@
       "headless": true,
       "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
-      "memory": "{{ user `windows_vm_memory` }}",
+      "memory": "{{ user `memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "tools_upload_flavor": "windows",
@@ -56,10 +56,10 @@
       },
       "vmx_remove_ethernet_interfaces": true,
       "winrm_insecure": true,
-      "winrm_password": "{{ user `vm_winrm_password` }}",
+      "winrm_password": "{{ user `winrm_password` }}",
       "winrm_timeout": "8h",
       "winrm_use_ssl": false,
-      "winrm_username": "{{ user `vm_winrm_username` }}"
+      "winrm_username": "{{ user `winrm_username` }}"
     }
   ],
   "post-processors": [
@@ -102,18 +102,18 @@
     "boot_command_prefix": "",
     "box_tag": "",
     "compression_level": "6",
-    "iso_checksum": "",
+    "disk_adapter_type": "sata",
+    "disk_size": "36864",
     "iso_checksum_type": "",
+    "iso_checksum": "",
     "iso_url": "",
+    "memory": "2048",
     "vagrant_cloud_token": "",
+    "vcpus": "2",
     "virtualbox_guest_type": "",
-    "vm_disk_adapter_type": "sata",
-    "vm_disk_size": "36864",
     "vm_name": "",
-    "vm_winrm_password": "vagrant",
-    "vm_winrm_username": "vagrant",
-    "vmware_guest_type": "",
-    "windows_vm_memory": "2048",
-    "windows_vm_vcpu": "2"
+    "winrm_password": "vagrant",
+    "winrm_username": "vagrant",
+    "vmware_guest_type": ""
   }
 }

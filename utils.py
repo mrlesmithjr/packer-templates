@@ -340,7 +340,7 @@ def change_controller(args):
                         data = json.load(stream)
                         try:
                             controller = data['variables'][
-                                'vm_disk_adapter_type']
+                                'disk_adapter_type']
                             if controller != controller_type:
                                 with open(json_file, 'r') as json_file_data:
                                     read_data = json_file_data.read()

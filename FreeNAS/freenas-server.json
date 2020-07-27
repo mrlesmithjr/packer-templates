@@ -2,36 +2,36 @@
   "builders": [
     {
       "boot_command": [
+        "1<enter>",
+        "<wait5><tab><enter><wait>",
+        "<wait10><spacebar><enter>O<wait>",
         "<enter>",
-        "<wait30>1<enter>",
-        "y",
-        "<wait5><spacebar>o<enter>",
-        "<enter>",
-        "{{ user `vm_ssh_password` }}<tab>{{ user `vm_ssh_password` }}<tab><enter>",
-        "<enter>",
+        "{{ user `ssh_password` }}<tab>{{ user `ssh_password` }}<tab><enter>",
+        "<enter><enter>",
         "<wait60><wait60><wait60>",
         "<enter>",
         "3<enter>",
         "<wait60><wait60><wait60><wait60><wait60>",
         "9<enter>",
-        "curl -X PUT -u {{ user `vm_ssh_username` }}: {{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
-        "curl -X PUT -u {{ user `vm_ssh_username` }}: {{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
+        "curl -X PUT -u {{ user `ssh_username` }}:{{ user `ssh_password` }} -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
+        "curl -X PUT -u {{ user `ssh_username` }}:{{ user `ssh_password` }} -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
       ],
       "boot_wait": "30s",
-      "cpus": "{{ user `vm_vcpu` }}",
-      "disk_size": "{{ user `vm_disk_size` }}",
+      "cpus": "{{ user `vcpus` }}",
+      "disk_size": "{{ user `disk_size` }}",
+      "guest_additions_mode": "disable",
       "guest_os_type": "FreeBSD_64",
-      "hard_drive_interface": "{{ user `vm_disk_adapter_type` }}",
+      "hard_drive_interface": "{{ user `disk_adapter_type` }}",
       "headless": true,
       "http_directory": "http",
       "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
-      "memory": "{{ user `vm_memory` }}",
+      "memory": "{{ user `memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown -p now",
-      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
       "ssh_timeout": "60m",
-      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -41,7 +41,7 @@
           "--filename",
           "disk2.vdi",
           "--size",
-          "{{ user `vm_disk_size` }}"
+          "{{ user `disk_size` }}"
         ],
         [
           "storageattach",
@@ -62,38 +62,37 @@
     },
     {
       "boot_command": [
+        "1<enter>",
+        "<wait5><tab><enter><wait>",
+        "<wait10><spacebar><enter>O<wait>",
         "<enter>",
-        "<wait30>1<enter>",
-        "y",
-        "<wait5><spacebar>o<enter>",
-        "<enter>",
-        "{{ user `vm_ssh_password` }}<tab>{{ user `vm_ssh_password` }}<tab><enter>",
+        "{{ user `ssh_password` }}<tab>{{ user `ssh_password` }}<tab><enter>",
         "<enter>",
         "<wait60><wait60><wait60>",
         "<enter>",
         "3<enter>",
         "<wait60><wait60><wait60><wait60><wait60>",
         "9<enter>",
-        "curl -X PUT -u {{ user `vm_ssh_username` }}: {{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
-        "curl -X PUT -u {{ user `vm_ssh_username` }}: {{ user `vm_ssh_password` }} -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
+        "curl -X PUT -u {{ user `ssh_username` }}:{{ user `ssh_password` }} -H 'Content-Type: application/json' -d '{\"ssh_rootlogin\": true}' http://localhost/api/v1.0/services/ssh/<enter>",
+        "curl -X PUT -u {{ user `ssh_username` }}:{{ user `ssh_password` }} -H 'Content-Type: application/json' -d '{\"srv_enable\": true}' http://localhost/api/v1.0/services/services/ssh/<enter>"
       ],
       "boot_wait": "30s",
-      "cpus": "{{ user `vm_vcpu` }}",
-      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
-      "disk_additional_size": ["{{ user `vm_disk_size` }}"],
-      "disk_size": "{{ user `vm_disk_size` }}",
+      "cpus": "{{ user `vcpus` }}",
+      "disk_adapter_type": "{{ user `disk_adapter_type` }}",
+      "disk_additional_size": ["{{ user `disk_size` }}"],
+      "disk_size": "{{ user `disk_size` }}",
       "disk_type_id": 0,
       "guest_os_type": "FreeBSD-64",
       "headless": true,
       "http_directory": "http",
       "iso_checksum": "{{ user `iso_checksum_type` }}:{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
-      "memory": "{{ user `vm_memory` }}",
+      "memory": "{{ user `memory` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown -p now",
-      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
       "ssh_timeout": "60m",
-      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {
@@ -110,12 +109,6 @@
         "type": "vagrant"
       },
       {
-        "access_token": "{{ user `vagrant_cloud_token` }}",
-        "box_tag": "{{ user `box_tag` }}",
-        "type": "vagrant-cloud",
-        "version": "{{ timestamp }}"
-      },
-      {
         "output": "manifest.json",
         "strip_path": true,
         "type": "manifest"
@@ -125,8 +118,8 @@
   "provisioners": [
     {
       "environment_vars": [
-        "SSH_USER={{ user `vm_ssh_username` }}",
-        "SSH_PASS={{ user `vm_ssh_password` }}"
+        "SSH_USER={{ user `ssh_username` }}",
+        "SSH_PASS={{ user `ssh_password` }}"
       ],
       "scripts": ["scripts/freenas.sh"],
       "type": "shell"
@@ -141,12 +134,12 @@
     "iso_url": "",
     "vagrant_cloud_token": "",
     "vagrant_cloud_username": "",
-    "vm_disk_adapter_type": "scsi",
-    "vm_disk_size": "36864",
-    "vm_memory": "1024",
+    "disk_adapter_type": "scsi",
+    "disk_size": "36864",
+    "memory": "1024",
     "vm_name": "",
-    "vm_ssh_password": "freenas",
-    "vm_ssh_username": "root",
-    "vm_vcpu": "1"
+    "ssh_password": "freenas",
+    "ssh_username": "root",
+    "vcpus": "1"
   }
 }

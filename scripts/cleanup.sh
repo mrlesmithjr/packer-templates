@@ -55,6 +55,15 @@ if [ -f /etc/udev/rules.d/70-persistent-net.rules ]; then
   sudo rm /etc/udev/rules.d/70-persistent-net.rules
 fi
 
+#add failsafe DHCP config for systemd-networkd
+if [ -d /etc/systemd/network ]; then
+    echo "[Match]
+Name=en*
+
+[Network]
+DHCP=ipv4" | sudo tee 99-dhcp-default.network
+fi
+
 #cleanup /tmp directories
 sudo rm -rf /tmp/*
 sudo rm -rf /var/tmp/*

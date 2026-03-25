@@ -1,3 +1,11 @@
+> [!CAUTION]
+> ## ⚠️ This Repository Is Archived
+> 
+> This repository is no longer maintained. Packer template workflows have evolved significantly, and this collection targets legacy OS versions and Vagrant/VirtualBox workflows.
+> 
+> **Archived:** 2026-03-25
+> **Reason:** Legacy Packer/Vagrant templates obsoleted by modern infrastructure-as-code and cloud-native tooling.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
